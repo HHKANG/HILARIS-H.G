@@ -98,6 +98,7 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
                     });
                     HeartRate.setColor(Color.BLUE);
                     HeartRate.setTitle("Heart Rate");
+                    HeartRate.setAnimated(true);
                     graph_HeartRate.addSeries(HeartRate);
                 } catch (JSONException e) {
                     e.printStackTrace();

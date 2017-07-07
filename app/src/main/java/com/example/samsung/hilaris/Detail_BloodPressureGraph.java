@@ -175,8 +175,9 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                     BloodPressureLeftSys.setColor(Color.BLUE);
                     BloodPressureLeftSys.setTitle("BloodPressureLeftSystolic");
 
-
+                    BloodPressureLeftSys.setAnimated(true);
                     graph1.addSeries(BloodPressureLeftSys);
+
                     LineGraphSeries<DataPoint> BloodPressureleftDia = new LineGraphSeries<>(new DataPoint[] {
                             new DataPoint(Before, BloodPressure_Rest_Left_dia),
                             new DataPoint(During, BloodPressure_Stim_Left_dia),
@@ -184,6 +185,8 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                     });
                     BloodPressureleftDia.setColor(Color.GREEN);
                     BloodPressureleftDia.setTitle("BloodPressureLeftDiastolic");
+
+                    BloodPressureleftDia.setAnimated(true);
                     graph1.addSeries(BloodPressureleftDia);
 //Putting Data in Graph (dia) in Second Graph
 
@@ -195,7 +198,10 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                     });
                     BloodPressureRightSys.setColor(Color.BLUE);
                     BloodPressureRightSys.setTitle("BloodPressureRightSystolic");
+                    BloodPressureRightSys.setAnimated(true);
                     graph2.addSeries(BloodPressureRightSys);
+
+
                     LineGraphSeries<DataPoint> BloodPressureRightDia = new LineGraphSeries<>(new DataPoint[] {
                             new DataPoint(Before, BloodPressure_Rest_Left_dia),
                             new DataPoint(During, BloodPressure_Stim_Left_dia),
@@ -203,6 +209,7 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                     });
                     BloodPressureRightDia.setColor(Color.GREEN);
                     BloodPressureRightDia.setTitle("BloodPressureRightDiastolic");
+                    BloodPressureRightDia.setAnimated(true);
                     graph2.addSeries(BloodPressureRightDia);
 
                 } catch (JSONException e) {
