@@ -108,12 +108,12 @@ public class Detailinfo extends AppCompatActivity {
                             }
                             else {
                                 //BAR GRAPH CLASS
-                                /*Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
+                                Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
                                 intent.putExtra("mb_id", get_mb_id);
                                 intent.putExtra("GUID", get_GUID);
                                 intent.putExtra("name", Item.getinfo1());
-                                startActivity(intent);*/
+                                startActivity(intent);
                             }
                         }
                     });

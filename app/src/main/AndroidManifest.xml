@@ -23,7 +23,8 @@
         <activity android:name=".Exercise" />
         <activity android:name=".Detailview" />
         <activity android:name=".Detail_BloodPressureGraph" />
-        <activity android:name=".Detail_HeartRateGraph"></activity>
+        <activity android:name=".Detail_HeartRateGraph" />
+        <activity android:name=".Detail_bar_graph"></activity>
     </application>
 
 </manifest>
