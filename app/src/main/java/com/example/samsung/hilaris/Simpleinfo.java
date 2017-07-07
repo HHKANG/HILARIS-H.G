@@ -33,7 +33,7 @@ public class Simpleinfo extends AppCompatActivity {
     ListView recentlistView;
     ListViewAdapter recentadapter;
     ListViewAdapter adapter;
-    Button Graph;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class Simpleinfo extends AppCompatActivity {
         Intent intent = getIntent();
         get_name = intent.getExtras().getString("name");
         get_mb_id = intent.getExtras().getString("mb_id");
-        Graph = (Button) findViewById(R.id.button_graph);
+
 
         set_name = (TextView) findViewById(R.id.name);
         set_BirthDate = (TextView) findViewById(R.id.BirthDate);
