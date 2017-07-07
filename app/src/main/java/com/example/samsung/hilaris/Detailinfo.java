@@ -82,7 +82,7 @@ public class Detailinfo extends AppCompatActivity {
                     adapter.addItem("Flexibility");
                     adapter.addItem("Upper Strength");
                     adapter.addItem("Lower Strength");
-                    adapter.addItem("Upper body Agility");
+                    adapter.addItem("Upper Body Agility");
                     adapter.addItem("Upper Limb Agility");
                     set_Birthdate.setText(json.getBirthdate());
 
