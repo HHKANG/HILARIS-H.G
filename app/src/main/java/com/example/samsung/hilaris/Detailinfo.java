@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ public class Detailinfo extends AppCompatActivity {
     Button exercise;
     TextView set_name;
     TextView set_Birthdate;
-    TextView information;
     String get_mb_id;
     String get_GUID;
     String get_name;
@@ -75,8 +75,8 @@ public class Detailinfo extends AppCompatActivity {
                     JSON json = new JSON(response);
                     //모든 data 불러오기 from Database
                     //나중에 JSON CLASS 이용
-                        //String objectString = keys.next().toString();
-                        //adapter.addItem(objectString);
+                    //String objectString = keys.next().toString();
+                    //adapter.addItem(objectString);
                     adapter.addItem("Blood Pressure");
                     adapter.addItem("Heart Rate");
                     adapter.addItem("Flexibility");
@@ -85,6 +85,37 @@ public class Detailinfo extends AppCompatActivity {
                     adapter.addItem("Upper body Agility");
                     adapter.addItem("Upper Limb Agility");
                     set_Birthdate.setText(json.getBirthdate());
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                            if(position==0) {
+                                Intent intent = new Intent(getApplicationContext(), Detail_BloodPressureGraph.class);
+                                DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
+                                intent.putExtra("mb_id", get_mb_id);
+                                intent.putExtra("GUID", get_GUID);
+                                intent.putExtra("name", Item.getinfo1());
+                                startActivity(intent);
+                            }
+                            if(position==1) {
+                                Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
+                                DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
+                                intent.putExtra("mb_id", get_mb_id);
+                                intent.putExtra("GUID", get_GUID);
+                                intent.putExtra("name", Item.getinfo1());
+                                startActivity(intent);
+                            }
+                            else {
+                                Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
+                                DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
+                                intent.putExtra("mb_id", get_mb_id);
+                                intent.putExtra("GUID", get_GUID);
+                                intent.putExtra("name", Item.getinfo1());
+                                startActivity(intent);
+                            }
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 };
