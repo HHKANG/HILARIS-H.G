@@ -144,13 +144,6 @@ public class Simpleinfo extends AppCompatActivity {
         // Add JsonArrayRequest to the RequestQueue
         queue.add(jsonArrayRequest);
 
-        Graph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DetailGraph.class);
-                startActivity(intent);
-            }
-        });
 
     }
     /**
