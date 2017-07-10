@@ -784,4 +784,13 @@ public class JSON extends JSONObject {
     public String Birthdate() throws JSONException {
         return json.getString("Birthdate");
     }
+
+    //For Graph Usage
+    public int getBloodPressure(String strTestSite, String strSubjectState, String strBpValue) throws JSONException {
+        return json.getInt("BP"+strSubjectState+strBpValue+strTestSite);
+    }
+    //For Graph Usage
+    public int getHeartRate(String strSubjectState) throws JSONException {
+        return json.getInt("HR"+strSubjectState);
+    }
 }

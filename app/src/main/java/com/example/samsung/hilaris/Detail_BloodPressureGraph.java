@@ -2,14 +2,10 @@ package com.example.samsung.hilaris;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,85 +17,63 @@ import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Detail_BloodPressureGraph extends AppCompatActivity {
-    int Before = 0;
-    int During =1;
-    int After =2;
+    public static final int BP_TEST_SITES = 2;      // Left Hand = 0 & right Hand = 1
+    public static final int BP_SUBJECT_STATES = 3; // Rest State, Stimulus State, Recovery State
+    public static final int BP_VALUE_PAIR = 2;      // Systolic Pressure, Diastolic Pressure
+
+    int[][][] intBloodPress = new int[BP_TEST_SITES][BP_SUBJECT_STATES][BP_VALUE_PAIR];
+    TextView[][][] textViews_BloodPressure = new TextView[BP_TEST_SITES][BP_SUBJECT_STATES][BP_VALUE_PAIR];
+
+    String[] strTestSites = {"Left", "Right"}; //BP_TEST_SITES
+    String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //BP_SUBJECT_STATES
+    String[] strBpValuePair = {"Systolic", "Diastolic"}; //BP_VALUE_PAIR
+
     JSON json;
     String get_mb_id;
     String get_GUID;
 
-
-
-    double BloodPressure_Rest_Left_sys;
-    double BloodPressure_Stim_Left_sys;
-    double BloodPressure_Recv_Left_sys;
-
-    double BloodPressure_Rest_Left_dia;
-    double BloodPressure_Stim_Left_dia;
-    double BloodPressure_Recv_Left_dia;
-
-    double BloodPressure_Rest_Right_sys;
-    double BloodPressure_Stim_Right_sys;
-    double BloodPressure_Recv_Right_sys;
-
-    double BloodPressure_Rest_Right_dia;
-    double BloodPressure_Stim_Right_dia;
-    double BloodPressure_Recv_Right_dia;
-
-    TextView BPL_BEFORE_SYS;
-    TextView BPL_DURING_SYS;
-    TextView BPL_AFTER_SYS;
-
-    TextView BPL_BEFORE_DIA;
-    TextView BPL_DURING_DIA;
-    TextView BPL_AFTER_DIA;
-
-    TextView BPR_BEFORE_SYS;
-    TextView BPR_DURING_SYS;
-    TextView BPR_AFTER_SYS;
-
-    TextView BPR_BEFORE_DIA;
-    TextView BPR_DURING_DIA;
-    TextView BPR_AFTER_DIA;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-
-        setContentView(R.layout.activity_detail__blood_pressure_graph);
+        setContentView(R.layout.activity_detail_blood_pressure_graph);
         Intent intent = getIntent();
+
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
-
-        BPL_BEFORE_SYS = (TextView) findViewById(R.id.textView_BPL_BEFORE_SYS);
-        BPL_DURING_SYS = (TextView) findViewById(R.id.textView_BPL_DURING_SYS);
-        BPL_AFTER_SYS = (TextView) findViewById(R.id.textView_BPL_AFTER_SYS);
-
-        BPL_BEFORE_DIA = (TextView) findViewById(R.id.textView_BPL_BEFORE_DIA);
-        BPL_DURING_DIA = (TextView) findViewById(R.id.textView_BPL_DURING_DIA);
-        BPL_AFTER_DIA = (TextView) findViewById(R.id.textView_BPL_AFTER_DIA);
-
-        BPR_BEFORE_SYS = (TextView) findViewById(R.id.textView_BPR_BEFORE_SYS);
-        BPR_DURING_SYS = (TextView) findViewById(R.id.textView_BPR_DURING_SYS);
-        BPR_AFTER_SYS = (TextView) findViewById(R.id.textView_BPR_AFTER_SYS);
-
-        BPR_BEFORE_DIA = (TextView) findViewById(R.id.textView_BPR_BEFORE_DIA);
-        BPR_DURING_DIA = (TextView) findViewById(R.id.textView_BPR_DURING_DIA);
-        BPR_AFTER_DIA = (TextView) findViewById(R.id.textView_BPR_AFTER_DIA);
+/*
+        for(int testSites=0; testSites<BP_TEST_SITES; testSites++)
+            for(int subjectStates=0; subjectStates<BP_SUBJECT_STATES;subjectStates++)
+                for(int valuePair =0; valuePair<BP_VALUE_PAIR; valuePair++)
+                {
+                    int index =0;
+                     textViews_BloodPressure[testSites][subjectStates][valuePair] = (TextView) findViewByID(R.id.??????)
+                }
+*/
+//Later find the way to change the bellow array into for loop;
 
 
-//Setting Graph's X axis
+        textViews_BloodPressure[0][0][0] = (TextView) findViewById(R.id.textView_BPL_BEFORE_SYS);
+        textViews_BloodPressure[0][0][1] = (TextView) findViewById(R.id.textView_BPL_BEFORE_DIA);
 
+        textViews_BloodPressure[0][1][0] = (TextView) findViewById(R.id.textView_BPL_DURING_SYS);
+        textViews_BloodPressure[0][1][1]= (TextView) findViewById(R.id.textView_BPL_DURING_DIA);
 
+        textViews_BloodPressure[0][2][0] = (TextView) findViewById(R.id.textView_BPL_AFTER_SYS);
+        textViews_BloodPressure[0][2][1] = (TextView) findViewById(R.id.textView_BPL_AFTER_DIA);
+
+        textViews_BloodPressure[1][0][0]= (TextView) findViewById(R.id.textView_BPR_BEFORE_SYS);
+        textViews_BloodPressure[1][0][1] = (TextView) findViewById(R.id.textView_BPR_BEFORE_DIA);
+
+        textViews_BloodPressure[1][1][0] = (TextView) findViewById(R.id.textView_BPR_DURING_SYS);
+        textViews_BloodPressure [1][1][1] = (TextView) findViewById(R.id.textView_BPR_DURING_DIA);
+
+        textViews_BloodPressure [1][2][0]= (TextView) findViewById(R.id.textView_BPR_AFTER_SYS);
+        textViews_BloodPressure [1][2][1] = (TextView) findViewById(R.id.textView_BPR_AFTER_DIA);
 
 
         String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
@@ -110,107 +84,60 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try{
                     json = new JSON(response);
-//Getting Data
-                    BloodPressure_Rest_Left_sys = json.getBPRestSystolicLeft();
-                    BPL_BEFORE_SYS.setText(""+BloodPressure_Rest_Left_sys);
-
-                    BloodPressure_Stim_Left_sys = json.getBPStimSystolicLeft();
-                    BPL_DURING_SYS.setText(""+BloodPressure_Stim_Left_sys);
-
-                    BloodPressure_Recv_Left_sys = json.getBPRecvSystolicLeft();
-                    BPL_AFTER_SYS.setText(""+BloodPressure_Recv_Left_sys);
-
-                    BloodPressure_Rest_Left_dia = json.getBPRestDiastolicLeft();
-                    BPL_BEFORE_DIA.setText(""+BloodPressure_Rest_Left_dia);
-
-                    BloodPressure_Stim_Left_dia = json.getBPStimDiastolicLeft();
-                    BPL_DURING_DIA.setText(""+BloodPressure_Stim_Left_dia);
-
-                    BloodPressure_Recv_Left_dia = json.getBPRecvDiastolicLeft();
-                    BPL_AFTER_DIA.setText(""+BloodPressure_Recv_Left_dia);
-
-                    BloodPressure_Rest_Right_sys = json.getBPRestSystolicRight();
-                    BPR_BEFORE_SYS.setText(""+BloodPressure_Rest_Right_sys);
-
-                    BloodPressure_Stim_Right_sys = json.getBPStimSystolicRight();
-                    BPR_DURING_SYS.setText(""+BloodPressure_Stim_Right_sys);
-
-                    BloodPressure_Recv_Right_sys = json.getBPRecvSystolicRight();
-                    BPR_AFTER_SYS.setText(""+BloodPressure_Recv_Right_sys);
-
-                    BloodPressure_Rest_Right_dia = json.getBPRestDiastolicRight();
-                    BPR_BEFORE_DIA.setText(""+BloodPressure_Rest_Right_dia);
-
-                    BloodPressure_Stim_Right_dia = json.getBPStimDiastolicRight();
-                    BPR_DURING_DIA.setText(""+BloodPressure_Stim_Right_dia);
-
-                    BloodPressure_Recv_Right_dia = json.getBPRecvDiastolicRight();
-                    BPR_AFTER_DIA.setText(""+BloodPressure_Recv_Right_dia);
-
-
+//Getting Data and Saving into TextView and Array of Data
+                    for(int testSites=0; testSites<BP_TEST_SITES; testSites++)
+                        for(int subjectStates=0; subjectStates<BP_SUBJECT_STATES;subjectStates++)
+                            for(int valuePair =0; valuePair<BP_VALUE_PAIR; valuePair++)
+                            {
+                                intBloodPress[testSites][subjectStates][valuePair] = json.getBloodPressure(strTestSites[testSites], strSubjectStates[subjectStates], strBpValuePair[valuePair]);
+                                textViews_BloodPressure[testSites][subjectStates][valuePair].setText(""+intBloodPress[testSites][subjectStates][valuePair]);
+                            }
+//Setting graph UI of Graph 1 (Left)
                     GraphView graph1 = (GraphView) findViewById(R.id.graph1);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph1);
                     staticLabelsFormatter1.setHorizontalLabels(new String[] {"Before", "During", "After"});
                     graph1.setTitle("Left Blood Pressure");
                     graph1.getLegendRenderer().setVisible(true);
-
                     graph1.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-
+//Setting graph UI of Graph 1 (Right)
                     GraphView graph2= (GraphView) findViewById(R.id.graph2);
-
-
                     StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(graph2);
                     staticLabelsFormatter2.setHorizontalLabels(new String[] {"Before", "During", "After"});
                     graph2.setTitle("Right Blood Pressure");
                     graph2.getLegendRenderer().setVisible(true);
                     graph2.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+                    //Putting Data in Graph by Using intBloodPress Array ( Array of Data )
+                    for(int BpValue=0 ; BpValue<BP_VALUE_PAIR; BpValue++)
+                    {
+                        int testSitesL =0; //TestSites for LEFT
+                        int testSitesR =1; // TestSites for RIGHT
 
+                        LineGraphSeries<DataPoint> BloodPressureLeft = new LineGraphSeries<>(new DataPoint[]{});
+                        for (int subjectType = 0; subjectType < BP_SUBJECT_STATES; subjectType++) {
+                            BloodPressureLeft.appendData(new DataPoint(subjectType, intBloodPress[testSitesL][subjectType][BpValue]), true, 10000);
+                        }
+                        LineGraphSeries<DataPoint> BloodPressureRight = new LineGraphSeries<>(new DataPoint[]{});
+                        for (int subjectType = 0; subjectType < BP_SUBJECT_STATES; subjectType++) {
+                            BloodPressureRight.appendData(new DataPoint(subjectType, intBloodPress[testSitesR][subjectType][BpValue]), true, 10000);
+                        }
+                        if(BpValue==0) //Setting Color & Title
+                        {
+                            BloodPressureLeft.setColor(Color.BLUE);
+                            BloodPressureLeft.setTitle("BloodPressureLeftSystolic");
+                            BloodPressureRight.setColor(Color.BLUE);
+                            BloodPressureRight.setTitle("BloodPressureLeftSystolic");
 
-                    graph1.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
-                    LineGraphSeries<DataPoint> BloodPressureLeftSys = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(Before,  BloodPressure_Rest_Left_sys),
-                            new DataPoint(During, BloodPressure_Stim_Left_sys),
-                            new DataPoint(After, BloodPressure_Recv_Left_sys),
-                    });
-                    BloodPressureLeftSys.setColor(Color.BLUE);
-                    BloodPressureLeftSys.setTitle("BloodPressureLeftSystolic");
-
-                    BloodPressureLeftSys.setAnimated(true);
-                    graph1.addSeries(BloodPressureLeftSys);
-
-                    LineGraphSeries<DataPoint> BloodPressureleftDia = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(Before, BloodPressure_Rest_Left_dia),
-                            new DataPoint(During, BloodPressure_Stim_Left_dia),
-                            new DataPoint(After, BloodPressure_Recv_Left_dia),
-                    });
-                    BloodPressureleftDia.setColor(Color.GREEN);
-                    BloodPressureleftDia.setTitle("BloodPressureLeftDiastolic");
-
-                    BloodPressureleftDia.setAnimated(true);
-                    graph1.addSeries(BloodPressureleftDia);
-//Putting Data in Graph (dia) in Second Graph
-
-                    graph2.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
-                    LineGraphSeries<DataPoint> BloodPressureRightSys = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(Before, BloodPressure_Rest_Left_sys),
-                            new DataPoint(During, BloodPressure_Stim_Left_sys),
-                            new DataPoint(After, BloodPressure_Recv_Left_sys),
-                    });
-                    BloodPressureRightSys.setColor(Color.BLUE);
-                    BloodPressureRightSys.setTitle("BloodPressureRightSystolic");
-                    BloodPressureRightSys.setAnimated(true);
-                    graph2.addSeries(BloodPressureRightSys);
-
-
-                    LineGraphSeries<DataPoint> BloodPressureRightDia = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(Before, BloodPressure_Rest_Left_dia),
-                            new DataPoint(During, BloodPressure_Stim_Left_dia),
-                            new DataPoint(After, BloodPressure_Recv_Left_dia),
-                    });
-                    BloodPressureRightDia.setColor(Color.GREEN);
-                    BloodPressureRightDia.setTitle("BloodPressureRightDiastolic");
-                    BloodPressureRightDia.setAnimated(true);
-                    graph2.addSeries(BloodPressureRightDia);
+                        }
+                        else
+                        {
+                            BloodPressureLeft.setColor(Color.GREEN);
+                            BloodPressureLeft.setTitle("BloodPressureLeftDiatolic");
+                            BloodPressureRight.setColor(Color.GREEN);
+                            BloodPressureRight.setTitle("BloodPressureLeftDiatolic");
+                        }
+                        graph1.addSeries(BloodPressureLeft);
+                        graph2.addSeries(BloodPressureRight);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -222,36 +149,9 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
             }
         });
+
         // Add the request to the RequestQueue.}
         queue.add(objRequest);
-
 //Putting Data in Graph (sys) in First Graph
-
-    }
-    /**
-     * Action Bar에 메뉴를 생성
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-
-            case R.id.logout:
-                Intent intent = new Intent(Detail_BloodPressureGraph.this, Login.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -2,11 +2,8 @@ package com.example.samsung.hilaris;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,39 +23,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Detail_HeartRateGraph extends AppCompatActivity {
-    int Before = 0;
-    int During =1;
-    int After =2;
+
+    private final int HR_STATES = 3; //Rest, Stimulus, Recovery
+
+
+    int[] intHR_RATE = new int[HR_STATES];
+    TextView[] textViews_HR_RATE = new TextView[HR_STATES];
+    String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
+
     JSON json;
     String get_mb_id;
     String get_GUID;
 
-
-
-    double HRRest;
-    double HRStim;
-    double HRRecv;
-
-    TextView Before_HeartRate;
-    TextView During_HeartRate;
-    TextView After_HeartRate;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_detail__heart_rate_graph);
 
         Intent intent = getIntent();
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
 
-        Before_HeartRate = (TextView) findViewById(R.id.textView_Before_HeartRate);
-        During_HeartRate = (TextView) findViewById(R.id.textView_During_HeartRate);
-        After_HeartRate = (TextView) findViewById(R.id.textView_After_HeartRate);
+        // Later Have to change the below code into for loop for simplicity of code
+        textViews_HR_RATE[0] = (TextView) findViewById(R.id.textView_Before_HeartRate);
+        textViews_HR_RATE[1] = (TextView) findViewById(R.id.textView_During_HeartRate);
+        textViews_HR_RATE[2] = (TextView) findViewById(R.id.textView_After_HeartRate);
 
 
 //Setting Graph's X axis
@@ -72,33 +61,29 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
                 try{
                     json = new JSON(response);
 //Getting Data
-                    HRRest = json.getHRRest();
-                    Before_HeartRate.setText(""+HRRest);
+                    for(int states = 0; states < HR_STATES; states++)
+                    {
+                        intHR_RATE[states] = json.getHeartRate(strSubjectStates[states]);
+                    }
 
-                    HRStim = json.getHRStim();
-                    During_HeartRate.setText(""+HRStim);
-
-                    HRRecv = json.getHRRecv();
-                    After_HeartRate.setText(""+HRRecv);
-
-
+//Setting graph UI of graph_HeartRate
                     GraphView graph_HeartRate = (GraphView) findViewById(R.id.graph_HeartRate);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph_HeartRate);
                     staticLabelsFormatter1.setHorizontalLabels(new String[] {"Before", "During", "After"});
                     graph_HeartRate.setTitle("Heart Rate");
                     graph_HeartRate.getLegendRenderer().setVisible(true);
                     graph_HeartRate.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-
-
                     graph_HeartRate.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
-                    LineGraphSeries<DataPoint> HeartRate = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(Before,  HRRest),
-                            new DataPoint(During, HRStim),
-                            new DataPoint(After, HRRecv),
-                    });
+
+
+                    LineGraphSeries<DataPoint> HeartRate = new LineGraphSeries<>(new DataPoint[] { });
+                    //Addting date into the Graph Heart Rate
+                    for(int states =0 ; states<HR_STATES;states ++)
+                    {
+                        HeartRate.appendData(new DataPoint(states, intHR_RATE[states]), true, 10000);
+                    }
                     HeartRate.setColor(Color.BLUE);
                     HeartRate.setTitle("Heart Rate");
-                    HeartRate.setAnimated(true);
                     graph_HeartRate.addSeries(HeartRate);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -113,32 +98,5 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
         // Add the request to the RequestQueue.}
         queue.add(objRequest);
 
-//Putting Data in Graph (sys) in First Graph
-    }
-    /**
-     * Action Bar에 메뉴를 생성
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-
-            case R.id.logout:
-                Intent intent = new Intent(Detail_HeartRateGraph.this, Login.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -121,6 +121,7 @@ public class Detail_bar_graph extends AppCompatActivity {
                     staticLabelsFormatter1.setHorizontalLabels(new String[] {"Left", "Right"});
                     graph1.getLegendRenderer().setVisible(true);
 
+
                     graph1.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
                     graph1.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
 
@@ -133,11 +134,14 @@ public class Detail_bar_graph extends AppCompatActivity {
                         BloodPressureLeftSys.setColor(Color.BLUE);
                         BloodPressureLeftSys.setTitle("Flexibility");
 
+
                         graph1.addSeries(BloodPressureLeftSys);
 
                         left_data.setText(""+FlexLeft);
                         right_data.setText(""+FlexRight);
-                    }
+
+
+                                           }
 
                     else if(get_name.equals("Upper Strength")){
                         BarGraphSeries<DataPoint> BloodPressureLeftSys = new BarGraphSeries<>(new DataPoint[] {
