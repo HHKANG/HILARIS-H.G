@@ -1,8 +1,5 @@
 package com.example.samsung.hilaris;
 
-/**
- * Created by User on 2017-05-18.
- */
 
 public class ListViewItem {
     private String info1;

@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by js960 on 2017-07-04.
- */
-
 public class DetailInfoListViewAdapter extends BaseAdapter {
 
     private ArrayList<DetailInfoItem> DetailInfoListViewItemList = new ArrayList<DetailInfoItem>() ;

@@ -1,9 +1,5 @@
 package com.example.samsung.hilaris;
 
-/**
- * Created by js960 on 2017-07-04.
- */
-
 public class DetailInfoItem {
 
     String objectName;
