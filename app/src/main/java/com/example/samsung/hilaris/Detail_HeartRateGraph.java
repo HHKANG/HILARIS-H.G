@@ -2,8 +2,11 @@ package com.example.samsung.hilaris;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +42,8 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail__heart_rate_graph);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
@@ -64,7 +68,7 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
                     for(int states = 0; states < HR_STATES; states++)
                     {
                         intHR_RATE[states] = json.getHeartRate(strSubjectStates[states]);
-                        textViews_HR_RATE[states].setText(intHR_RATE[states]);
+                        textViews_HR_RATE[states].setText(""+intHR_RATE[states]);
                     }
 
 //Setting graph UI of graph_HeartRate
@@ -84,6 +88,7 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
                     }
                     HeartRate.setColor(Color.BLUE);
                     HeartRate.setTitle("Heart Rate");
+                    HeartRate.setAnimated(true);
                     graph_HeartRate.addSeries(HeartRate);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -98,5 +103,31 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
         // Add the request to the RequestQueue.}
         queue.add(objRequest);
 
+    }
+    /**
+     * Action Bar에 메뉴를 생성
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            case R.id.logout:
+                Intent intent = new Intent(Detail_HeartRateGraph.this, Login.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
