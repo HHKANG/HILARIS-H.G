@@ -45,8 +45,6 @@ public class Detailinfo extends AppCompatActivity {
         set_name = (TextView)findViewById(R.id.name);
         set_Birthdate = (TextView)findViewById(R.id.BirthDate);
 
-
-
         Intent intent = getIntent();
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
@@ -57,11 +55,9 @@ public class Detailinfo extends AppCompatActivity {
 
         adapter = new DetailInfoListViewAdapter();
 
-
         String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
 
         RequestQueue queue = Volley.newRequestQueue(this);
-
 
         // Request a string response from the provided URL.
         JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -106,13 +102,14 @@ public class Detailinfo extends AppCompatActivity {
                                 intent.putExtra("name", Item.getinfo1());
                                 startActivity(intent);
                             }
-                            else {
+                            else if(position != 0 && position != 1){
                                 //BAR GRAPH CLASS
                                 Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
                                 intent.putExtra("mb_id", get_mb_id);
                                 intent.putExtra("GUID", get_GUID);
                                 intent.putExtra("name", Item.getinfo1());
+                                intent.putExtra("position", position-2);
                                 startActivity(intent);
                             }
                         }

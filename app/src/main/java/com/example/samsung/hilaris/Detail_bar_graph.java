@@ -17,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -27,40 +26,26 @@ import org.json.JSONObject;
 
 public class Detail_bar_graph extends AppCompatActivity {
     int Left = 0;
-    int Right =1;
+    int Right = 1;
     JSON json;
     String get_name;
     String get_mb_id;
     String get_GUID;
 
-    double FlexLeft;
-    double FlexRight;
-
-    double HandStrengthLeft;
-    double HandStrengthRight;
-
-    double LegStrengthLeft;
-    double LegStrengthRight;
-
-    double AgilityMovementUBLeft;
-    double AgilityReactionUBLeft;
     double UB_left;
-
-    double AgilityMovementUBRight;
-    double AgilityReactionUBRight;
     double UB_right;
-
-    double AgilityMovementULLeft;
-    double AgilityReactionULLeft;
     double UL_left;
-
-    double AgilityMovementULRight;
-    double AgilityReactionULRight;
     double UL_right;
+
+    int get_postion;
 
     TextView data_name;
     TextView left_data;
     TextView right_data;
+
+    double[][] Bar_array = new double[7][2];
+    String[] name = {"Flex" , "HandStrength", "LegStrength", "AgilityMovementUB", "AgilityReactionUB", "AgilityMovementUL", "AgilityReactionUL"};
+    String[] LRdata = {"Left", "Right"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +59,15 @@ public class Detail_bar_graph extends AppCompatActivity {
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
         get_name = intent.getExtras().getString("name");
+        get_postion = intent.getExtras().getInt("position");
 
         data_name = (TextView)findViewById(R.id.name_text);
         left_data = (TextView)findViewById(R.id.left_text);
         right_data = (TextView)findViewById(R.id.right_text);
 
         data_name.setText(""+get_name);
+
+        final double[][] graph_array = new double[5][];
 //Setting Graph's X axis
 
         String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
@@ -91,116 +79,48 @@ public class Detail_bar_graph extends AppCompatActivity {
                 try{
                     json = new JSON(response);
 //Getting Data
-                    FlexLeft = json.getFlexLeft();
-                    FlexRight = json.getFlexRight();
 
-                    HandStrengthLeft = json.getHandStrengthLeft();
-                    HandStrengthRight = json.getHandStrengthRight();
+                    for(int i=0; i < 7; i++)
+                        for(int j =0; j<2; j++)
+                        {
+                           Bar_array[i][j] = json.insert(name[i], LRdata[j]);
+                        }
+                    UB_left = Bar_array[3][0] + Bar_array[4][0];
+                    UB_right = Bar_array[3][1]+ Bar_array[4][1];
+                    UL_left = Bar_array[5][0] + Bar_array[6][0];
+                    UL_right = Bar_array[5][1] + Bar_array[6][1];
 
-                    LegStrengthLeft = json.getLegStrengthLeft();
-                    LegStrengthRight = json.getLegStrengthRight();
+                    graph_array[0] = new double[]{Bar_array[0][0], Bar_array[0][1]};
+                    graph_array[1] = new double[]{Bar_array[1][0], Bar_array[1][1]};
+                    graph_array[2] = new double[]{Bar_array[2][0], Bar_array[2][1]};
+                    graph_array[3] = new double[]{UB_left, UB_right};
+                    graph_array[4] = new double[]{UL_left, UL_right};
 
-                    AgilityMovementUBLeft = json.getAgilityMovementUBLeft();
-                    AgilityReactionUBLeft = json.getAgilityReactionUBLeft();
-                    UB_left = AgilityMovementUBLeft + AgilityReactionUBLeft;
-
-                    AgilityMovementUBRight = json.getAgilityMovementUBRight();
-                    AgilityReactionUBRight = json.getAgilityReactionUBRight();
-                    UB_right = AgilityMovementUBRight + AgilityReactionUBRight;
-
-                    AgilityMovementULLeft = json.getAgilityMovementULLeft();
-                    AgilityReactionULLeft = json.getAgilityReactionULLeft();
-                    UL_left = AgilityMovementULLeft + AgilityReactionULLeft;
-
-                    AgilityMovementULRight = json.getAgilityMovementULRight();
-                    AgilityReactionULRight = json.getAgilityReactionULRight();
-                    UL_right = AgilityMovementULRight + AgilityReactionULRight;
-
-                    GraphView graph1 = (GraphView) findViewById(R.id.graph1);
-                    StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph1);
+                    GraphView graph = (GraphView) findViewById(R.id.graph);
+                    StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter1.setHorizontalLabels(new String[] {"Left", "Right"});
-                    graph1.getLegendRenderer().setVisible(true);
+                    graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
 
-                    graph1.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-                    graph1.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
+                    BarGraphSeries<DataPoint> Bar_graph = new BarGraphSeries<>(new DataPoint[] {
+                            new DataPoint(Left,  graph_array[get_postion][0]),
+                            new DataPoint(Right, graph_array[get_postion][1]),
+                    });
+                    Bar_graph.setSpacing(50);
+                    Bar_graph.setColor(Color.BLUE);
+                    Bar_graph.setTitle("Bar_graph");
 
-                    if(get_name.equals("Flexibility")){
-                        BarGraphSeries<DataPoint> BloodPressureLeftSys = new BarGraphSeries<>(new DataPoint[] {
-                                new DataPoint(Left,  FlexLeft),
-                                new DataPoint(Right, FlexRight),
-                        });
-                        BloodPressureLeftSys.setSpacing(50);
-                        BloodPressureLeftSys.setColor(Color.BLUE);
-                        BloodPressureLeftSys.setTitle("Flexibility");
+                    graph.addSeries(Bar_graph);
 
-                        graph1.addSeries(BloodPressureLeftSys);
+                    left_data.setText(""+graph_array[get_postion][0]);
+                    right_data.setText(""+graph_array[get_postion][1]);
 
-                        left_data.setText(""+FlexLeft);
-                        right_data.setText(""+FlexRight);
-                    }
+                    Bar_graph.setAnimated(true);
 
-                    else if(get_name.equals("Upper Strength")){
-                        BarGraphSeries<DataPoint> BloodPressureLeftSys = new BarGraphSeries<>(new DataPoint[] {
-                                new DataPoint(Left,  HandStrengthLeft),
-                                new DataPoint(Right, HandStrengthRight),
-                        });
-                        BloodPressureLeftSys.setSpacing(50);
-                        BloodPressureLeftSys.setColor(Color.BLUE);
-                        BloodPressureLeftSys.setTitle("Hand Strength");
-
-                        graph1.addSeries(BloodPressureLeftSys);
-
-                        left_data.setText(""+HandStrengthLeft);
-                        right_data.setText(""+HandStrengthRight);
-                    }
-
-                    else if(get_name.equals("Lower Strength")){
-                        BarGraphSeries<DataPoint> BloodPressureLeftSys = new BarGraphSeries<>(new DataPoint[] {
-                                new DataPoint(Left,  LegStrengthLeft),
-                                new DataPoint(Right, LegStrengthRight),
-                        });
-                        BloodPressureLeftSys.setSpacing(50);
-                        BloodPressureLeftSys.setColor(Color.BLUE);
-                        BloodPressureLeftSys.setTitle("Leg Strength");
-
-                        graph1.addSeries(BloodPressureLeftSys);
-
-                        left_data.setText(""+LegStrengthLeft);
-                        right_data.setText(""+LegStrengthRight);
-                    }
-
-                    else if(get_name.equals("Upper Body Agility")){
-                        BarGraphSeries<DataPoint> BloodPressureLeftSys = new BarGraphSeries<>(new DataPoint[] {
-                                new DataPoint(Left,  UB_left),
-                                new DataPoint(Right, UB_right),
-                        });
-                        BloodPressureLeftSys.setSpacing(50);
-                        BloodPressureLeftSys.setColor(Color.BLUE);
-                        BloodPressureLeftSys.setTitle("Upper Body Agility");
-
-                        graph1.addSeries(BloodPressureLeftSys);
-
-                        left_data.setText(""+UB_left);
-                        right_data.setText(""+UB_right);
-                    }
-
-                    else if(get_name.equals("Upper Limb Agility")){
-                        BarGraphSeries<DataPoint> BloodPressureLeftSys = new BarGraphSeries<>(new DataPoint[] {
-                                new DataPoint(Left,  UL_left),
-                                new DataPoint(Right, UL_right),
-                        });
-                        BloodPressureLeftSys.setSpacing(50);
-                        BloodPressureLeftSys.setColor(Color.BLUE);
-                        BloodPressureLeftSys.setTitle("Upper Limb Agility");
-
-                        graph1.addSeries(BloodPressureLeftSys);
-
-                        left_data.setText(""+UL_left);
-                        right_data.setText(""+UL_right);
-                    }
+                    graph.getViewport().setYAxisBoundsManual(true);
+                    graph.getViewport().setMinY(0);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                };
+                }
             }
         }, new Response.ErrorListener() {
             @Override

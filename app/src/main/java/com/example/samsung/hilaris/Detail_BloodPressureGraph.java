@@ -33,8 +33,6 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
     String get_mb_id;
     String get_GUID;
 
-
-
     double BloodPressure_Rest_Left_sys;
     double BloodPressure_Stim_Left_sys;
     double BloodPressure_Recv_Left_sys;
@@ -73,8 +71,6 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-
         setContentView(R.layout.activity_detail__blood_pressure_graph);
         Intent intent = getIntent();
         get_mb_id = intent.getExtras().getString("mb_id");
@@ -96,11 +92,7 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
         BPR_DURING_DIA = (TextView) findViewById(R.id.textView_BPR_DURING_DIA);
         BPR_AFTER_DIA = (TextView) findViewById(R.id.textView_BPR_AFTER_DIA);
 
-
 //Setting Graph's X axis
-
-
-
 
         String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
         RequestQueue queue = Volley.newRequestQueue(this);

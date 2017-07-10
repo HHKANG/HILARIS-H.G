@@ -778,10 +778,14 @@ public class JSON extends JSONObject {
     }
 
     public String UserName() throws JSONException{
-    return json.getString("UserName");
+        return json.getString("UserName");
     }
 
     public String Birthdate() throws JSONException {
         return json.getString("Birthdate");
+    }
+
+    public double insert(String name, String LRdata) throws JSONException {
+        return Math.round(json.getDouble(name+LRdata)*100d)/100d;
     }
 }
