@@ -64,6 +64,7 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
                     for(int states = 0; states < HR_STATES; states++)
                     {
                         intHR_RATE[states] = json.getHeartRate(strSubjectStates[states]);
+                        textViews_HR_RATE[states].setText(intHR_RATE[states]);
                     }
 
 //Setting graph UI of graph_HeartRate
