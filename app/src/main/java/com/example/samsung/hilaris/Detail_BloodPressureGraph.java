@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
@@ -31,6 +32,8 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
     int[][][] intBloodPress = new int[BP_TEST_SITES][BP_SUBJECT_STATES][BP_VALUE_PAIR];
     TextView[][][] textViews_BloodPressure = new TextView[BP_TEST_SITES][BP_SUBJECT_STATES][BP_VALUE_PAIR];
 
+    LinearLayout LinearLayout;
+
     String[] strTestSites = {"Left", "Right"}; //BP_TEST_SITES
     String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //BP_SUBJECT_STATES
     String[] strBpValuePair = {"Systolic", "Diastolic"}; //BP_VALUE_PAIR
@@ -39,6 +42,7 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
     String get_mb_id;
     String get_GUID;
 
+    int TagindexOfTable = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,36 +53,8 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
 
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
-/*
-        for(int testSites=0; testSites<BP_TEST_SITES; testSites++)
-            for(int subjectStates=0; subjectStates<BP_SUBJECT_STATES;subjectStates++)
-                for(int valuePair =0; valuePair<BP_VALUE_PAIR; valuePair++)
-                {
-                    int index =0;
-                     textViews_BloodPressure[testSites][subjectStates][valuePair] = (TextView) findViewByID(R.id.??????)
-                }
-*/
-//Later find the way to change the bellow array into for loop;
 
-
-        textViews_BloodPressure[0][0][0] = (TextView) findViewById(R.id.textView_BPL_BEFORE_SYS);
-        textViews_BloodPressure[0][0][1] = (TextView) findViewById(R.id.textView_BPL_BEFORE_DIA);
-
-        textViews_BloodPressure[0][1][0] = (TextView) findViewById(R.id.textView_BPL_DURING_SYS);
-        textViews_BloodPressure[0][1][1]= (TextView) findViewById(R.id.textView_BPL_DURING_DIA);
-
-        textViews_BloodPressure[0][2][0] = (TextView) findViewById(R.id.textView_BPL_AFTER_SYS);
-        textViews_BloodPressure[0][2][1] = (TextView) findViewById(R.id.textView_BPL_AFTER_DIA);
-
-        textViews_BloodPressure[1][0][0]= (TextView) findViewById(R.id.textView_BPR_BEFORE_SYS);
-        textViews_BloodPressure[1][0][1] = (TextView) findViewById(R.id.textView_BPR_BEFORE_DIA);
-
-        textViews_BloodPressure[1][1][0] = (TextView) findViewById(R.id.textView_BPR_DURING_SYS);
-        textViews_BloodPressure [1][1][1] = (TextView) findViewById(R.id.textView_BPR_DURING_DIA);
-
-        textViews_BloodPressure [1][2][0]= (TextView) findViewById(R.id.textView_BPR_AFTER_SYS);
-        textViews_BloodPressure [1][2][1] = (TextView) findViewById(R.id.textView_BPR_AFTER_DIA);
-
+         LinearLayout = (LinearLayout) findViewById(R.id.linearLayout_table); // Linear Layout containing the table
 
         String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -89,13 +65,16 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                 try{
                     json = new JSON(response);
 //Getting Data and Saving into TextView and Array of Data
-                    for(int testSites=0; testSites<BP_TEST_SITES; testSites++)
-                        for(int subjectStates=0; subjectStates<BP_SUBJECT_STATES;subjectStates++)
-                            for(int valuePair =0; valuePair<BP_VALUE_PAIR; valuePair++)
-                            {
+                    for(int testSites=0; testSites<BP_TEST_SITES; testSites++) {
+
+                        for (int subjectStates = 0; subjectStates < BP_SUBJECT_STATES; subjectStates++)
+                            for (int valuePair = 0; valuePair < BP_VALUE_PAIR; valuePair++) {
                                 intBloodPress[testSites][subjectStates][valuePair] = json.getBloodPressure(strTestSites[testSites], strSubjectStates[subjectStates], strBpValuePair[valuePair]);
-                                textViews_BloodPressure[testSites][subjectStates][valuePair].setText(""+intBloodPress[testSites][subjectStates][valuePair]);
+                                textViews_BloodPressure[testSites][subjectStates][valuePair] = (TextView) LinearLayout.findViewWithTag(""+TagindexOfTable);
+                                textViews_BloodPressure[testSites][subjectStates][valuePair].setText("" + intBloodPress[testSites][subjectStates][valuePair]);
+                                TagindexOfTable++;
                             }
+                    }
 //Setting graph UI of Graph 1 (Left)
                     GraphView graph1 = (GraphView) findViewById(R.id.graph1);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph1);
