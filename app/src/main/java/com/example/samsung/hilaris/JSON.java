@@ -788,4 +788,14 @@ public class JSON extends JSONObject {
     public double insert(String name, String LRdata) throws JSONException {
         return Math.round(json.getDouble(name+LRdata)*100d)/100d;
     }
+
+    //For Graph Usage
+    public int getBloodPressure(String strTestSite, String strSubjectState, String strBpValue) throws JSONException {
+        return json.getInt("BP"+strSubjectState+strBpValue+strTestSite);
+    }
+
+    //For Graph Usage
+    public int getHeartRate(String strSubjectState) throws JSONException {
+        return json.getInt("HR"+strSubjectState);
+    }
 }
