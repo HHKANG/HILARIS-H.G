@@ -35,11 +35,11 @@
                     android:text = "Rotation"
                    />
                 <TextView
-                    android:id="@+id/textView_Bending_text"
+                    android:id="@+id/textView_LateralFlexion_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text = "Bending"/>
+                    android:text = "LateralFlextion"/>
 
             </LinearLayout>
 
@@ -63,7 +63,7 @@
                     android:tag = "0"/>
 
                 <TextView
-                    android:id="@+id/textView_Bending_left"
+                    android:id="@+id/textView_LateralFlextion_left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -90,11 +90,11 @@
                     android:id="@+id/textView_Rotation_right"
                     android:tag = "1"/>
                 <TextView
-                    android:id="@+id/textView_Bending_right"
+                    android:id="@+id/textView_LateralFlextion_right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag = "0"/>
+                    android:tag = "3"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:id="@+id/textView_Flextion_text"
+                    android:id="@+id/textView_Flexion_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -165,7 +165,7 @@
             android:layout_weight="1" />
 
         <com.jjoe64.graphview.GraphView
-            android:id="@+id/graph_Bending"
+            android:id="@+id/graph_LateralFlextion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

@@ -2,8 +2,11 @@ package com.example.samsung.hilaris;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +37,11 @@ public class Detail_Flexibility_Graph extends AppCompatActivity {
     int[][] intFlex = new int[FX_VALUE_ITEMS][FX_TEST_SITES];
 
     String[] strTestSites = {"Left", "Right"};
-    String[] strValueItems = {"Rotation", "Bending"};
+    String[] strValueItems = {"Rotation", "LateralFlextion"};
     LinearLayout LinearLayout;
     TextView[] RotationBending = new TextView[4];
-
+    TextView TextView_Extension;
+    TextView TextView_Flexion;
     JSON json;
     String get_mb_id;
     String get_GUID;
@@ -45,6 +49,8 @@ public class Detail_Flexibility_Graph extends AppCompatActivity {
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_detail__flexibility__graph);
 
         Intent intent = getIntent();
@@ -64,7 +70,15 @@ public class Detail_Flexibility_Graph extends AppCompatActivity {
 //Getting Data and Saving into TextView and Array of Data
                     int Extension, Flextion;
 
-                        for (int valueItem = 0; valueItem < FX_VALUE_ITEMS; valueItem++)
+                    Extension = json.getExtension();
+                    Flextion = json.getFlexion();
+
+                    TextView_Extension = (TextView) findViewById(R.id.textView_Extension_Value);
+                    TextView_Flexion = (TextView) findViewById(R.id.textView_Flextion_Value);
+                    TextView_Extension.setText(""+Extension);
+                    TextView_Flexion.setText(""+Flextion);
+
+                    for (int valueItem = 0; valueItem < FX_VALUE_ITEMS; valueItem++)
                             for(int testSites=0; testSites<FX_TEST_SITES; testSites++)
                           {
                                 intFlex[valueItem][testSites] = json.getFlexLR(strValueItems[valueItem], strTestSites[testSites]);
@@ -73,38 +87,45 @@ public class Detail_Flexibility_Graph extends AppCompatActivity {
                               TagindexOfTable++;
                             }
                            //Setting graph UI of Graph 1 (Left)
-                            GraphView Rotation = (GraphView) findViewById(R.id.graph_Rotation);
+                    GraphView Rotation = (GraphView) findViewById(R.id.graph_Rotation);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(Rotation);
                     staticLabelsFormatter1.setHorizontalLabels(strTestSites);
                     Rotation.setTitle(strValueItems[0]);//Rotation
-                    Rotation.getLegendRenderer().setVisible(true);
-                    Rotation.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
                     Rotation.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
 //Setting graph UI of Graph 1 (Right)
-                    GraphView Bending= (GraphView) findViewById(R.id.graph_Bending);
-                    StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(Bending);
+                    GraphView LateralFlextion= (GraphView) findViewById(R.id.graph_LateralFlextion);
+                    StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(LateralFlextion);
                     staticLabelsFormatter2.setHorizontalLabels(strTestSites);
-                    Bending.setTitle(strValueItems[1]); //Bending
-                    Bending.getLegendRenderer().setVisible(true);
-                    Bending.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-                    Bending.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
-                    //Putting Data in Graph by Using intBloodPress Array ( Array of Data )
+                    LateralFlextion.setTitle(strValueItems[1]); //Lateral Flextion
+                    LateralFlextion.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
 
-                   // valueItem = 0; //valueItem = 0 : Rotation, valueItem 1 : Bending
+
+                   // valueItem = 0; //valueItem = 0 : Rotation, valueItem 1 : Lateral Flextion
                         BarGraphSeries<DataPoint> RotationSeries = new BarGraphSeries<>(new DataPoint[]{});
                         for (int testSites = 0; testSites < FX_TEST_SITES; testSites++) {
                             RotationSeries.appendData(new DataPoint(testSites, intFlex[0][testSites]), true, 10000);
                         }
 
-                        BarGraphSeries<DataPoint> BendingSeries = new BarGraphSeries<>(new DataPoint[]{});
+                        BarGraphSeries<DataPoint> LateralFlextionSeries = new BarGraphSeries<>(new DataPoint[]{});
                         for (int testSites = 0; testSites < FX_TEST_SITES; testSites++) {
-                            BendingSeries.appendData(new DataPoint(testSites, intFlex[1][testSites]), true, 10000);
+                            LateralFlextionSeries.appendData(new DataPoint(testSites, intFlex[1][testSites]), true, 10000);
                         }
 
-                        BendingSeries.setAnimated(true);
-                        RotationSeries.setAnimated(true);
-                        Rotation.addSeries(RotationSeries);
-                        Bending.addSeries(BendingSeries);
+
+
+
+                    LateralFlextionSeries.setSpacing(50);
+                    LateralFlextionSeries.setAnimated(true);
+                    LateralFlextion.getViewport().setYAxisBoundsManual(true);
+                    LateralFlextion.getViewport().setMinY(0);
+                    LateralFlextion.addSeries(LateralFlextionSeries);
+
+                    RotationSeries.setSpacing(50);
+                    RotationSeries.setAnimated(true);
+                    Rotation.addSeries(RotationSeries);
+                    Rotation.getViewport().setYAxisBoundsManual(true);
+                    Rotation.getViewport().setMinY(0);
+
 
                      } catch (JSONException e) {
                     e.printStackTrace();
@@ -119,5 +140,31 @@ public class Detail_Flexibility_Graph extends AppCompatActivity {
 
         // Add the request to the RequestQueue.}
         queue.add(objRequest);
+    }
+    /**
+     * Action Bar에 메뉴를 생성
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            case R.id.logout:
+                Intent intent = new Intent(Detail_Flexibility_Graph.this, Login.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
