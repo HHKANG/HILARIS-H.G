@@ -43,8 +43,11 @@ public class Detail_bar_graph extends AppCompatActivity {
     TextView left_data;
     TextView right_data;
 
-    double[][] Bar_array = new double[7][2];
-    String[] name = {"Flex" , "HandStrength", "LegStrength", "AgilityMovementUB", "AgilityReactionUB", "AgilityMovementUL", "AgilityReactionUL"};
+    public static  final int Bar_row = 6;
+    public  static  final int Bar_col = 2;
+    double[][] Bar_array = new double[Bar_row][Bar_col];
+
+    String[] name = {"HandStrength", "LegStrength", "AgilityMovementUB", "AgilityReactionUB", "AgilityMovementUL", "AgilityReactionUL"};
     String[] LRdata = {"Left", "Right"};
 
     @Override
@@ -67,7 +70,7 @@ public class Detail_bar_graph extends AppCompatActivity {
 
         data_name.setText(""+get_name);
 
-        final double[][] graph_array = new double[5][];
+        final double[][] graph_array = new double[4][];
 //Setting Graph's X axis
 
         String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
@@ -92,19 +95,19 @@ public class Detail_bar_graph extends AppCompatActivity {
 
                     graph_array[0] = new double[]{Bar_array[0][0], Bar_array[0][1]};
                     graph_array[1] = new double[]{Bar_array[1][0], Bar_array[1][1]};
-                    graph_array[2] = new double[]{Bar_array[2][0], Bar_array[2][1]};
-                    graph_array[3] = new double[]{UB_left, UB_right};
-                    graph_array[4] = new double[]{UL_left, UL_right};
+                    graph_array[2] = new double[]{UB_left, UB_right};
+                    graph_array[3] = new double[]{UL_left, UL_right};
 
                     GraphView graph = (GraphView) findViewById(R.id.graph);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter1.setHorizontalLabels(new String[] {"Left", "Right"});
                     graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
 
-                    BarGraphSeries<DataPoint> Bar_graph = new BarGraphSeries<>(new DataPoint[] {
-                            new DataPoint(Left,  graph_array[get_postion][0]),
-                            new DataPoint(Right, graph_array[get_postion][1]),
-                    });
+                        BarGraphSeries<DataPoint> Bar_graph = new BarGraphSeries<>(new DataPoint[]{
+                                new DataPoint(Left, graph_array[get_postion][0]),
+                                new DataPoint(Right, graph_array[get_postion][1]),
+                        });
+
                     Bar_graph.setSpacing(50);
                     Bar_graph.setColor(Color.BLUE);
                     Bar_graph.setTitle("Bar_graph");

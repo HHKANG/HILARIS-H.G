@@ -94,7 +94,7 @@ public class Detailinfo extends AppCompatActivity {
                                 intent.putExtra("name", Item.getinfo1());
                                 startActivity(intent);
                             }
-                            if(position==1) {
+                            else if(position==1) {
                                 Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
                                 intent.putExtra("mb_id", get_mb_id);
@@ -102,14 +102,17 @@ public class Detailinfo extends AppCompatActivity {
                                 intent.putExtra("name", Item.getinfo1());
                                 startActivity(intent);
                             }
-                            else if(position != 0 && position != 1){
+                            else if(position ==2) {
+
+                            }
+                            else{
                                 //BAR GRAPH CLASS
                                 Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
                                 intent.putExtra("mb_id", get_mb_id);
                                 intent.putExtra("GUID", get_GUID);
                                 intent.putExtra("name", Item.getinfo1());
-                                intent.putExtra("position", position-2);
+                                intent.putExtra("position", position-3);
                                 startActivity(intent);
                             }
                         }

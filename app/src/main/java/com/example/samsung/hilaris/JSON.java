@@ -159,10 +159,12 @@ public class JSON extends JSONObject {
     double WeightRightTopPer;
     double YongNormalPer;
     double YoungNormal;
+    int Extension;
+    int Flexion;
 
     public JSON(JSONObject JsonObject) throws JSONException {
         json = JsonObject;
-}
+    }
 
     public double getAgeMatched()  throws JSONException {
         return Math.round(json.getDouble("AgeMatched")*100d)/100d;
@@ -777,6 +779,14 @@ public class JSON extends JSONObject {
 
     public String Birthdate() throws JSONException {
         return json.getString("Birthdate");
+    }
+
+    public int getFlexion()  throws JSONException {
+        return json.getInt("Flexion");
+    }
+
+    public int getExtension()  throws JSONException {
+        return json.getInt("Extension");
     }
 
     public double insert(String name, String LRdata) throws JSONException {
