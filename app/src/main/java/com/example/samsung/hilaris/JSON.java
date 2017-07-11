@@ -798,4 +798,7 @@ public class JSON extends JSONObject {
     public int getHeartRate(String strSubjectState) throws JSONException {
         return json.getInt("HR"+strSubjectState);
     }
+    public int getFlexLR(String strValueIem, String strTestSite) throws JSONException {
+        return json.getInt(strValueIem+strTestSite);
+    }
 }

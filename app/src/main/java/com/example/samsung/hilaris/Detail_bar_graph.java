@@ -44,7 +44,7 @@ public class Detail_bar_graph extends AppCompatActivity {
     TextView right_data;
 
     double[][] Bar_array = new double[7][2];
-    String[] name = {"Flex" , "HandStrength", "LegStrength", "AgilityMovementUB", "AgilityReactionUB", "AgilityMovementUL", "AgilityReactionUL"};
+    String[] name = {"Bending" , "HandStrength", "LegStrength", "AgilityMovementUB", "AgilityReactionUB", "AgilityMovementUL", "AgilityReactionUL"};
     String[] LRdata = {"Left", "Right"};
 
     @Override
