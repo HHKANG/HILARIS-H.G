@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +32,6 @@ public class Simpleinfo extends AppCompatActivity {
     ListView recentlistView;
     ListViewAdapter recentadapter;
     ListViewAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

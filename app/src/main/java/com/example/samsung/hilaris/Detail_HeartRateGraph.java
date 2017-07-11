@@ -79,7 +79,6 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
                     graph_HeartRate.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
                     graph_HeartRate.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
 
-
                     LineGraphSeries<DataPoint> HeartRate = new LineGraphSeries<>(new DataPoint[] { });
                     //Addting date into the Graph Heart Rate
                     for(int states =0 ; states<HR_STATES;states ++)
