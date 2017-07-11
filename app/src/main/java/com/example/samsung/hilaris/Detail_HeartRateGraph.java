@@ -29,7 +29,6 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
 
     private final int HR_STATES = 3; //Rest, Stimulus, Recovery
 
-
     int[] intHR_RATE = new int[HR_STATES];
     TextView[] textViews_HR_RATE = new TextView[HR_STATES];
     String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
@@ -74,7 +73,7 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
 //Setting graph UI of graph_HeartRate
                     GraphView graph_HeartRate = (GraphView) findViewById(R.id.graph_HeartRate);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph_HeartRate);
-                    staticLabelsFormatter1.setHorizontalLabels(new String[] {"Before", "During", "After"});
+                    staticLabelsFormatter1.setHorizontalLabels(new String[] {"Rest", "Stimulus", "Recovery"});
                     graph_HeartRate.setTitle("Heart Rate");
                     graph_HeartRate.getLegendRenderer().setVisible(true);
                     graph_HeartRate.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);

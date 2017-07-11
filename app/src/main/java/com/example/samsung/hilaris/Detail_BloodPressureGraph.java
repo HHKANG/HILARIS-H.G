@@ -78,18 +78,19 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
 //Setting graph UI of Graph 1 (Left)
                     GraphView graph1 = (GraphView) findViewById(R.id.graph1);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph1);
-                    staticLabelsFormatter1.setHorizontalLabels(new String[] {"Before", "During", "After"});
+                    staticLabelsFormatter1.setHorizontalLabels(new String[] {"Rest", "Stimulus", "Recovery"});
                     graph1.setTitle("Left Blood Pressure");
                     graph1.getLegendRenderer().setVisible(true);
                     graph1.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-
+                    graph1.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
 //Setting graph UI of Graph 1 (Right)
                     GraphView graph2= (GraphView) findViewById(R.id.graph2);
                     StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(graph2);
-                    staticLabelsFormatter2.setHorizontalLabels(new String[] {"Before", "During", "After"});
+                    staticLabelsFormatter2.setHorizontalLabels(new String[]{"Rest", "Stimulus", "Recovery"});
                     graph2.setTitle("Right Blood Pressure");
                     graph2.getLegendRenderer().setVisible(true);
                     graph2.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+                    graph2.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
                     //Putting Data in Graph by Using intBloodPress Array ( Array of Data )
                     for(int BpValue=0 ; BpValue<BP_VALUE_PAIR; BpValue++)
                     {
@@ -110,7 +111,7 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                             BloodPressureLeft.setColor(Color.BLUE);
                             BloodPressureLeft.setTitle("BloodPressureLeftSystolic");
                             BloodPressureRight.setColor(Color.BLUE);
-                            BloodPressureRight.setTitle("BloodPressureLeftSystolic");
+                            BloodPressureRight.setTitle("BloodPressureRightSystolic");
 
                         }
                         else
@@ -118,7 +119,7 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                             BloodPressureLeft.setColor(Color.GREEN);
                             BloodPressureLeft.setTitle("BloodPressureLeftDiatolic");
                             BloodPressureRight.setColor(Color.GREEN);
-                            BloodPressureRight.setTitle("BloodPressureLeftDiatolic");
+                            BloodPressureRight.setTitle("BloodPressureRightDiatolic");
                         }
                         BloodPressureLeft.setAnimated(true);
                         BloodPressureRight.setAnimated(true);
