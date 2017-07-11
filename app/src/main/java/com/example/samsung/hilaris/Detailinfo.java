@@ -105,7 +105,7 @@ public class Detailinfo extends AppCompatActivity {
                             else if(position ==2) {
 
                             }
-                            else{
+                            else {
                                 //BAR GRAPH CLASS
                                 Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);

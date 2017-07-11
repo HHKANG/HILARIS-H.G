@@ -43,8 +43,8 @@ public class Detail_bar_graph extends AppCompatActivity {
     TextView left_data;
     TextView right_data;
 
-    public static  final int Bar_row = 6;
-    public  static  final int Bar_col = 2;
+    int Bar_row = 6;
+    int Bar_col = 2;
     double[][] Bar_array = new double[Bar_row][Bar_col];
 
     String[] name = {"HandStrength", "LegStrength", "AgilityMovementUB", "AgilityReactionUB", "AgilityMovementUL", "AgilityReactionUL"};
@@ -83,15 +83,15 @@ public class Detail_bar_graph extends AppCompatActivity {
                     json = new JSON(response);
 //Getting Data
 
-                    for(int i=0; i < 7; i++)
-                        for(int j =0; j<2; j++)
+                    for(int i=0; i < Bar_row; i++)
+                        for(int j =0; j < Bar_col; j++)
                         {
                            Bar_array[i][j] = json.insert(name[i], LRdata[j]);
                         }
-                    UB_left = Bar_array[3][0] + Bar_array[4][0];
-                    UB_right = Bar_array[3][1]+ Bar_array[4][1];
-                    UL_left = Bar_array[5][0] + Bar_array[6][0];
-                    UL_right = Bar_array[5][1] + Bar_array[6][1];
+                    UB_left = Bar_array[2][0] + Bar_array[3][0];
+                    UB_right = Bar_array[2][1]+ Bar_array[3][1];
+                    UL_left = Bar_array[4][0] + Bar_array[5][0];
+                    UL_right = Bar_array[4][1] + Bar_array[5][1];
 
                     graph_array[0] = new double[]{Bar_array[0][0], Bar_array[0][1]};
                     graph_array[1] = new double[]{Bar_array[1][0], Bar_array[1][1]};
