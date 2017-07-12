@@ -116,15 +116,19 @@ public class Detail_Flexibility_Graph extends AppCompatActivity {
 
                     LateralFlextionSeries.setSpacing(50);
                     LateralFlextionSeries.setAnimated(true);
-                    LateralFlextion.getViewport().setYAxisBoundsManual(true);
-                    LateralFlextion.getViewport().setMinY(0);
                     LateralFlextion.addSeries(LateralFlextionSeries);
+                    LateralFlextion.getViewport().setMinY(0);
+                    LateralFlextion.getViewport().setYAxisBoundsManual(true);
+
+
 
                     RotationSeries.setSpacing(50);
                     RotationSeries.setAnimated(true);
                     Rotation.addSeries(RotationSeries);
-                    Rotation.getViewport().setYAxisBoundsManual(true);
                     Rotation.getViewport().setMinY(0);
+                    Rotation.getViewport().setYAxisBoundsManual(true);
+
+
 
 
                      } catch (JSONException e) {
