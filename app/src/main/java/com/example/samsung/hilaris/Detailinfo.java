@@ -102,8 +102,14 @@ public class Detailinfo extends AppCompatActivity {
                                 intent.putExtra("name", Item.getinfo1());
                                 startActivity(intent);
                             }
-                            else if(position ==2) {
-
+                            else if(position == 2)
+                            {
+                                Intent intent = new Intent(getApplicationContext(), Detail_Flexibility_Graph.class);
+                                DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
+                                intent.putExtra("mb_id", get_mb_id);
+                                intent.putExtra("GUID", get_GUID);
+                                intent.putExtra("name", Item.getinfo1());
+                                startActivity(intent);
                             }
                             else {
                                 //BAR GRAPH CLASS

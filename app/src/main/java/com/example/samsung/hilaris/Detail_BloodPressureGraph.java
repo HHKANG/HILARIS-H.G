@@ -121,6 +121,8 @@ public class Detail_BloodPressureGraph extends AppCompatActivity {
                             BloodPressureRight.setColor(Color.GREEN);
                             BloodPressureRight.setTitle("BloodPressureRightDiatolic");
                         }
+
+
                         BloodPressureLeft.setAnimated(true);
                         BloodPressureRight.setAnimated(true);
                         graph1.addSeries(BloodPressureLeft);

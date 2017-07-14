@@ -161,6 +161,10 @@ public class JSON extends JSONObject {
     double YoungNormal;
     int Extension;
     int Flexion;
+    int BendingLeft;
+    int BendingRight;
+    int RotationLeft;
+    int RotationRight;
 
     public JSON(JSONObject JsonObject) throws JSONException {
         json = JsonObject;
@@ -788,6 +792,18 @@ public class JSON extends JSONObject {
     public int getExtension()  throws JSONException {
         return json.getInt("Extension");
     }
+    public int geLateralFlextionLeft()  throws JSONException {
+        return json.getInt("LateralFlextionLeft");
+    }
+    public int getLateralFlextionRight()  throws JSONException {
+        return json.getInt("LateralFlextionRight");
+    }
+    public int getRotationLeft()  throws JSONException {
+        return json.getInt("RotationLeft");
+    }
+    public int getRotationRight()  throws JSONException {
+        return json.getInt("RotationRight");
+    }
 
     public double insert(String name, String LRdata) throws JSONException {
         return Math.round(json.getDouble(name+LRdata)*100d)/100d;
@@ -802,4 +818,8 @@ public class JSON extends JSONObject {
     public int getHeartRate(String strSubjectState) throws JSONException {
         return json.getInt("HR"+strSubjectState);
     }
+    public int getFlexLR(String strValueIem, String strTestSite) throws JSONException {
+        return json.getInt(strValueIem+strTestSite);
+    }
+
 }
