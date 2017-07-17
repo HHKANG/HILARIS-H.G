@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class ListViewAdapter extends BaseAdapter {
@@ -66,14 +68,15 @@ public class ListViewAdapter extends BaseAdapter {
         return listViewItemList.get(position) ;
     }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String info1, double info2, String info3, double info4, double info5, String info6) {
+    //String info1, double info2, String info3, double info4, double info5, String info6
+    public void addItem(JSON object) throws JSONException {
         ListViewItem item = new ListViewItem();
-        item.setinfo1(info1);
-        item.setinfo2(info2);
-        item.setinfo3(info3);
-        item.setinfo4(info4);
-        item.setinfo5(info5);
-        item.setinfo6(info6);
+        item.setinfo1( object.getTestDate());
+        item.setinfo2( object.getBMI());
+        item.setinfo3(object.getTestType());
+        item.setinfo4( object.getWaist());
+        item.setinfo5(object.getPower());
+        item.setinfo6(object.getMedifitTestGUID());
         listViewItemList.add(item);
     }
     public void delItem(){
