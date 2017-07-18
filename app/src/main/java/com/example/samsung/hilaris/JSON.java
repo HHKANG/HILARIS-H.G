@@ -824,4 +824,7 @@ public class JSON extends JSONObject implements Serializable {
         return json.getInt(strValueIem+strTestSite);
     }
 
+    public String getStringObject(String string) throws JSONException {
+        return json.getString(string);
+    }
 }
