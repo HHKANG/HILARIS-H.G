@@ -21,8 +21,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
     Button exercise;
     TextView set_name;
     TextView set_Birthdate;
-    String get_mb_id;
-    String get_GUID;
     String get_name;
     ListView listView;
     DetailInfoListViewAdapter adapter;
@@ -43,10 +41,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
 
         Intent intent = getIntent();
 
-        /*
-        get_mb_id = intent.getExtras().getString("mb_id");
-        get_GUID = intent.getExtras().getString("GUID");
-        */
         get_name = intent.getExtras().getString("name");
 
         exercise = (Button)findViewById(R.id.exercise_list);
@@ -56,7 +50,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
 
         listView = (ListView)findViewById(R.id.textview_information_listview);
         listView.setAdapter(adapter);
-
 
         try {
             profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
@@ -76,7 +69,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                     adapter.addItem("Lower Strength");
                     adapter.addItem("Upper Body Agility");
                     adapter.addItem("Upper Limb Agility");
-
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -112,7 +104,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                         }
                     });
 
-
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,11 +113,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         });
     }
 
-    /**
-     * Action Bar에 메뉴를 생성
-     * @param menu
-     * @return
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
