@@ -68,18 +68,11 @@ public class Simpleinfo extends AppCompatActivity {
                 try {
 
                     JSONObject abc = response.getJSONObject(0);
-                    JSON Test = new JSON(abc);
+                    final JSON Test = new JSON(abc);
                     set_BirthDate.setText(Test.Birthdate());
-
-                    String TestDate = Test.getTestDate();
-                    double BMI = Test.getBMI();
-                    String TestType = Test.getTestType();
-                    double Waist = Test.getWaist();
-                    double Power = Test.getPower();
-                    String GUID = Test.getMedifitTestGUID();
                     recentlistView = (ListView) findViewById(R.id.recent_simple_list);
                     recentlistView.setAdapter(recentadapter);
-                    recentadapter.addItem(TestDate, BMI, TestType, Waist, Power, GUID);
+                    recentadapter.addItem(Test);
 
                     recentlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -92,6 +85,9 @@ public class Simpleinfo extends AppCompatActivity {
                             intent.putExtra("mb_id", get_mb_id);
                             intent.putExtra("GUID", GUID.getinfo6());
                             intent.putExtra("name", get_name);
+
+                            intent.putExtra("object", Test);
+
                             startActivity(intent);
                         }
                     });
@@ -103,15 +99,7 @@ public class Simpleinfo extends AppCompatActivity {
                         // Get current json object
                         JSONObject Tests = response.getJSONObject(i);
                         JSON object = new JSON(Tests);
-                        // Get the current student (json object) data
-                        String objectDate = object.getTestDate();
-                        double objectBMI = object.getBMI();
-                        String objectType = object.getTestType();
-                        double objectWaist = object.getWaist();
-                        double objectPower = object.getPower();
-                        String objectGUID = object.getMedifitTestGUID();
-
-                        adapter.addItem(objectDate, objectBMI, objectType, objectWaist, objectPower, objectGUID);
+                        adapter.addItem(object);
 
                     }
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

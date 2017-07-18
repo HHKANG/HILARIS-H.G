@@ -33,7 +33,6 @@ public class Detailinfo extends AppCompatActivity {
     ListView listView;
     DetailInfoListViewAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,6 +48,10 @@ public class Detailinfo extends AppCompatActivity {
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
         get_name = intent.getExtras().getString("name");
+
+        JSONObject object= (JSONObject)intent.getSerializableExtra("object");
+
+        Toast.makeText(getApplicationContext(), "" , Toast.LENGTH_SHORT).show();
 
         exercise = (Button)findViewById(R.id.exercise_list);
         set_name.setText(get_name);
