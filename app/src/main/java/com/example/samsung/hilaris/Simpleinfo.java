@@ -2,7 +2,6 @@ package com.example.samsung.hilaris;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -24,8 +23,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 
 public class Simpleinfo extends AppCompatActivity {
     private final int History_Data = 3; //Num of Data to compare in History
