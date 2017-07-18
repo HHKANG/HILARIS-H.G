@@ -3,9 +3,11 @@ package com.example.samsung.hilaris;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JSON extends JSONObject {
+import java.io.Serializable;
 
-    JSONObject json;
+public class JSON extends JSONObject implements Serializable {
+
+    transient JSONObject json;
 
     double AgeMatched;
     double AgeMathcedPer;

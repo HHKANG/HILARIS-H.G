@@ -21,17 +21,21 @@ import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.Series;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Detail_HeartRateGraph extends AppCompatActivity {
+import java.util.List;
+
+public class Detail_HeartRateGraph extends Graph {
 
     private final int HR_STATES = 3; //Rest, Stimulus, Recovery
 
     int[] intHR_RATE = new int[HR_STATES];
     TextView[] textViews_HR_RATE = new TextView[HR_STATES];
     String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
+
 
     JSON json;
     String get_mb_id;
@@ -55,52 +59,30 @@ public class Detail_HeartRateGraph extends AppCompatActivity {
 
 //Setting Graph's X axis
 
-        String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // Request a string response from the provided URL.
-        JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try{
-                    json = new JSON(response);
+        try {
+            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            json = new JSON(profile);
+            for(int states = 0; states < HR_STATES; states++)
+            {
+                intHR_RATE[states] = json.getHeartRate(strSubjectStates[states]);
+                textViews_HR_RATE[states].setText(""+intHR_RATE[states]);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //Getting Data
-                    for(int states = 0; states < HR_STATES; states++)
-                    {
-                        intHR_RATE[states] = json.getHeartRate(strSubjectStates[states]);
-                        textViews_HR_RATE[states].setText(""+intHR_RATE[states]);
-                    }
+
 
 //Setting graph UI of graph_HeartRate
                     GraphView graph_HeartRate = (GraphView) findViewById(R.id.graph_HeartRate);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graph_HeartRate);
-                    staticLabelsFormatter1.setHorizontalLabels(new String[] {"Rest", "Stimulus", "Recovery"});
+                    staticLabelsFormatter1.setHorizontalLabels(strSubjectStates);
                     graph_HeartRate.setTitle("Heart Rate");
                     graph_HeartRate.getLegendRenderer().setVisible(true);
                     graph_HeartRate.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
                     graph_HeartRate.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
+                    graph_HeartRate.addSeries(addLineSeriesData(intHR_RATE, "BLUE"));
 
-                    LineGraphSeries<DataPoint> HeartRate = new LineGraphSeries<>(new DataPoint[] { });
-                    //Addting date into the Graph Heart Rate
-                    for(int states =0 ; states<HR_STATES;states ++)
-                    {
-                        HeartRate.appendData(new DataPoint(states, intHR_RATE[states]), true, 10000);
-                    }
-                    HeartRate.setColor(Color.BLUE);
-                    HeartRate.setTitle("Heart Rate");
-                    HeartRate.setAnimated(true);
-                    graph_HeartRate.addSeries(HeartRate);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                };
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-        // Add the request to the RequestQueue.}
-        queue.add(objRequest);
 
     }
     /**

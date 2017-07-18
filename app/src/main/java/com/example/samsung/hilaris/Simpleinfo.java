@@ -2,12 +2,14 @@ package com.example.samsung.hilaris;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +25,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 public class Simpleinfo extends AppCompatActivity {
+    private final int History_Data = 3; //Num of Data to compare in History
+    Button history;
     TextView set_name;
     TextView set_BirthDate;
     String get_name;
@@ -32,7 +38,8 @@ public class Simpleinfo extends AppCompatActivity {
     ListView recentlistView;
     ListViewAdapter recentadapter;
     ListViewAdapter adapter;
-
+    JSONObject[] Tests;
+    JSONObject[] History = new JSONObject[History_Data];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -64,11 +71,14 @@ public class Simpleinfo extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 // Do something with response
 
+                Tests = new JSONObject[response.length()];
                 // Process the JSON
                 try {
 
-                    JSONObject abc = response.getJSONObject(0);
-                    JSON Test = new JSON(abc);
+                    Tests[0] = response.getJSONObject(0);
+                    JSON Test = new JSON(Tests[0]);
+                    Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
+
                     set_BirthDate.setText(Test.Birthdate());
                     recentlistView = (ListView) findViewById(R.id.recent_simple_list);
                     recentlistView.setAdapter(recentadapter);
@@ -77,16 +87,14 @@ public class Simpleinfo extends AppCompatActivity {
                     recentlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
                             ListViewItem GUID = (ListViewItem) recentlistView.getItemAtPosition(position);
-
                             Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
-
                             intent.putExtra("mb_id", get_mb_id);
                             intent.putExtra("GUID", GUID.getinfo6());
                             intent.putExtra("name", get_name);
-                            startActivity(intent);
-                        }
+                            intent.putExtra("SelectedProfile", Tests[0].toString());
+                    startActivity(intent);
+                }
                     });
 
                     listView = (ListView) findViewById(R.id.simple_list);
@@ -94,23 +102,19 @@ public class Simpleinfo extends AppCompatActivity {
                     // Loop through the array elements
                     for (int i = 1; i < response.length(); i++) {
                         // Get current json object
-                        JSONObject Tests = response.getJSONObject(i);
-                        JSON object = new JSON(Tests);
+                        Tests[i] = response.getJSONObject(i);
+                        JSON object = new JSON(Tests[i]);
                         adapter.addItem(object);
-
                     }
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                            ListViewItem GUID = (ListViewItem) listView.getItemAtPosition(position);
+                            //ListViewItem GUID = (ListViewItem) listView.getItemAtPosition(position);
 
                             Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
-
-                            intent.putExtra("mb_id", get_mb_id);
-                            intent.putExtra("GUID", GUID.getinfo6());
                             intent.putExtra("name", get_name);
-
+                            intent.putExtra("SelectedProfle", Tests[position].toString());
                             startActivity(intent);
                         }
                     });
@@ -127,7 +131,19 @@ public class Simpleinfo extends AppCompatActivity {
         // Add JsonArrayRequest to the RequestQueue
         queue.add(jsonArrayRequest);
 
-
+//Putting most recent 3 datas
+        history  = (Button) findViewById(R.id.history);
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), History.class);
+                for(int i =0; i < Tests.length; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
+                {
+                    intent.putExtra("JSONObject"+i, Tests[i].toString());
+                }
+                startActivity(intent);
+            }
+        });
     }
     /**
      * Action Bar에 메뉴를 생성

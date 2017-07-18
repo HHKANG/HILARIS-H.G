@@ -30,7 +30,7 @@ import org.json.JSONObject;
 import static com.example.samsung.hilaris.Detail_BloodPressureGraph.BP_SUBJECT_STATES;
 import static com.example.samsung.hilaris.Detail_BloodPressureGraph.BP_TEST_SITES;
 
-public class Detail_Flexibility_Graph extends AppCompatActivity {
+public class Detail_Flexibility_Graph extends Graph {
     public static final int FX_TEST_SITES = 2;      // Left Hand = 0 & right Hand = 1
     public static final int FX_VALUE_ITEMS= 2;      // Rotation, Bending
 
@@ -59,91 +59,58 @@ public class Detail_Flexibility_Graph extends AppCompatActivity {
         LinearLayout = (LinearLayout) findViewById(R.id.RotationBending); // Linear Layout containing the table
 
 
-        String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // Request a string response from the provided URL.
-        JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try{
-                    json = new JSON(response);
+        TextView_Extension = (TextView) findViewById(R.id.textView_Extension_Value);
+        TextView_Flexion = (TextView) findViewById(R.id.textView_Flextion_Value);
+
+
+
+        try {
+            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            json = new JSON(profile);
+            int Extension, Flextion;
+            Extension = json.getExtension();
+            Flextion = json.getFlexion();
+            TextView_Extension.setText(""+Extension);
+            TextView_Flexion.setText(""+Flextion);
+
+            for (int valueItem = 0; valueItem < FX_VALUE_ITEMS; valueItem++)
+                for(int testSites=0; testSites<FX_TEST_SITES; testSites++)
+                {
+                    intFlex[valueItem][testSites] = json.getFlexLR(strValueItems[valueItem], strTestSites[testSites]);
+                    RotationBending[TagindexOfTable] = (TextView) LinearLayout.findViewWithTag(""+TagindexOfTable);
+                    RotationBending[TagindexOfTable].setText("" + intFlex[valueItem][testSites]);
+                    TagindexOfTable++;
+                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //Getting Data and Saving into TextView and Array of Data
-                    int Extension, Flextion;
 
-                    Extension = json.getExtension();
-                    Flextion = json.getFlexion();
 
-                    TextView_Extension = (TextView) findViewById(R.id.textView_Extension_Value);
-                    TextView_Flexion = (TextView) findViewById(R.id.textView_Flextion_Value);
-                    TextView_Extension.setText(""+Extension);
-                    TextView_Flexion.setText(""+Flextion);
+//adding Items in Array
 
-                    for (int valueItem = 0; valueItem < FX_VALUE_ITEMS; valueItem++)
-                            for(int testSites=0; testSites<FX_TEST_SITES; testSites++)
-                          {
-                                intFlex[valueItem][testSites] = json.getFlexLR(strValueItems[valueItem], strTestSites[testSites]);
-                             RotationBending[TagindexOfTable] = (TextView) LinearLayout.findViewWithTag(""+TagindexOfTable);
-                              RotationBending[TagindexOfTable].setText("" + intFlex[valueItem][testSites]);
-                              TagindexOfTable++;
-                            }
+
+
+                    // valueItem = 0; //valueItem = 0 : Rotation, valueItem 1 : Lateral Flextion
                            //Setting graph UI of Graph 1 (Left)
                     GraphView Rotation = (GraphView) findViewById(R.id.graph_Rotation);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(Rotation);
                     staticLabelsFormatter1.setHorizontalLabels(strTestSites);
                     Rotation.setTitle(strValueItems[0]);//Rotation
                     Rotation.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
+                    Rotation.addSeries(addBarSeriesData(intFlex[1], "BLUE"));
+                    Rotation.getViewport().setMinY(0);
+                    Rotation.getViewport().setYAxisBoundsManual(true);
 //Setting graph UI of Graph 1 (Right)
                     GraphView LateralFlextion= (GraphView) findViewById(R.id.graph_LateralFlextion);
                     StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(LateralFlextion);
                     staticLabelsFormatter2.setHorizontalLabels(strTestSites);
                     LateralFlextion.setTitle(strValueItems[1]); //Lateral Flextion
                     LateralFlextion.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
-
-
-                   // valueItem = 0; //valueItem = 0 : Rotation, valueItem 1 : Lateral Flextion
-                        BarGraphSeries<DataPoint> RotationSeries = new BarGraphSeries<>(new DataPoint[]{});
-                        for (int testSites = 0; testSites < FX_TEST_SITES; testSites++) {
-                            RotationSeries.appendData(new DataPoint(testSites, intFlex[0][testSites]), true, 10000);
-                        }
-
-                        BarGraphSeries<DataPoint> LateralFlextionSeries = new BarGraphSeries<>(new DataPoint[]{});
-                        for (int testSites = 0; testSites < FX_TEST_SITES; testSites++) {
-                            LateralFlextionSeries.appendData(new DataPoint(testSites, intFlex[1][testSites]), true, 10000);
-                        }
-
-
-
-
-                    LateralFlextionSeries.setSpacing(50);
-                    LateralFlextionSeries.setAnimated(true);
-                    LateralFlextion.addSeries(LateralFlextionSeries);
+                    LateralFlextion.addSeries(addBarSeriesData(intFlex[0], "BLUE"));
                     LateralFlextion.getViewport().setMinY(0);
                     LateralFlextion.getViewport().setYAxisBoundsManual(true);
 
-
-
-                    RotationSeries.setSpacing(50);
-                    RotationSeries.setAnimated(true);
-                    Rotation.addSeries(RotationSeries);
-                    Rotation.getViewport().setMinY(0);
-                    Rotation.getViewport().setYAxisBoundsManual(true);
-
-
-
-
-                     } catch (JSONException e) {
-                    e.printStackTrace();
-                };
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        // Add the request to the RequestQueue.}
-        queue.add(objRequest);
     }
     /**
      * Action Bar에 메뉴를 생성

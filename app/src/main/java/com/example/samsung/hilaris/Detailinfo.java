@@ -23,7 +23,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Detailinfo extends AppCompatActivity {
+import java.io.ObjectInput;
+import java.io.Serializable;
+
+public class Detailinfo extends AppCompatActivity implements Serializable{
     Button exercise;
     TextView set_name;
     TextView set_Birthdate;
@@ -33,6 +36,8 @@ public class Detailinfo extends AppCompatActivity {
     ListView listView;
     DetailInfoListViewAdapter adapter;
 
+    JSONObject profile;
+    JSON json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,30 +51,37 @@ public class Detailinfo extends AppCompatActivity {
         set_Birthdate = (TextView)findViewById(R.id.BirthDate);
 
         Intent intent = getIntent();
+
+        /*
         get_mb_id = intent.getExtras().getString("mb_id");
         get_GUID = intent.getExtras().getString("GUID");
+        */
         get_name = intent.getExtras().getString("name");
+
+        try {
+           profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         exercise = (Button)findViewById(R.id.exercise_list);
         set_name.setText(get_name);
 
         adapter = new DetailInfoListViewAdapter();
 
-        String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
+        listView = (ListView)findViewById(R.id.textview_information_listview);
+        listView.setAdapter(adapter);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
 
-        // Request a string response from the provided URL.
-        JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                //Iterator<?> keys =  response.keys();
-                try {
-                    listView = (ListView)findViewById(R.id.textview_information_listview);
-                    listView.setAdapter(adapter);
-                    JSON json = new JSON(response);
-                    //모든 data 불러오기 from Database
+        try {
+            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            json = new JSON(profile);
+            set_Birthdate.setText(json.getBirthdate());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //모든 data 불러오기 from Database
                     //나중에 JSON CLASS 이용
                     //String objectString = keys.next().toString();
                     //adapter.addItem(objectString);
@@ -80,7 +92,7 @@ public class Detailinfo extends AppCompatActivity {
                     adapter.addItem("Lower Strength");
                     adapter.addItem("Upper Body Agility");
                     adapter.addItem("Upper Limb Agility");
-                    set_Birthdate.setText(json.getBirthdate());
+
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -89,52 +101,32 @@ public class Detailinfo extends AppCompatActivity {
                             if(position==0) {
                                 Intent intent = new Intent(getApplicationContext(), Detail_BloodPressureGraph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
-                                intent.putExtra("mb_id", get_mb_id);
-                                intent.putExtra("GUID", get_GUID);
-                                intent.putExtra("name", Item.getinfo1());
+                                intent.putExtra("SelectedProfile", profile.toString());
                                 startActivity(intent);
                             }
                             else if(position==1) {
                                 Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
-                                intent.putExtra("mb_id", get_mb_id);
-                                intent.putExtra("GUID", get_GUID);
-                                intent.putExtra("name", Item.getinfo1());
+                                intent.putExtra("SelectedProfile", profile.toString());
                                 startActivity(intent);
                             }
                             else if(position == 2)
                             {
                                 Intent intent = new Intent(getApplicationContext(), Detail_Flexibility_Graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
-                                intent.putExtra("mb_id", get_mb_id);
-                                intent.putExtra("GUID", get_GUID);
-                                intent.putExtra("name", Item.getinfo1());
+                                intent.putExtra("SelectedProfile", profile.toString());
                                 startActivity(intent);
                             }
                             else {
                                 //BAR GRAPH CLASS
                                 Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
-                                intent.putExtra("mb_id", get_mb_id);
-                                intent.putExtra("GUID", get_GUID);
-                                intent.putExtra("name", Item.getinfo1());
                                 intent.putExtra("position", position-3);
+                                intent.putExtra("SelectedProfile", profile.toString());
                                 startActivity(intent);
                             }
                         }
                     });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                };
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-        // Add the request to the RequestQueue.}
-        queue.add(objRequest);
 
 
         exercise.setOnClickListener(new View.OnClickListener() {
