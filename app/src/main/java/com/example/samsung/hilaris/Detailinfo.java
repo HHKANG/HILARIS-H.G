@@ -11,19 +11,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ObjectInput;
 import java.io.Serializable;
 
 public class Detailinfo extends AppCompatActivity implements Serializable{
@@ -58,13 +49,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         */
         get_name = intent.getExtras().getString("name");
 
-        try {
-           profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
         exercise = (Button)findViewById(R.id.exercise_list);
         set_name.setText(get_name);
 
@@ -75,7 +59,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
 
 
         try {
-            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
             json = new JSON(profile);
             set_Birthdate.setText(json.getBirthdate());
         } catch (JSONException e) {

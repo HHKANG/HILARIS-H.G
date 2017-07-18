@@ -7,15 +7,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -50,6 +45,12 @@ public class Detail_bar_graph extends AppCompatActivity {
     String[] name = {"HandStrength", "LegStrength", "AgilityMovementUB", "AgilityReactionUB", "AgilityMovementUL", "AgilityReactionUL"};
     String[] LRdata = {"Left", "Right"};
 
+    String[] position_name = {"Upper Strength", "Lower Strength", "Upper Body Agility", "Upper Limb Agility"};
+
+    int count = 0;
+
+    JSONObject profile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,23 +60,20 @@ public class Detail_bar_graph extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        get_mb_id = intent.getExtras().getString("mb_id");
-        get_GUID = intent.getExtras().getString("GUID");
-        get_name = intent.getExtras().getString("name");
         get_postion = intent.getExtras().getInt("position");
 
         data_name = (TextView)findViewById(R.id.name_text);
         left_data = (TextView)findViewById(R.id.left_text);
         right_data = (TextView)findViewById(R.id.right_text);
 
-        data_name.setText(""+get_name);
+        data_name.setText(position_name[get_postion]);
 
         final double[][] graph_array = new double[4][];
 //Setting Graph's X axis
 
 
         try {
-            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
             json = new JSON(profile);
 
             for(int i=0; i < Bar_row; i++)
@@ -125,7 +123,49 @@ public class Detail_bar_graph extends AppCompatActivity {
 
 
 //Putting Data in Graph (sys) in First Graph
-    }
+
+        count = get_postion;
+                Button next_button = (Button)findViewById(R.id.button_next);
+                next_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(count == 3) {
+                            Intent intent = new Intent(getApplicationContext(), Detail_BloodPressureGraph.class);
+                            intent.putExtra("SelectedProfile", profile.toString());
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
+                            intent.putExtra("SelectedProfile", profile.toString());
+                            intent.putExtra("position", count + 1);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
+                Button prev_button = (Button)findViewById(R.id.button_prev);
+                prev_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            if(count == 0) {
+                                Intent intent = new Intent(getApplicationContext(), Detail_Flexibility_Graph.class);
+                                intent.putExtra("SelectedProfile", profile.toString());
+                                startActivity(intent);
+                                finish();
+                            }
+                        else {
+                                Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
+                                intent.putExtra("SelectedProfile", profile.toString());
+                                intent.putExtra("position", count - 1);
+                                startActivity(intent);
+                                finish();
+                            }
+                    }
+                });
+        }
+
     /**
      * Action Bar에 메뉴를 생성
      * @param menu

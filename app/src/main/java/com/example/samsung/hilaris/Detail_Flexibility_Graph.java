@@ -1,34 +1,20 @@
 package com.example.samsung.hilaris;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static com.example.samsung.hilaris.Detail_BloodPressureGraph.BP_SUBJECT_STATES;
-import static com.example.samsung.hilaris.Detail_BloodPressureGraph.BP_TEST_SITES;
 
 public class Detail_Flexibility_Graph extends Graph {
     public static final int FX_TEST_SITES = 2;      // Left Hand = 0 & right Hand = 1
@@ -46,6 +32,8 @@ public class Detail_Flexibility_Graph extends Graph {
     String get_mb_id;
     String get_GUID;
     int TagindexOfTable = 0;
+
+    JSONObject profile;
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +53,7 @@ public class Detail_Flexibility_Graph extends Graph {
 
 
         try {
-            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
             json = new JSON(profile);
             int Extension, Flextion;
             Extension = json.getExtension();
@@ -110,6 +98,29 @@ public class Detail_Flexibility_Graph extends Graph {
                     LateralFlextion.addSeries(addBarSeriesData(intFlex[0], "BLUE"));
                     LateralFlextion.getViewport().setMinY(0);
                     LateralFlextion.getViewport().setYAxisBoundsManual(true);
+
+        Button next_button = (Button)findViewById(R.id.button_next);
+        next_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
+                intent.putExtra("SelectedProfile", profile.toString());
+                intent.putExtra("position", 0);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        Button prev_button = (Button)findViewById(R.id.button_prev);
+        prev_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
+                intent.putExtra("SelectedProfile", profile.toString());
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
     /**

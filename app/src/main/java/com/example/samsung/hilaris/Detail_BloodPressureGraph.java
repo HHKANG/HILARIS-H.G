@@ -1,26 +1,19 @@
 package com.example.samsung.hilaris;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,6 +36,8 @@ public class Detail_BloodPressureGraph extends Graph {
     String get_GUID;
 
     int TagindexOfTable = 0;
+
+    JSONObject profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +51,7 @@ public class Detail_BloodPressureGraph extends Graph {
 
          LinearLayout = (LinearLayout) findViewById(R.id.linearLayout_table); // Linear Layout containing the table
         try {
-            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
             json = new JSON(profile);
 
             for(int testSites=0; testSites<BP_TEST_SITES; testSites++) {
@@ -105,6 +100,29 @@ public class Detail_BloodPressureGraph extends Graph {
                     graph2.addSeries(addLineSeriesData(intBloodPress[1][1], "GREEN", "BloodPressureRightDiastolic"));
 
 //Putting Data in Graph (sys) in First Graph
+
+        Button next_button = (Button)findViewById(R.id.button_next);
+        next_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
+                intent.putExtra("SelectedProfile", profile.toString());
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        Button prev_button = (Button)findViewById(R.id.button_prev);
+        prev_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
+                intent.putExtra("SelectedProfile", profile.toString());
+                intent.putExtra("position", 3);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     /**
      * Action Bar에 메뉴를 생성
