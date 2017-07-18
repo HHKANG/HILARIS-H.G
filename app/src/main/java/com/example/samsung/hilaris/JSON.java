@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class JSON extends JSONObject implements Serializable{
+public class JSON extends JSONObject implements Serializable {
 
     transient JSONObject json;
 

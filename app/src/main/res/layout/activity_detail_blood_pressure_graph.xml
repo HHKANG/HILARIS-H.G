@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="1"></TextView>
+                    android:tag="3"></TextView>
 
                 <TextView
                     android:id="@+id/textView_BPR_BEFORE_SYS"
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="7"></TextView>
+                    android:tag="9"></TextView>
 
             </LinearLayout>
 
@@ -106,28 +106,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="2"></TextView>
+                    android:tag="1"></TextView>
 
                 <TextView
                     android:id="@+id/textView_BPL_DURING_DIA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="3"></TextView>
+                    android:tag="4"></TextView>
 
                 <TextView
                     android:id="@+id/textView_BPR_DURING_SYS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="8"></TextView>
+                    android:tag="7"></TextView>
 
                 <TextView
                     android:id="@+id/textView_BPR_DURING_DIA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="9"></TextView>
+                    android:tag="10"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="4"></TextView>
+                    android:tag="2"></TextView>
 
                 <TextView
                     android:id="@+id/textView_BPL_AFTER_DIA"
@@ -162,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:tag="10"></TextView>
+                    android:tag="8"></TextView>
 
                 <TextView
                     android:id="@+id/textView_BPR_AFTER_DIA"

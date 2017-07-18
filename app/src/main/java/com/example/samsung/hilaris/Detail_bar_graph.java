@@ -73,21 +73,22 @@ public class Detail_bar_graph extends AppCompatActivity {
         final double[][] graph_array = new double[4][];
 //Setting Graph's X axis
 
-        String url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUser/"+get_mb_id+"/"+get_GUID;
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // Request a string response from the provided URL.
-        JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try{
-                    json = new JSON(response);
+
+        try {
+            JSONObject profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            json = new JSON(profile);
+
+            for(int i=0; i < Bar_row; i++)
+                for(int j =0; j < Bar_col; j++)
+                {
+                    Bar_array[i][j] = json.insert(name[i], LRdata[j]);
+                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //Getting Data
 
-                    for(int i=0; i < Bar_row; i++)
-                        for(int j =0; j < Bar_col; j++)
-                        {
-                           Bar_array[i][j] = json.insert(name[i], LRdata[j]);
-                        }
+
                     UB_left = Bar_array[2][0] + Bar_array[3][0];
                     UB_right = Bar_array[2][1]+ Bar_array[3][1];
                     UL_left = Bar_array[4][0] + Bar_array[5][0];
@@ -121,18 +122,7 @@ public class Detail_bar_graph extends AppCompatActivity {
 
                     graph.getViewport().setYAxisBoundsManual(true);
                     graph.getViewport().setMinY(0);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-        // Add the request to the RequestQueue.}
-        queue.add(objRequest);
+
 
 //Putting Data in Graph (sys) in First Graph
     }

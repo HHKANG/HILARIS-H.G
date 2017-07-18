@@ -60,7 +60,11 @@
 
     </LinearLayout>
 
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/history"
+        android:text="Compare History"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,4 +112,5 @@
             android:dividerHeight="4px"></ListView>
             </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

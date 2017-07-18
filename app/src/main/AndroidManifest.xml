@@ -25,7 +25,8 @@
         <activity android:name=".Detail_BloodPressureGraph" />
         <activity android:name=".Detail_HeartRateGraph" />
         <activity android:name=".Detail_bar_graph" />
-        <activity android:name=".Detail_Flexibility_Graph"></activity>
+        <activity android:name=".Detail_Flexibility_Graph" />
+        <activity android:name=".History"></activity>
     </application>
 
 </manifest>
