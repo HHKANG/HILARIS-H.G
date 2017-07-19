@@ -25,6 +25,8 @@ public class Graph extends AppCompatActivity{
         {
             Series.appendData(new DataPoint(index, array[index]), true, 10000);
         }
+        Series.setDrawDataPoints(true);
+        Series.setDataPointsRadius(10);
         Series.setAnimated(true);
         Series.setColor(Color.parseColor(color));
         Series.setTitle(title);
@@ -39,6 +41,8 @@ public class Graph extends AppCompatActivity{
         {
             Series.appendData(new DataPoint(index, array[index]), true, 10000);
         }
+        Series.setDrawDataPoints(true);
+        Series.setDataPointsRadius(10);
         Series.setAnimated(true);
         Series.setColor(Color.parseColor(color));
         return Series;
@@ -51,6 +55,8 @@ public class Graph extends AppCompatActivity{
         {
             Series.appendData(new DataPoint(index, array[index]), true, 10000);
         }
+        Series.setDrawDataPoints(true);
+        Series.setDataPointsRadius(10);
         Series.setAnimated(true);
         Series.setColor(Color.parseColor(color));
         Series.setTitle(title);
@@ -64,6 +70,8 @@ public class Graph extends AppCompatActivity{
         {
             Series.appendData(new DataPoint(index, array[index]), true, 10000);
         }
+        Series.setDrawDataPoints(true);
+        Series.setDataPointsRadius(10);
         Series.setAnimated(true);
         Series.setColor(Color.parseColor(color));
         return Series;
