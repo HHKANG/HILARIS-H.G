@@ -29,8 +29,6 @@ public class Detail_Flexibility_Graph extends Graph {
     TextView TextView_Extension;
     TextView TextView_Flexion;
     JSON json;
-    String get_mb_id;
-    String get_GUID;
     int TagindexOfTable = 0;
 
     JSONObject profile;
@@ -42,8 +40,6 @@ public class Detail_Flexibility_Graph extends Graph {
         setContentView(R.layout.activity_detail__flexibility__graph);
 
         Intent intent = getIntent();
-        get_mb_id = intent.getExtras().getString("mb_id");
-        get_GUID = intent.getExtras().getString("GUID");
         LinearLayout = (LinearLayout) findViewById(R.id.RotationBending); // Linear Layout containing the table
 
 
@@ -76,8 +72,6 @@ public class Detail_Flexibility_Graph extends Graph {
 
 
 //adding Items in Array
-
-
 
                     // valueItem = 0; //valueItem = 0 : Rotation, valueItem 1 : Lateral Flextion
                            //Setting graph UI of Graph 1 (Left)
@@ -123,11 +117,7 @@ public class Detail_Flexibility_Graph extends Graph {
         });
 
     }
-    /**
-     * Action Bar에 메뉴를 생성
-     * @param menu
-     * @return
-     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);

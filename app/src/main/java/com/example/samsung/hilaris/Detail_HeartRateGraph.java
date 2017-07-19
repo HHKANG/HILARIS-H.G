@@ -24,11 +24,7 @@ public class Detail_HeartRateGraph extends Graph {
     TextView[] textViews_HR_RATE = new TextView[HR_STATES];
     String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
 
-
     JSON json;
-    String get_mb_id;
-    String get_GUID;
-
     JSONObject profile;
 
     @Override
@@ -38,17 +34,13 @@ public class Detail_HeartRateGraph extends Graph {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-        get_mb_id = intent.getExtras().getString("mb_id");
-        get_GUID = intent.getExtras().getString("GUID");
 
         // Later Have to change the below code into for loop for simplicity of code
         textViews_HR_RATE[0] = (TextView) findViewById(R.id.textView_Before_HeartRate);
         textViews_HR_RATE[1] = (TextView) findViewById(R.id.textView_During_HeartRate);
         textViews_HR_RATE[2] = (TextView) findViewById(R.id.textView_After_HeartRate);
 
-
 //Setting Graph's X axis
-
         try {
             profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
             json = new JSON(profile);
@@ -61,7 +53,6 @@ public class Detail_HeartRateGraph extends Graph {
             e.printStackTrace();
         }
 //Getting Data
-
 
 //Setting graph UI of graph_HeartRate
                     GraphView graph_HeartRate = (GraphView) findViewById(R.id.graph_HeartRate);

@@ -32,8 +32,6 @@ public class Detail_BloodPressureGraph extends Graph {
     String[] strBpValuePair = {"Systolic", "Diastolic"}; //BP_VALUE_PAIR
 
     JSON json;
-    String get_mb_id;
-    String get_GUID;
 
     int TagindexOfTable = 0;
 
@@ -45,9 +43,6 @@ public class Detail_BloodPressureGraph extends Graph {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_detail_blood_pressure_graph);
         final Intent intent = getIntent();
-
-        get_mb_id = intent.getExtras().getString("mb_id");
-        get_GUID = intent.getExtras().getString("GUID");
 
          LinearLayout = (LinearLayout) findViewById(R.id.linearLayout_table); // Linear Layout containing the table
         try {
@@ -67,16 +62,7 @@ public class Detail_BloodPressureGraph extends Graph {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 //Getting Data and Saving into TextView and Array of Data
-
-                    //Putting Data in Graph by Using intBloodPress Array ( Array of Data )
-                    /*
-                        int BpValueSys=0;
-                        int BpValueDia=1;
-                        int testSitesL =0; //TestSites for LEFT
-                        int testSitesR =1; // TestSites for RIGHT
-                     */
 
 //Setting graph UI of Graph 1 (Left)
                     GraphView graph1 = (GraphView) findViewById(R.id.graph1);

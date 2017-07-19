@@ -23,9 +23,6 @@ public class Detail_bar_graph extends AppCompatActivity {
     int Left = 0;
     int Right = 1;
     JSON json;
-    String get_name;
-    String get_mb_id;
-    String get_GUID;
 
     double UB_left;
     double UB_right;
@@ -85,8 +82,6 @@ public class Detail_bar_graph extends AppCompatActivity {
             e.printStackTrace();
         }
 //Getting Data
-
-
                     UB_left = Bar_array[2][0] + Bar_array[3][0];
                     UB_right = Bar_array[2][1]+ Bar_array[3][1];
                     UL_left = Bar_array[4][0] + Bar_array[5][0];
@@ -120,7 +115,6 @@ public class Detail_bar_graph extends AppCompatActivity {
 
                     graph.getViewport().setYAxisBoundsManual(true);
                     graph.getViewport().setMinY(0);
-
 
 //Putting Data in Graph (sys) in First Graph
 
@@ -166,11 +160,6 @@ public class Detail_bar_graph extends AppCompatActivity {
                 });
         }
 
-    /**
-     * Action Bar에 메뉴를 생성
-     * @param menu
-     * @return
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
