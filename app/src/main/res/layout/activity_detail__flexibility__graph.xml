@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text = "LateralFlextion"/>
+                    android:text = "LateralFlexion"/>
 
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                     android:tag = "0"/>
 
                 <TextView
-                    android:id="@+id/textView_LateralFlextion_left"
+                    android:id="@+id/textView_LateralFlexion_left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -91,7 +91,7 @@
                     android:id="@+id/textView_Rotation_right"
                     android:tag = "1"/>
                 <TextView
-                    android:id="@+id/textView_LateralFlextion_right"
+                    android:id="@+id/textView_LateralFlexion_right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text = "Flextion"
+                    android:text = "Flexion"
                     />
                 <TextView
                     android:id="@+id/textView_Extension_text"
@@ -150,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:id="@+id/textView_Flextion_Value"/>
+                    android:id="@+id/textView_Flexion_Value"/>
                 <TextView
                     android:id="@+id/textView_Extension_Value"
                     android:layout_width="match_parent"
@@ -166,7 +166,7 @@
             android:layout_weight="1" />
 
         <com.jjoe64.graphview.GraphView
-            android:id="@+id/graph_LateralFlextion"
+            android:id="@+id/graph_LateralFlexion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

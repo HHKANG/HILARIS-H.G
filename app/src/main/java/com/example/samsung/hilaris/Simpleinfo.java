@@ -33,8 +33,8 @@ public class Simpleinfo extends AppCompatActivity {
     String get_mb_id;
     ListView listView;
     ListView recentlistView;
-    ListViewAdapter recentadapter;
-    ListViewAdapter adapter;
+    simpleInfo_ListViewAdapter recentadapter;
+    simpleInfo_ListViewAdapter adapter;
     JSONObject[] Tests;
     JSONObject[] History = new JSONObject[History_Data];
     @Override
@@ -54,8 +54,8 @@ public class Simpleinfo extends AppCompatActivity {
         set_BirthDate = (TextView) findViewById(R.id.BirthDate);
 
         set_name.setText(get_name);
-        recentadapter = new ListViewAdapter();
-        adapter = new ListViewAdapter();
+        recentadapter = new simpleInfo_ListViewAdapter();
+        adapter = new simpleInfo_ListViewAdapter();
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUserJSON/" + get_mb_id;
@@ -133,12 +133,17 @@ public class Simpleinfo extends AppCompatActivity {
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), History.class);
-                for(int i =0; i < Tests.length; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
-                {
-                    intent.putExtra("JSONObject"+i, Tests[i].toString());
+                if(Tests.length <2) {
+                    Toast.makeText(Simpleinfo.this, "Exception Occured : Results must exist at least 2", Toast.LENGTH_SHORT).show();
+                } // When labeling the x axis in the graph, Data needs to be at least 2
+                else {
+                    Intent intent = new Intent(getApplicationContext(), History_list.class);
+                    for (int i = 0; i < History_Data; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
+                    {
+                        intent.putExtra("JSONObject" + i, Tests[i].toString());
+                    }
+                    startActivity(intent);
                 }
-                startActivity(intent);
             }
         });
     }

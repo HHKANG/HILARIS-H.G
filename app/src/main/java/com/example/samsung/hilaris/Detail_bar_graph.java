@@ -165,7 +165,6 @@ public class Detail_bar_graph extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.logout_menu, menu);
         return true;
     }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

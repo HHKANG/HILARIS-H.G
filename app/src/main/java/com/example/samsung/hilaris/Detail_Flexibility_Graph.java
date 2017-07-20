@@ -23,7 +23,7 @@ public class Detail_Flexibility_Graph extends Graph {
     int[][] intFlex = new int[FX_VALUE_ITEMS][FX_TEST_SITES];
 
     String[] strTestSites = {"Left", "Right"};
-    String[] strValueItems = {"Rotation", "LateralFlextion"};
+    String[] strValueItems = {"Rotation", "LateralFlexion"};
     LinearLayout LinearLayout;
     TextView[] RotationBending = new TextView[4];
     TextView TextView_Extension;
@@ -44,18 +44,18 @@ public class Detail_Flexibility_Graph extends Graph {
 
 
         TextView_Extension = (TextView) findViewById(R.id.textView_Extension_Value);
-        TextView_Flexion = (TextView) findViewById(R.id.textView_Flextion_Value);
+        TextView_Flexion = (TextView) findViewById(R.id.textView_Flexion_Value);
 
 
 
         try {
             profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
             json = new JSON(profile);
-            int Extension, Flextion;
+            int Extension, Flexion;
             Extension = json.getExtension();
-            Flextion = json.getFlexion();
+            Flexion = json.getFlexion();
             TextView_Extension.setText(""+Extension);
-            TextView_Flexion.setText(""+Flextion);
+            TextView_Flexion.setText(""+Flexion);
 
             for (int valueItem = 0; valueItem < FX_VALUE_ITEMS; valueItem++)
                 for(int testSites=0; testSites<FX_TEST_SITES; testSites++)
@@ -73,25 +73,25 @@ public class Detail_Flexibility_Graph extends Graph {
 
 //adding Items in Array
 
-                    // valueItem = 0; //valueItem = 0 : Rotation, valueItem 1 : Lateral Flextion
+                    // valueItem = 0; //valueItem = 0 : Rotation, valueItem 1 : Lateral Flexion
                            //Setting graph UI of Graph 1 (Left)
                     GraphView Rotation = (GraphView) findViewById(R.id.graph_Rotation);
                     StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(Rotation);
                     staticLabelsFormatter1.setHorizontalLabels(strTestSites);
                     Rotation.setTitle(strValueItems[0]);//Rotation
                     Rotation.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
-                    Rotation.addSeries(addBarSeriesData(intFlex[1], "BLUE"));
+                    Rotation.addSeries(addBarSeriesData(intFlex[0], "BLUE"));
                     Rotation.getViewport().setMinY(0);
                     Rotation.getViewport().setYAxisBoundsManual(true);
 //Setting graph UI of Graph 1 (Right)
-                    GraphView LateralFlextion= (GraphView) findViewById(R.id.graph_LateralFlextion);
-                    StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(LateralFlextion);
+                    GraphView LateralFlexion= (GraphView) findViewById(R.id.graph_LateralFlexion);
+                    StaticLabelsFormatter staticLabelsFormatter2 = new StaticLabelsFormatter(LateralFlexion);
                     staticLabelsFormatter2.setHorizontalLabels(strTestSites);
-                    LateralFlextion.setTitle(strValueItems[1]); //Lateral Flextion
-                    LateralFlextion.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
-                    LateralFlextion.addSeries(addBarSeriesData(intFlex[0], "BLUE"));
-                    LateralFlextion.getViewport().setMinY(0);
-                    LateralFlextion.getViewport().setYAxisBoundsManual(true);
+                    LateralFlexion.setTitle(strValueItems[1]); //Lateral Flexion
+                    LateralFlexion.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter2);
+                    LateralFlexion.addSeries(addBarSeriesData(intFlex[1], "BLUE"));
+                    LateralFlexion.getViewport().setMinY(0);
+                    LateralFlexion.getViewport().setYAxisBoundsManual(true);
 
         Button next_button = (Button)findViewById(R.id.button_next);
         next_button.setOnClickListener(new View.OnClickListener() {

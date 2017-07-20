@@ -11,12 +11,12 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class ListViewAdapter extends BaseAdapter {
+public class simpleInfo_ListViewAdapter extends BaseAdapter {
 
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
 
     // ListViewAdapter의 생성자
-    public ListViewAdapter() {
+    public simpleInfo_ListViewAdapter() {
 
     }
 

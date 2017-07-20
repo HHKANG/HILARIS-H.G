@@ -794,11 +794,11 @@ public class JSON extends JSONObject implements Serializable {
     public int getExtension()  throws JSONException {
         return json.getInt("Extension");
     }
-    public int geLateralFlextionLeft()  throws JSONException {
-        return json.getInt("LateralFlextionLeft");
+    public int geLateralFlexionLeft()  throws JSONException {
+        return json.getInt("LateralFlexionLeft");
     }
-    public int getLateralFlextionRight()  throws JSONException {
-        return json.getInt("LateralFlextionRight");
+    public int getLateralFlexionRight()  throws JSONException {
+        return json.getInt("LateralFlexionRight");
     }
     public int getRotationLeft()  throws JSONException {
         return json.getInt("RotationLeft");
@@ -822,7 +822,10 @@ public class JSON extends JSONObject implements Serializable {
     }
     public int getFlexLR(String strValueIem, String strTestSite) throws JSONException {
         return json.getInt(strValueIem+strTestSite);
-    }
+    } //Rotation, Bending
+    public int getFlexLR(String strValueIem) throws JSONException {
+        return json.getInt(strValueIem);
+    } //Extension, Flexion
 
     public String getStringObject(String string) throws JSONException {
         return json.getString(string);
