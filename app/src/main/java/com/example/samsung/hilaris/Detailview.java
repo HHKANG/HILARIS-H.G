@@ -19,6 +19,7 @@ public class Detailview extends AppCompatActivity {
     Button start;
     Button stop;
     Button reset;
+    Button show_HR;
 
     int num;
     int time;
@@ -99,11 +100,7 @@ public class Detailview extends AppCompatActivity {
             }
         });
     }
-    /**
-     * Action Bar에 메뉴를 생성
-     * @param menu
-     * @return
-     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
