@@ -22,10 +22,11 @@ import org.json.JSONObject;
 
 public class History extends Graph {
 
-
-    //HeartRate
+    private final int HISTORY_DATA = 1; // 임시로1로 해놓음,, (받아올 DATA들의 수)
     private final int HISTORY_HEARTRATE_STATES=3; //REST, STIM, RECV
-    //Blood Pressure
+    private final int History_States = 2; // Left = 0 & Right = 1
+    private final int ATTRIBUTE = 2;
+
     public static final int BP_TEST_SITES = 2;      // Left Hand = 0 & right Hand = 1
     public static final int BP_SUBJECT_STATES = 3; // Rest State, Stimulus State, Recovery State
     public static final int BP_VALUE_PAIR = 2;
@@ -39,10 +40,14 @@ public class History extends Graph {
     public static final int numOfCategory = 3;  // Num Of category In History List (BloodPressure, HeartRate, Flexibility, Strength, Agility
 
     private final int HISTORY_DATA = 1; // 임시로1로 해놓음,, (받아올 DATA들의 수)
+    int Category = 2;
+
     protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
     protected JSON[] HISTORY_JSON = new JSON[HISTORY_DATA];
 
     protected double[][] History_Data = new double[HISTORY_HEARTRATE_STATES][HISTORY_DATA];
+    protected double[][][] History_Agility = new double[ATTRIBUTE][History_States][HISTORY_DATA];
+    protected double[][][] History_Strength_Data = new double[Category][History_States][HISTORY_DATA];
     public int[][][][] intBloodPress = new int[BP_TEST_SITES][BP_VALUE_PAIR][BP_SUBJECT_STATES][HISTORY_DATA];
     int[][][] intFlex_Rotation_LateralFlexion = new int[FX_VALUE_ITEMS][FX_TEST_SITES][HISTORY_DATA];
     int[][] intFlex_Extension_Flexion = new int[FX_VALUE_ITEMS][HISTORY_DATA];
@@ -56,8 +61,12 @@ public class History extends Graph {
     //BloodPressure
     String[] strTestSites = {"Left", "Right"}; //BP_TEST_SITES //Roation, LateralFlexion = Bending
     String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
+    String[] strTestSites = {"Left", "Right"}; //BP_TEST_SITES
+    String[] strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
     String[] strBpValuePair = {"Systolic", "Diastolic"}; //BP_VALUE_PAIR
 
+    String[] strStrengthName = {"HandStrength", "LegStrength"};
+    String[] strAgilityName = {"UB", "UL"};
     String[] color= {"BLUE", "GREEN", "CYAN"}; //add Color
     String Position = "position";
 
@@ -69,9 +78,14 @@ public class History extends Graph {
     private final int BloodPressure = 0;
     private final int HeartRate = 1;
     private final int Flexibility = 2;
+    private final int Strength= 3;
+    private final int Agility = 4;
+
     Button next_button ;
     Button prev_button ;
     int position;
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +151,6 @@ public class History extends Graph {
                 MakeHeartRateHistory(graph_history[0]);
                 break;
             case Flexibility :
-
                 setContentView(R.layout.activity_history_flexibility);
                 linearLayout = (LinearLayout) findViewById(R.id.graph_linear);
                 next_button = (Button)findViewById(R.id.button_next);
@@ -159,7 +172,26 @@ public class History extends Graph {
                 }
                 MakeFlexibilityHistory(graph_history);
                 break;
-
+            case Strength :
+                setContentView(R.layout.strength_hisoty);
+                linearLayout = (LinearLayout)findViewById(R.id.graph_linear);
+                for(int num = 0; num < 2; num++){
+                    graph_history[num] = (GraphView)linearLayout.findViewWithTag(""+num);
+                }
+                MakeStrengthHistory(graph_history);
+                break;
+            case Agility :
+                setContentView(R.layout.agility_history);
+                linearLayout = (LinearLayout)findViewById(R.id.graph_linear);
+                for(int num = 0; num < 2; num++){
+                    graph_history[num] = (GraphView)linearLayout.findViewWithTag(""+num);
+                }
+                try {
+                    AgilityHistory(graph_history);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
@@ -217,6 +249,7 @@ public class History extends Graph {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         try {
             for (int i = 0; i < HISTORY_DATA; i++) //
             {
@@ -369,5 +402,52 @@ public class History extends Graph {
 
     }
 
+        for (int name = 0; name < strStrengthName.length; name++){
+            for(int testSites=0; testSites<History_States; testSites++) {
+                graph_history[index].addSeries(addLineSeriesData(History_Strength_Data[name][testSites], color[testSites], strStrengthName[name]+strTestSites[testSites]));
+            }
+            graph_history[index].setTitle(strStrengthName[name]);
+            graph_history[index].getLegendRenderer().setVisible(true);
+            graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            index ++;
+        }
+    }
+
+    public void AgilityHistory(GraphView[] graph_history) throws JSONException {
+        try{
+            for(int j = 0; j < ATTRIBUTE; j++) {
+                for (int states = 0; states < History_States; states++) {
+                    for (int i = 0; i < HISTORY_DATA; i++) {
+                        History_JSONOBJECT[i] = new JSONObject(getIntent().getStringExtra("JSONObject" + i));
+                        HISTORY_JSON[i] = new JSON(History_JSONOBJECT[i]);
+                        History_Agility[j][states][i] = HISTORY_JSON[i].getAgility(strTestSites[states], strAgilityName[j]);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            for (int i = 0; i < HISTORY_DATA; i++) //
+            {
+                JSONObjectDate[i] = HISTORY_JSON[i].getTestDate();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        int index =0 ;
+        for (int name = 0; name < strAgilityName.length; name++){
+            for(int testSites=0; testSites<History_States; testSites++) {
+                graph_history[index].addSeries(addLineSeriesData(History_Agility[name][testSites], color[testSites], strAgilityName[name]+strTestSites[testSites]));
+            }
+            graph_history[index].setTitle(strAgilityName[name]);
+            graph_history[index].getLegendRenderer().setVisible(true);
+            graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            index ++;
+        }
+    }
+}
 
 
