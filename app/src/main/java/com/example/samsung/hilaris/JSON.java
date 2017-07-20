@@ -824,6 +824,39 @@ public class JSON extends JSONObject implements Serializable {
         return json.getInt(strValueIem+strTestSite);
     }
 
+    public int getStrength(String state, String name) throws  JSONException {
+        return json.getInt(name+state);
+    }
+
+    public double getAgility(String state, String name) throws  JSONException{
+        double Agility = 0;
+        if(name == "UB" && state == "Left")
+            Agility = UBLeft();
+        else if(name == "UB" && state == "Right")
+            Agility = UBRight();
+        else if(name =="UL" && state == "Left")
+            Agility = ULLeft();
+        else if(name == "UL" && state == "Right")
+            Agility = ULRight();
+        return Agility;
+    }
+
+    public double UBLeft() throws JSONException{
+        return getAgilityReactionUBLeft() + getAgilityMovementUBLeft();
+    }
+
+    public double UBRight() throws JSONException{
+        return getAgilityReactionUBRight() + getAgilityMovementUBRight();
+    }
+
+    public double ULLeft() throws JSONException{
+        return getAgilityReactionULLeft() + getAgilityMovementULLeft();
+    }
+
+    public double ULRight() throws JSONException{
+        return getAgilityReactionULRight() + getAgilityMovementULRight();
+    }
+
     public String getStringObject(String string) throws JSONException {
         return json.getString(string);
     }
