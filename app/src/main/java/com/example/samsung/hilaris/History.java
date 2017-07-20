@@ -8,14 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LabelFormatter;
+
 import com.jjoe64.graphview.LegendRenderer;
-import com.jjoe64.graphview.Viewport;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,9 +34,7 @@ public class History extends Graph {
     public static final int FX_VALUE_ITEMS= 2;      // Rotation, Bending     || Extension, Flexion
     //
     public static final int NumOfGraph = 4;
-    public static final int numOfCategory = 3;  // Num Of category In History List (BloodPressure, HeartRate, Flexibility, Strength, Agility
-
-    private final int HISTORY_DATA = 1; // 임시로1로 해놓음,, (받아올 DATA들의 수)
+    public static final int numOfCategory = 5;  // Num Of category In History List (BloodPressure, HeartRate, Flexibility, Strength, Agility
     int Category = 2;
 
     protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
@@ -59,8 +54,7 @@ public class History extends Graph {
     String[] strFlexValueItems = {"Rotation", "LateralFlexion"};
     String[] strRotFlexValueItems = {"Extension", "Flexion"};
     //BloodPressure
-    String[] strTestSites = {"Left", "Right"}; //BP_TEST_SITES //Roation, LateralFlexion = Bending
-    String[]strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
+
     String[] strTestSites = {"Left", "Right"}; //BP_TEST_SITES
     String[] strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
     String[] strBpValuePair = {"Systolic", "Diastolic"}; //BP_VALUE_PAIR
@@ -85,9 +79,7 @@ public class History extends Graph {
     Button prev_button ;
     int position;
 
-
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
@@ -99,11 +91,6 @@ public class History extends Graph {
         position = intent.getExtras().getInt(Position);
 
         position = (position + numOfCategory) % numOfCategory; //for Circular rotation
-
-
-
-
-
 
         switch(position)
         {
@@ -172,17 +159,47 @@ public class History extends Graph {
                 }
                 MakeFlexibilityHistory(graph_history);
                 break;
+
             case Strength :
-                setContentView(R.layout.strength_hisoty);
+                setContentView(R.layout.activity_history_strength);
                 linearLayout = (LinearLayout)findViewById(R.id.graph_linear);
+                next_button = (Button)findViewById(R.id.button_next);
+                prev_button = (Button)findViewById(R.id.button_prev);
+                next_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onNextClick(v);
+                    }
+                });
+                prev_button.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        onPrevClick(v);
+                    }
+                });
                 for(int num = 0; num < 2; num++){
                     graph_history[num] = (GraphView)linearLayout.findViewWithTag(""+num);
                 }
                 MakeStrengthHistory(graph_history);
                 break;
+
             case Agility :
-                setContentView(R.layout.agility_history);
+                setContentView(R.layout.activity_history_agility);
                 linearLayout = (LinearLayout)findViewById(R.id.graph_linear);
+                next_button = (Button)findViewById(R.id.button_next);
+                prev_button = (Button)findViewById(R.id.button_prev);
+                next_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onNextClick(v);
+                    }
+                });
+                prev_button.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        onPrevClick(v);
+                    }
+                });
                 for(int num = 0; num < 2; num++){
                     graph_history[num] = (GraphView)linearLayout.findViewWithTag(""+num);
                 }
@@ -194,7 +211,6 @@ public class History extends Graph {
                 break;
         }
     }
-
     public void MakeHeartRateHistory(GraphView graph_history1) {
         try {
             for (int states = 0; states < HISTORY_HEARTRATE_STATES; states++) {
@@ -218,9 +234,11 @@ public class History extends Graph {
         }
 
        //works only when HISTORY DATA is at least 2
+        /*
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history1);
             staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
             graph_history1.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        */
 
 
         graph_history1.setTitle("HeartRate");
@@ -267,11 +285,11 @@ public class History extends Graph {
                 for (int subjectStates = 0; subjectStates < BP_SUBJECT_STATES; subjectStates++) {
                     graph_history[index].addSeries(addLineSeriesData(intBloodPress[testSites][valuePair][subjectStates], color[subjectStates], strTestSites[testSites]+strBpValuePair[valuePair]));
                 }
-
+/*
                 StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
                 staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
                 graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
+*/
                 graph_history[index].setTitle(strTestSites[testSites]+strBpValuePair[valuePair]);
                 graph_history[index].getLegendRenderer().setVisible(true);
                 graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -315,11 +333,11 @@ public class History extends Graph {
                 for(int testSites=0; testSites<FX_TEST_SITES; testSites++) {
                 graph_history[index].addSeries(addLineSeriesData(intFlex_Rotation_LateralFlexion[valuePair][testSites], color[testSites], strFlexValueItems[valuePair]+strTestSites[testSites] ));
             }
-
+/*
                 StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
                 staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
                 graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
+*/
                 graph_history[index].setTitle(strFlexValueItems[valuePair]);
                 graph_history[index].getLegendRenderer().setVisible(true);
                 graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -347,11 +365,11 @@ public class History extends Graph {
         for(int valueItem=0; valueItem<FX_VALUE_ITEMS; valueItem++) {
             graph_history[index].addSeries(addLineSeriesData(intFlex_Extension_Flexion[valueItem], color[valueItem], strRotFlexValueItems[valueItem]));
         }
-
+/*
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
         staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
         graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
+*/
         graph_history[index].setTitle(strRotFlexValueItems[0]+"," + strRotFlexValueItems[1]);
         graph_history[index].getLegendRenderer().setVisible(true);
         graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -359,60 +377,49 @@ public class History extends Graph {
         graph_history[index].getViewport().setYAxisBoundsManual(true);
         index ++;
         }
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
-        return true;
-    }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-
-            case R.id.logout:
-                Intent intent = new Intent(History.this, Login.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void onNextClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), History.class);
-            intent.putExtra(Position, position + 1);
-        for(int i =0; i < HISTORY_DATA; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
-        {
-            intent.putExtra("JSONObject"+i, History_JSONOBJECT[i].toString());
-        }
-            startActivity(intent);
-            finish();
-        }
-    public void onPrevClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), History.class);
-            intent.putExtra(Position, position- 1);
-        for(int i =0; i < HISTORY_DATA; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
-        {
-            intent.putExtra("JSONObject"+i, History_JSONOBJECT[i].toString());
-        }
-            startActivity(intent);
-            finish();
+    public void MakeStrengthHistory(GraphView[] graph_history){
+        try{
+            for(int j = 0; j < Category; j++) {
+                for (int states = 0; states < History_States; states++) {
+                    for (int i = 0; i < HISTORY_DATA; i++) {
+                        History_JSONOBJECT[i] = new JSONObject(getIntent().getStringExtra("JSONObject" + i));
+                        HISTORY_JSON[i] = new JSON(History_JSONOBJECT[i]);
+                        History_Strength_Data[j][states][i] = HISTORY_JSON[i].getStrength(strTestSites[states], strStrengthName[j]);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-    }
-
+        try {
+            for (int i = 0; i < HISTORY_DATA; i++) //
+            {
+                JSONObjectDate[i] = HISTORY_JSON[i].getTestDate();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //STATICLABEL -- > GRAPH 의 X 축을 JSONOBJECTDATE를 이용하여 설정하는 법....
+        //graph_history.getGridLabelRenderer().setLabelFormatter(labelsFormatter);
+        int index =0 ;
         for (int name = 0; name < strStrengthName.length; name++){
             for(int testSites=0; testSites<History_States; testSites++) {
                 graph_history[index].addSeries(addLineSeriesData(History_Strength_Data[name][testSites], color[testSites], strStrengthName[name]+strTestSites[testSites]));
             }
+            /*
+            StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
+            staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
+            graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+            */
             graph_history[index].setTitle(strStrengthName[name]);
             graph_history[index].getLegendRenderer().setVisible(true);
             graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            graph_history[index].getViewport().setMinY(0);
+            graph_history[index].getViewport().setYAxisBoundsManual(true);
             index ++;
         }
     }
-
     public void AgilityHistory(GraphView[] graph_history) throws JSONException {
         try{
             for(int j = 0; j < ATTRIBUTE; j++) {
@@ -442,12 +449,59 @@ public class History extends Graph {
             for(int testSites=0; testSites<History_States; testSites++) {
                 graph_history[index].addSeries(addLineSeriesData(History_Agility[name][testSites], color[testSites], strAgilityName[name]+strTestSites[testSites]));
             }
+            /*
+            StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
+            staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
+            graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+            */
             graph_history[index].setTitle(strAgilityName[name]);
             graph_history[index].getLegendRenderer().setVisible(true);
             graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            graph_history[index].getViewport().setMinY(0);
+            graph_history[index].getViewport().setYAxisBoundsManual(true);
             index ++;
         }
     }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            case R.id.logout:
+                Intent intent = new Intent(History.this, Login.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void onNextClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), History.class);
+            intent.putExtra(Position, position + 1);
+        for(int i =0; i < HISTORY_DATA; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
+        {
+            intent.putExtra("JSONObject"+i, History_JSONOBJECT[i].toString());
+        }
+            startActivity(intent);
+            finish();
+        }
+    public void onPrevClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), History.class);
+            intent.putExtra(Position, position- 1);
+        for(int i =0; i < HISTORY_DATA; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
+        {
+            intent.putExtra("JSONObject"+i, History_JSONOBJECT[i].toString());
+        }
+            startActivity(intent);
+            finish();
+        }
 }
+
 
 

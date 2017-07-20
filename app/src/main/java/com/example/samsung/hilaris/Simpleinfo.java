@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Simpleinfo extends AppCompatActivity {
-    private final int History_Data = 3; //Num of Data to compare in History
+    private final int History_Data = 1; //Num of Data to compare in History
     Button history;
     TextView set_name;
     TextView set_BirthDate;
@@ -133,18 +133,20 @@ public class Simpleinfo extends AppCompatActivity {
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 if(Tests.length <2) {
                     Toast.makeText(Simpleinfo.this, "Exception Occured : Results must exist at least 2", Toast.LENGTH_SHORT).show();
                 } // When labeling the x axis in the graph, Data needs to be at least 2
-                else {
+                */
+               // else {
                     Intent intent = new Intent(getApplicationContext(), History_list.class);
+
                     for (int i = 0; i < History_Data; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
                     {
                         intent.putExtra("JSONObject" + i, Tests[i].toString());
                     }
                     startActivity(intent);
                 }
-            }
         });
     }
     /**
