@@ -1,8 +1,8 @@
 package com.example.samsung.hilaris;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -34,19 +34,46 @@ public class History extends Graph {
     String[] color= {"BLUE", "GREEN", "CYAN"}; //add Color
     GraphView[] graph_history = new GraphView[NumOfGraph];
     LinearLayout linearLayout;
+
+    //Get Position
+    private final int BloodPressure = 0;
+    private final int HeartRate = 1;
+    private final int Flexibility = 2;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position" , 0);
 
-        linearLayout = (LinearLayout) findViewById(R.id.graph_linear);
+        position = 1;
 
-        for(int graphNum =0 ; graphNum< NumOfGraph; graphNum++) {
-            graph_history[graphNum] = (GraphView) linearLayout.findViewWithTag(""+graphNum);
+
+        switch(position)
+        {
+            case  BloodPressure:
+                setContentView(R.layout.activity_history_bloodpressure);
+                linearLayout = (LinearLayout) findViewById(R.id.graph_linear);
+                for(int graphNum =0 ; graphNum< NumOfGraph; graphNum++) {
+                    graph_history[graphNum] = (GraphView) linearLayout.findViewWithTag(""+graphNum);
+                }
+                MakeBloodPressureHistory(graph_history);
+                break;
+
+            case HeartRate :
+                setContentView(R.layout.activity_history_heartrate);
+                linearLayout = (LinearLayout) findViewById(R.id.graph_linear);
+                graph_history[0] = (GraphView) linearLayout.findViewWithTag(""+0);
+                MakeHeartRateHistory(graph_history[0]);
+                break;
+
+
         }
 
-       // MakeHeartRateHistory(graph_history[0]);
-        MakeBloodPressureHistory(graph_history);
+
+
+
+
     }
 
     public void MakeHeartRateHistory(GraphView graph_history1) {
