@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Simpleinfo extends AppCompatActivity {
-    private final int History_Data = 1; //Num of Data to compare in History
+    private final int History_Data = 3; //Num of Data to compare in History
     Button history;
     TextView set_name;
     TextView set_BirthDate;
@@ -36,7 +36,7 @@ public class Simpleinfo extends AppCompatActivity {
     simpleInfo_ListViewAdapter recentadapter;
     simpleInfo_ListViewAdapter adapter;
     JSONObject[] Tests;
-    JSONObject[] History = new JSONObject[History_Data];
+    String SelectedProfile = "SelectedProfile";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -89,7 +89,7 @@ public class Simpleinfo extends AppCompatActivity {
                             intent.putExtra("mb_id", get_mb_id);
                             intent.putExtra("GUID", GUID.getinfo6());
                             intent.putExtra("name", get_name);
-                            intent.putExtra("SelectedProfile", Tests[0].toString());
+                            intent.putExtra(SelectedProfile, Tests[0].toString());
                     startActivity(intent);
                 }
                     });
@@ -111,7 +111,7 @@ public class Simpleinfo extends AppCompatActivity {
 
                             Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
                             intent.putExtra("name", get_name);
-                            intent.putExtra("SelectedProfle", Tests[position].toString());
+                            intent.putExtra(SelectedProfile, Tests[position].toString());
                             startActivity(intent);
                         }
                     });
@@ -133,12 +133,12 @@ public class Simpleinfo extends AppCompatActivity {
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
+
                 if(Tests.length <2) {
                     Toast.makeText(Simpleinfo.this, "Exception Occured : Results must exist at least 2", Toast.LENGTH_SHORT).show();
                 } // When labeling the x axis in the graph, Data needs to be at least 2
-                */
-               // else {
+
+                else {
                     Intent intent = new Intent(getApplicationContext(), History_list.class);
 
                     for (int i = 0; i < History_Data; i++) // change length to HISTORY LENGTH  WHEN THERE ARE MORE THAN 3 DATAS
@@ -146,6 +146,7 @@ public class Simpleinfo extends AppCompatActivity {
                         intent.putExtra("JSONObject" + i, Tests[i].toString());
                     }
                     startActivity(intent);
+                }
                 }
         });
     }

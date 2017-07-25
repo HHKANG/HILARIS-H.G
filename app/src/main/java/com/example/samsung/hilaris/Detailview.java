@@ -140,3 +140,6 @@ public class Detailview extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+/*ImageView imageView = findViewById(R.id.image);
+String url = "www.foobar.com/" + path;
+Glide.with(context).load(url).into(imageView*/
