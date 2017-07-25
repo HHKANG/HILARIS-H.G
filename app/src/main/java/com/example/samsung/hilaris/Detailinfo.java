@@ -24,7 +24,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
     String get_name;
     ListView listView;
     DetailInfoListViewAdapter adapter;
-
+    String SelectedProfile = "SelectedProfile";
     JSONObject profile;
     JSON json;
 
@@ -52,7 +52,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         listView.setAdapter(adapter);
 
         try {
-            profile = new JSONObject(intent.getStringExtra("SelectedProfile"));
+            profile = new JSONObject(intent.getStringExtra(SelectedProfile));
             json = new JSON(profile);
             set_Birthdate.setText(json.getBirthdate());
         } catch (JSONException e) {
@@ -77,20 +77,20 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                             if(position==0) {
                                 Intent intent = new Intent(getApplicationContext(), Detail_BloodPressureGraph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
-                                intent.putExtra("SelectedProfile", profile.toString());
+                                intent.putExtra(SelectedProfile, profile.toString());
                                 startActivity(intent);
                             }
                             else if(position==1) {
                                 Intent intent = new Intent(getApplicationContext(), Detail_HeartRateGraph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
-                                intent.putExtra("SelectedProfile", profile.toString());
+                                intent.putExtra(SelectedProfile, profile.toString());
                                 startActivity(intent);
                             }
                             else if(position == 2)
                             {
                                 Intent intent = new Intent(getApplicationContext(), Detail_Flexibility_Graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
-                                intent.putExtra("SelectedProfile", profile.toString());
+                                intent.putExtra(SelectedProfile, profile.toString());
                                 startActivity(intent);
                             }
                             else {
@@ -98,7 +98,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                                 Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
                                 DetailInfoItem Item = (DetailInfoItem) listView.getItemAtPosition(position);
                                 intent.putExtra("position", position-3);
-                                intent.putExtra("SelectedProfile", profile.toString());
+                                intent.putExtra(SelectedProfile, profile.toString());
                                 startActivity(intent);
                             }
                         }

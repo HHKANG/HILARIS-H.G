@@ -13,13 +13,14 @@ import android.widget.LinearLayout;
 import com.jjoe64.graphview.GraphView;
 
 import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class History extends Graph {
 
-    private final int HISTORY_DATA = 1; // 임시로1로 해놓음,, (받아올 DATA들의 수)
+    private final int HISTORY_DATA = 3; // 임시로1로 해놓음,, (받아올 DATA들의 수)
     private final int HISTORY_HEARTRATE_STATES=3; //REST, STIM, RECV
     private final int History_States = 2; // Left = 0 & Right = 1
     private final int ATTRIBUTE = 2;
@@ -35,7 +36,7 @@ public class History extends Graph {
     //
     public static final int NumOfGraph = 4;
     public static final int numOfCategory = 5;  // Num Of category In History List (BloodPressure, HeartRate, Flexibility, Strength, Agility
-    int Category = 2;
+    public static final int Category = 2;
 
     protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
     protected JSON[] HISTORY_JSON = new JSON[HISTORY_DATA];
@@ -43,9 +44,9 @@ public class History extends Graph {
     protected double[][] History_Data = new double[HISTORY_HEARTRATE_STATES][HISTORY_DATA];
     protected double[][][] History_Agility = new double[ATTRIBUTE][History_States][HISTORY_DATA];
     protected double[][][] History_Strength_Data = new double[Category][History_States][HISTORY_DATA];
-    public int[][][][] intBloodPress = new int[BP_TEST_SITES][BP_VALUE_PAIR][BP_SUBJECT_STATES][HISTORY_DATA];
-    int[][][] intFlex_Rotation_LateralFlexion = new int[FX_VALUE_ITEMS][FX_TEST_SITES][HISTORY_DATA];
-    int[][] intFlex_Extension_Flexion = new int[FX_VALUE_ITEMS][HISTORY_DATA];
+    protected int[][][][] intBloodPress = new int[BP_TEST_SITES][BP_VALUE_PAIR][BP_SUBJECT_STATES][HISTORY_DATA];
+    protected int[][][] intFlex_Rotation_LateralFlexion = new int[FX_VALUE_ITEMS][FX_TEST_SITES][HISTORY_DATA];
+    protected int[][] intFlex_Extension_Flexion = new int[FX_VALUE_ITEMS][HISTORY_DATA];
 
     public String[] JSONObjectDate = new String[HISTORY_DATA];
 
@@ -61,6 +62,7 @@ public class History extends Graph {
 
     String[] strStrengthName = {"HandStrength", "LegStrength"};
     String[] strAgilityName = {"UB", "UL"};
+
     String[] color= {"BLUE", "GREEN", "CYAN"}; //add Color
     String Position = "position";
 
@@ -234,11 +236,11 @@ public class History extends Graph {
         }
 
        //works only when HISTORY DATA is at least 2
-        /*
+
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history1);
             staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
             graph_history1.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-        */
+
 
 
         graph_history1.setTitle("HeartRate");
@@ -283,18 +285,16 @@ public class History extends Graph {
 
             for (int valuePair = 0; valuePair < BP_VALUE_PAIR; valuePair++) {
                 for (int subjectStates = 0; subjectStates < BP_SUBJECT_STATES; subjectStates++) {
-                    graph_history[index].addSeries(addLineSeriesData(intBloodPress[testSites][valuePair][subjectStates], color[subjectStates], strTestSites[testSites]+strBpValuePair[valuePair]));
+                    graph_history[index].addSeries(addLineSeriesData(intBloodPress[testSites][valuePair][subjectStates], color[subjectStates], strTestSites[testSites]+strSubjectStates[subjectStates]+strBpValuePair[valuePair]));
                 }
-/*
+
                 StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
                 staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
                 graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-*/
+
                 graph_history[index].setTitle(strTestSites[testSites]+strBpValuePair[valuePair]);
                 graph_history[index].getLegendRenderer().setVisible(true);
                 graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-                graph_history[index].getViewport().setMinY(0);
-                graph_history[index].getViewport().setYAxisBoundsManual(true);
                 index ++;
             }
         }
@@ -333,11 +333,11 @@ public class History extends Graph {
                 for(int testSites=0; testSites<FX_TEST_SITES; testSites++) {
                 graph_history[index].addSeries(addLineSeriesData(intFlex_Rotation_LateralFlexion[valuePair][testSites], color[testSites], strFlexValueItems[valuePair]+strTestSites[testSites] ));
             }
-/*
+
                 StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
                 staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
                 graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-*/
+
                 graph_history[index].setTitle(strFlexValueItems[valuePair]);
                 graph_history[index].getLegendRenderer().setVisible(true);
                 graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -365,11 +365,11 @@ public class History extends Graph {
         for(int valueItem=0; valueItem<FX_VALUE_ITEMS; valueItem++) {
             graph_history[index].addSeries(addLineSeriesData(intFlex_Extension_Flexion[valueItem], color[valueItem], strRotFlexValueItems[valueItem]));
         }
-/*
+
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
         staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
         graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-*/
+
         graph_history[index].setTitle(strRotFlexValueItems[0]+"," + strRotFlexValueItems[1]);
         graph_history[index].getLegendRenderer().setVisible(true);
         graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -407,11 +407,11 @@ public class History extends Graph {
             for(int testSites=0; testSites<History_States; testSites++) {
                 graph_history[index].addSeries(addLineSeriesData(History_Strength_Data[name][testSites], color[testSites], strStrengthName[name]+strTestSites[testSites]));
             }
-            /*
+
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
             staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
             graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-            */
+
             graph_history[index].setTitle(strStrengthName[name]);
             graph_history[index].getLegendRenderer().setVisible(true);
             graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -449,11 +449,11 @@ public class History extends Graph {
             for(int testSites=0; testSites<History_States; testSites++) {
                 graph_history[index].addSeries(addLineSeriesData(History_Agility[name][testSites], color[testSites], strAgilityName[name]+strTestSites[testSites]));
             }
-            /*
+
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
             staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
             graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-            */
+
             graph_history[index].setTitle(strAgilityName[name]);
             graph_history[index].getLegendRenderer().setVisible(true);
             graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);

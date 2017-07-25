@@ -19,7 +19,7 @@ public class History_list extends AppCompatActivity {
 
     ListView listView;
     DetailInfoListViewAdapter adapter;
-    private final int HISTORY_DATA =1;
+    private final int HISTORY_DATA =3;
     protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
     JSON json;
 
