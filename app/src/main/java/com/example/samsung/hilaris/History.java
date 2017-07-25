@@ -137,6 +137,7 @@ public class History extends Graph {
                 graph_history[0] = (GraphView) linearLayout.findViewWithTag(""+0);
                 MakeHeartRateHistory(graph_history[0]);
                 break;
+
             case Flexibility :
                 setContentView(R.layout.activity_history_flexibility);
                 linearLayout = (LinearLayout) findViewById(R.id.graph_linear);
