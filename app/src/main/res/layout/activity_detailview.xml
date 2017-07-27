@@ -5,109 +5,394 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context="com.example.js960.myapplication.DetailView">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="228dp"
-        android:layout_height="194dp"
-        android:layout_gravity="center"
-        app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
-
-    <TextView
-        android:id="@+id/textview_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Timer"
-        android:textColor="#000000"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
-        <EditText
-            android:id="@+id/edittext_timermin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="00"
-            android:textColor="#000000"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textScaleX="2"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <TextView
-            android:id="@+id/textview_nothing"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=":"
+            android:text="Exercise"
             android:gravity="center"
-            android:textColor="#000000"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textScaleX="2"/>
+            android:id="@+id/exercise_name"/>
+        <VideoView
+            android:id="@+id/Videoview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:srcCompat="?android:attr/listChoiceIndicatorSingle"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        >
 
-        <EditText
-            android:id="@+id/edittext_timersec"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity=""
             android:gravity="center"
-            android:inputType="number"
-            android:text="00"
-            android:textColor="#000000"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textScaleX="2"/>
+           >
+
+            <Button
+                android:id="@+id/button_prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:id="@+id/button_next"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+
+            <Button
+                android:id="@+id/button_description"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="Description" />
+
+            <Button
+                android:id="@+id/button_routine"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:text="Routine" />
+
+            <Button
+                android:id="@+id/button_timer"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Timer" />
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:id="@+id/layout_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Description "
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/textview_desription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Description will be printed here\n\n\n\n\n\n\n\\n\n\n\n\n\n\n\n\n\n\nadsasdasd\n\n\dasdasd\n\n"
+                            android:scrollbars="vertical"/>
+                    </ScrollView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:transitionName="layout_timer"
+                android:id="@+id/layout_timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                >
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1">
+
+
+                    <EditText
+                        android:id="@+id/edittext_timermin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="00"
+                        android:textColor="#000000"
+                        android:textScaleX="2"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textview_nothing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:textScaleX="2"/>
+
+                    <EditText
+                        android:id="@+id/edittext_timersec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity=""
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="00"
+                        android:textColor="#000000"
+                        android:textScaleX="2"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/HR_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="show heart rate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/button_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Start" />
+
+                    <Button
+                        android:id="@+id/button_stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:text="Stop" />
+
+                    <Button
+                        android:id="@+id/button_reset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Reset" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/layout_routine"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="invisible">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Set" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Repetition"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Time"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Intensity"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Body Part"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Equipment"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/routine_set"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Set_value"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/routine_repetition"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Repetition_value"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/routine_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Time_value"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/routine_intensity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Intensity_value"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/routine_body_part"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Body Part_value"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/routine_equipment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Equipment_value\n\n\n\n\n\n\n\n\n\n\n\n\nasd\n\n"
+                            android:scrollbars="vertical"
+                            android:gravity="center"/>
+                        </ScrollView>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/HR_button"
-            android:text="show heart rate"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <Button
-            android:id="@+id/button_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Start" />
-
-        <Button
-            android:id="@+id/button_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-
-            android:text="Stop" />
-
-        <Button
-            android:id="@+id/button_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Reset" />
-
-    </LinearLayout>
 
 </LinearLayout>
