@@ -1,5 +1,8 @@
 package com.example.samsung.hilaris;
 
+
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -7,27 +10,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class Exercise extends Exerciselist {
-
-    ListView simpleList;
-    String exerciseList[] = {"exercise1", "exercise2", "exercise3", "exercise4"};
-
+    ListView listView;
+    ArrayList<ExerciseItem> list=new ArrayList<ExerciseItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_exercise);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_exercise);
 
-        simpleList = (ListView) findViewById(R.id.listview_exercise);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_listview, R.id.textview, exerciseList);
-        simpleList.setAdapter(arrayAdapter);
+        listView=(ListView)findViewById(R.id.listview_exercise);
+        //배열에 값 저장하기
+        list.add(new ExerciseItem(R.drawable.exercise1,"Arm Cicles","Stretching"));
+        list.add(new ExerciseItem(R.drawable.exercise2,"Backward Drag","Strength"));
+        list.add(new ExerciseItem(R.drawable.exercise3,"Barbell Ab Rollout","Strength"));
+        list.add(new ExerciseItem(R.drawable.exercise4,"Barbell Deadlift","Strength"));
 
-        simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //어댑터 만들기
+        ExerciseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
+
+
+        //리스트뷰와 어댑터 연결하기
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplication(), Detailview.class);
@@ -37,11 +47,8 @@ public class Exercise extends Exerciselist {
 
         });
     }
-    /**
-     * Action Bar에 메뉴를 생성
-     * @param menu
-     * @return
-     */
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
@@ -64,3 +71,4 @@ public class Exercise extends Exerciselist {
         return super.onOptionsItemSelected(item);
     }
 }
+

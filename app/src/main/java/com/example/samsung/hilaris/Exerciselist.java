@@ -28,7 +28,7 @@ public class Exerciselist extends AppCompatActivity{
                                          }
                                      }
         );
-        Button exercise = (Button) findViewById(R.id.button_exercise);
+        Button exercise = (Button) findViewById(R.id.button_workout);
 
         exercise.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -54,6 +54,7 @@ public class Exerciselist extends AppCompatActivity{
      * @param menu
      * @return
      */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
