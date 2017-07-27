@@ -15,33 +15,33 @@
             android:id="@+id/button_warmup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="101dp"
-            android:text="Warming Up"
-            android:onClick="warmupClicked"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
-
-        <Button
-            android:id="@+id/button_exercise"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="37dp"
-            android:text="Exercise"
-            android:onClick="exerciseClicked"
-            android:layout_below="@+id/button_warmup"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="101dp"
+            android:onClick="warmupClicked"
+            android:text="Warming Up" />
 
         <Button
             android:id="@+id/button_cooldown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cool Down"
-            android:onClick="cooldownClicked"
-            android:layout_below="@+id/button_exercise"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/button_workout"
             android:layout_marginTop="30dp"
-            android:layout_alignParentEnd="true" />
+            android:onClick="cooldownClicked"
+            android:text="Cool Down" />
+
+
+        <Button
+            android:id="@+id/button_workout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button_warmup"
+            android:layout_marginTop="37dp"
+            android:onClick="exerciseClicked"
+            android:text="Work out" />
     </RelativeLayout>
 
 </LinearLayout>
