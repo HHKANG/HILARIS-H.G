@@ -8,5 +8,4 @@ public class DetailInfoItem {
         this.objectName = objectName;
     }
     public String getinfo1() {return this.objectName;}
-
 }
