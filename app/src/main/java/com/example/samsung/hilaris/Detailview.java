@@ -1,6 +1,7 @@
 package com.example.samsung.hilaris;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -38,6 +40,7 @@ public class Detailview extends AppCompatActivity {
     Button show_HR;
     Object object;
     TextView exercise_name;
+    MediaController mediaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +91,12 @@ public class Detailview extends AppCompatActivity {
         object = intent.getStringExtra("object");
         setValues(object);
         **************************/
+        mediaController = new MediaController(this);
+
+        //Will get uriPath dynamically from database
+        String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
+        setVideoview(uriPath);
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
@@ -252,5 +258,22 @@ public class Detailview extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public void setVideoview(String uriPath)
+    {
+        mediaController.setAnchorView(Videoview);
+        Uri video = Uri.parse(uriPath);
+       Videoview.setMediaController(mediaController);
+        Videoview.setVideoURI(video);
+        Videoview.requestFocus();
+        Videoview.start();
+
+        Videoview.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mediaController.show(0);
+                Videoview.pause();
+            }
+        }, 100);
     }
 }
