@@ -51,8 +51,7 @@
             </activity>
         </activity>
         <activity android:name=".GuideLine"></activity>
-        <activity android:name=".History_list" />
-        <activity android:name=".mediacontroller" />
+
     </application>
 
 </manifest>
