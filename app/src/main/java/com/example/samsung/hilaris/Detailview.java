@@ -2,6 +2,7 @@ package com.example.samsung.hilaris;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 public class Detailview extends Activity {
 
@@ -36,8 +39,22 @@ public class Detailview extends Activity {
 
         mTextFieldmin = (EditText) findViewById(R.id.edittext_timermin);
         mTextFieldsec = (EditText) findViewById(R.id.edittext_timersec);
+        final VideoView videoView = (VideoView)findViewById(R.id.videoView);
 
-
+        final MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        Uri video = Uri.parse("android.resource://"+getPackageName() + "/raw/dumbell");
+        videoView.setMediaController(mediaController);
+        videoView.setVideoURI(video);
+        //videoView.requestFocus();
+        videoView.start();
+        videoView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mediaController.show(0);
+                videoView.pause();
+            }
+        }, 100);
 
         start = (Button) findViewById(R.id.button_start);
         stop = (Button) findViewById(R.id.button_stop);
