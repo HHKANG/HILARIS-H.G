@@ -50,9 +50,9 @@
                     android:enabled="true" />
             </activity>
         </activity>
-        <activity android:name=".GuideLine"></activity>
-        <activity android:name=".History_list" />
-        <activity android:name=".mediacontroller" />
+        <activity android:name=".GuideLine" />
+        <activity android:name=".VideoController" />
+        <activity android:name=".ExerciseItem"></activity>
     </application>
 
 </manifest>

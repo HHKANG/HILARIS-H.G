@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -40,14 +41,12 @@ public class Detailview extends AppCompatActivity {
     Button show_HR;
     Object object;
     TextView exercise_name;
-    MediaController mediaController;
+    VideoControllerView mediaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        android.app.ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_detailview);
 
 
@@ -90,10 +89,10 @@ public class Detailview extends AppCompatActivity {
         exercise_name = (TextView) findViewById(R.id.exercise_name);
         exercise_name.setText(intent.getStringExtra("exercise_name"));
         /*************************
-        object = intent.getStringExtra("object");
-        setValues(object);
-        **************************/
-        mediaController = new MediaController(this);
+         object = intent.getStringExtra("object");
+         setValues(object);
+         **************************/
+        mediaController = new VideoControllerView(this);
 
         //Will get uriPath dynamically from database
         String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
@@ -120,124 +119,124 @@ public class Detailview extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     //Settings for TImer (Start, Stop, Reset)
-     public void Timer()
-     {
-       //When Start button clicked
-       start.setOnClickListener(new View.OnClickListener() {
+    public void Timer()
+    {
+        //When Start button clicked
+        start.setOnClickListener(new View.OnClickListener() {
 
-           @Override
-           public void onClick(View v) {
-               mTextFieldmin.setEnabled(false);
-               mTextFieldsec.setEnabled(false);
+            @Override
+            public void onClick(View v) {
+                mTextFieldmin.setEnabled(false);
+                mTextFieldsec.setEnabled(false);
 
 
-               start.setClickable(false);
-               stop.setClickable(true);
+                start.setClickable(false);
+                stop.setClickable(true);
 
-               if(ChangeableNum) {
-                   num = Integer.parseInt(mTextFieldmin.getText().toString()) * 60 + Integer.parseInt(mTextFieldsec.getText().toString());
-                   ChangeableNum = false;
-               }
-               seconds = Integer.parseInt(mTextFieldmin.getText().toString()) * 60 + Integer.parseInt(mTextFieldsec.getText().toString());
-               countDownTimer = new CountDownTimer(seconds * 1000, 1000) {
+                if(ChangeableNum) {
+                    num = Integer.parseInt(mTextFieldmin.getText().toString()) * 60 + Integer.parseInt(mTextFieldsec.getText().toString());
+                    ChangeableNum = false;
+                }
+                seconds = Integer.parseInt(mTextFieldmin.getText().toString()) * 60 + Integer.parseInt(mTextFieldsec.getText().toString());
+                countDownTimer = new CountDownTimer(seconds * 1000, 1000) {
 
-                   @Override
-                   public void onTick(long millisUntilFinished) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
 
-                       mTextFieldmin.setText(""+millisUntilFinished / (1000*60));
-                       mTextFieldsec.setText(""+(millisUntilFinished/1000)%60);
-                   }
-                   @Override
-                   public void onFinish() {
-                       mTextFieldmin.setText("00");
-                       mTextFieldsec.setText("00");
-                       start.setClickable(true);
-                       mTextFieldmin.setEnabled(true);
-                       mTextFieldsec.setEnabled(true);
-                   }
-               }.start();
-           }
-       });
-       //When Stop Button Clicked
+                        mTextFieldmin.setText(""+millisUntilFinished / (1000*60));
+                        mTextFieldsec.setText(""+(millisUntilFinished/1000)%60);
+                    }
+                    @Override
+                    public void onFinish() {
+                        mTextFieldmin.setText("00");
+                        mTextFieldsec.setText("00");
+                        start.setClickable(true);
+                        mTextFieldmin.setEnabled(true);
+                        mTextFieldsec.setEnabled(true);
+                    }
+                }.start();
+            }
+        });
+        //When Stop Button Clicked
 
-       stop.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               countDownTimer.cancel();
-               start.setClickable(true);
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                start.setClickable(true);
 
-               stop.setClickable(false);
-           }
-       });
-       //When Reset Button Clicked
+                stop.setClickable(false);
+            }
+        });
+        //When Reset Button Clicked
 
-       reset.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               countDownTimer.cancel();
-               mTextFieldmin.setEnabled(true);
-               mTextFieldsec.setEnabled(true);
-               start.setClickable(true);
-               stop.setClickable(true);
-               ChangeableNum = true;
-               mTextFieldmin.setText(""+num/60);
-               mTextFieldsec.setText(""+num%60);
-           }
-       });
-   }
-   //Settings for visibility when button (Description, Routine, Timer) clicked
-     public void setVisibility()
-     {
-       Description.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                mTextFieldmin.setEnabled(true);
+                mTextFieldsec.setEnabled(true);
+                start.setClickable(true);
+                stop.setClickable(true);
+                ChangeableNum = true;
+                mTextFieldmin.setText(""+num/60);
+                mTextFieldsec.setText(""+num%60);
+            }
+        });
+    }
+    //Settings for visibility when button (Description, Routine, Timer) clicked
+    public void setVisibility()
+    {
+        Description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 layout_description.setVisibility(v.VISIBLE);
                 layout_routine.setVisibility(v.INVISIBLE);
-               layout_timer.setVisibility(v.INVISIBLE);
-           }
-       });
-       Routine.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               layout_description.setVisibility(v.INVISIBLE);
-               layout_routine.setVisibility(v.VISIBLE);
-               layout_timer.setVisibility(v.INVISIBLE);
-           }
-       });
-       Timer.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               layout_description.setVisibility(v.INVISIBLE);
-               layout_routine.setVisibility(v.INVISIBLE);
-               layout_timer.setVisibility(v.VISIBLE);
-           }
-       });
-   }
-   public void setValues(Object object)
-   {
-       String set, repetition, time, intensity, body_part, equipment;
-       String description;
-       /***********Below will be changed when Database construction finish****/
-       set = object.toString();
-       repetition = object.toString();
-       time=object.toString();
-       intensity = object.toString();
-       body_part = object.toString();
-       equipment = object.toString();
-       description = object.toString();
-       /****************/
-       setRoutineValue(set, repetition, time, intensity, body_part, equipment );
-       setDescription(description);
-   }
-   public void setRoutineValue(String set, String repetition, String time, String intensity, String body_part, String equipment)
-   {
-       Set.setText(set);
-       Repetition.setText(repetition);
-       Time.setText(time);
-       Intensity.setText(intensity);
-       BodyPart.setText(body_part);
-       Equipment.setText(equipment);
-   }
+                layout_timer.setVisibility(v.INVISIBLE);
+            }
+        });
+        Routine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layout_description.setVisibility(v.INVISIBLE);
+                layout_routine.setVisibility(v.VISIBLE);
+                layout_timer.setVisibility(v.INVISIBLE);
+            }
+        });
+        Timer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layout_description.setVisibility(v.INVISIBLE);
+                layout_routine.setVisibility(v.INVISIBLE);
+                layout_timer.setVisibility(v.VISIBLE);
+            }
+        });
+    }
+    public void setValues(Object object)
+    {
+        String set, repetition, time, intensity, body_part, equipment;
+        String description;
+        /***********Below will be changed when Database construction finish****/
+        set = object.toString();
+        repetition = object.toString();
+        time=object.toString();
+        intensity = object.toString();
+        body_part = object.toString();
+        equipment = object.toString();
+        description = object.toString();
+        /****************/
+        setRoutineValue(set, repetition, time, intensity, body_part, equipment );
+        setDescription(description);
+    }
+    public void setRoutineValue(String set, String repetition, String time, String intensity, String body_part, String equipment)
+    {
+        Set.setText(set);
+        Repetition.setText(repetition);
+        Time.setText(time);
+        Intensity.setText(intensity);
+        BodyPart.setText(body_part);
+        Equipment.setText(equipment);
+    }
     public void setDescription(String description)
     {
         txtDescription.setText(description);
@@ -265,7 +264,7 @@ public class Detailview extends AppCompatActivity {
     {
         mediaController.setAnchorView(Videoview);
         Uri video = Uri.parse(uriPath);
-       Videoview.setMediaController(mediaController);
+        Videoview.setMediaController(mediaController);
         Videoview.setVideoURI(video);
         Videoview.requestFocus();
         Videoview.start();

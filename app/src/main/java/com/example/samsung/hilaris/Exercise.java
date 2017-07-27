@@ -31,7 +31,7 @@ public class Exercise extends Exerciselist {
         list.add(new ExerciseItem(R.drawable.exercise4,"Barbell Deadlift","Strength"));
 
         //어댑터 만들기
-        ExerciseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
+        ExerciseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.activity_exercise_item, list);
 
 
         //리스트뷰와 어댑터 연결하기
