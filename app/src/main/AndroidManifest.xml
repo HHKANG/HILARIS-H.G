@@ -50,8 +50,8 @@
                     android:enabled="true" />
             </activity>
         </activity>
-        <activity android:name=".GuideLine"></activity>
-
+        <activity android:name=".GuideLine" />
+        <activity android:name=".VideoControllerView"></activity>
     </application>
 
 </manifest>

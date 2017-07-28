@@ -1,6 +1,8 @@
 package com.example.samsung.hilaris;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,17 +11,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.Surface;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import java.io.IOException;
+
 public class Detailview extends AppCompatActivity {
 
-    VideoView Videoview;
+
     /******Attributes for Timer********/
     EditText mTextFieldmin;
     EditText mTextFieldsec;
@@ -41,7 +50,11 @@ public class Detailview extends AppCompatActivity {
     Button show_HR;
     Object object;
     TextView exercise_name;
-    VideoControllerView mediaController;
+    MediaController mediaController;
+    SurfaceView videoSurface;
+    VideoView Videoview;
+    MediaPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +64,8 @@ public class Detailview extends AppCompatActivity {
 
 
         Videoview = (VideoView) findViewById(R.id.Videoview);
+        videoSurface = (SurfaceView) findViewById(R.id.videoSurface);
+        SurfaceHolder videoHolder = videoSurface.getHolder();
 
         /*********Settings for button Next, Prev when switching the image or video*****/
         Previous = (Button) findViewById(R.id.button_prev);
@@ -92,11 +107,10 @@ public class Detailview extends AppCompatActivity {
          object = intent.getStringExtra("object");
          setValues(object);
          **************************/
-        mediaController = new VideoControllerView(this);
+        mediaController = new MediaController(this);
 
         //Will get uriPath dynamically from database
         String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
-        setVideoview(uriPath);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -260,6 +274,7 @@ public class Detailview extends AppCompatActivity {
             }
         });
     }
+
     public void setVideoview(String uriPath)
     {
         mediaController.setAnchorView(Videoview);
