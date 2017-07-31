@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 
 public class GuideLine extends AppCompatActivity  {
+    Button nextButton;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,21 +21,17 @@ public class GuideLine extends AppCompatActivity  {
         setContentView(R.layout.activity_guide_line);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_exerciselist);
 
-
-        TextView textView = (TextView)findViewById(R.id.guideline_body);
-        Button nextButton = (Button) findViewById(R.id.nextbutton);
+        textView = (TextView)findViewById(R.id.guideline_body);
+        nextButton = (Button)findViewById(R.id.nextbutton);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent (getApplicationContext(),Exercise.class);
-            startActivity(intent);
-        }
-
-    });
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), Exerciselist.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
