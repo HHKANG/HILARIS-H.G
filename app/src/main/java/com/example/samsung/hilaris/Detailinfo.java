@@ -108,7 +108,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Exerciselist.class);
+                Intent intent = new Intent(getApplicationContext(), GuideLine.class);
                 startActivity(intent);
             }
         });
