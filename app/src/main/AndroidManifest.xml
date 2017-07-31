@@ -52,6 +52,7 @@
         </activity>
         <activity android:name=".GuideLine"></activity>
 
+
     </application>
 
 </manifest>
