@@ -7,28 +7,48 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/guideline_title"
-        android:layout_width="272dp"
-        android:layout_height="wrap_content"
-        android:padding="10dip"
-        android:text="GuideLine"
-        android:textColor="@android:color/black"
-        android:textSize="16dip"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/guideline_body"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.01"
-        android:text="Description" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/nextbutton"
-        android:layout_width="138dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/guideline_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:text="GuideLine"
+                android:textColor="@android:color/black"
+                android:textSize="16dip"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/guideline_body"
+                android:layout_width="match_parent"
+                android:layout_height="419dp"
+                android:text="Description" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next" />
+        android:layout_gravity="right">
+
+        <Button
+            android:id="@+id/nextbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="go ExerciseList" />
+    </LinearLayout>
 
 
 </LinearLayout>
