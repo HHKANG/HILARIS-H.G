@@ -19,7 +19,9 @@ import android.widget.Toast;
 public class ExerciseListViewAdapter extends BaseAdapter{
     private Context context;
     private int layoutId;
-    private ArrayList<ExerciseItem> list;
+
+    private ArrayList<ListViewItem> list;
+
     private LayoutInflater inflater;//레이아웃 xml파일을 자바객체로 변환하기 위한객체
     /**
      *
@@ -27,7 +29,9 @@ public class ExerciseListViewAdapter extends BaseAdapter{
      * @param layoutId   : 보여줄 레이아웃
      * @param list       : 보여줄 데이터를 갖고있는 배열
      */
-    public ExerciseListViewAdapter(Context context,int layoutId,ArrayList<ExerciseItem> list) {
+
+    public ExerciseListViewAdapter(Context context,int layoutId,ArrayList<ListViewItem> list) {
+
         this.context=context;
         this.layoutId=layoutId;
         this.list=list;
@@ -60,7 +64,8 @@ public class ExerciseListViewAdapter extends BaseAdapter{
         }
         //////  convertView에 어떻게 보여질지 설정   ////////////
 
-        final ExerciseItem item=list.get(position);
+        final ListViewItem item=list.get(position);
+
 
         //이미지뷰에 이미지 넣기
         ImageView img=(ImageView)convertView.findViewById(R.id.img);

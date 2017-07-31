@@ -12,10 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class Exercise extends Exerciselist {
     ListView listView;
-    ArrayList<ExerciseItem> list=new ArrayList<ExerciseItem>();
+    ArrayList<ListViewItem> list=new ArrayList<ListViewItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +26,10 @@ public class Exercise extends Exerciselist {
 
         listView=(ListView)findViewById(R.id.listview_exercise);
         //배열에 값 저장하기
-        list.add(new ExerciseItem(R.drawable.exercise1,"Arm Cicles","Stretching"));
-        list.add(new ExerciseItem(R.drawable.exercise2,"Backward Drag","Strength"));
-        list.add(new ExerciseItem(R.drawable.exercise3,"Barbell Ab Rollout","Strength"));
-        list.add(new ExerciseItem(R.drawable.exercise4,"Barbell Deadlift","Strength"));
+        list.add(new ListViewItem(R.drawable.exercise1,"Arm Cicles","Stretching"));
+        list.add(new ListViewItem(R.drawable.exercise2,"Backward Drag","Strength"));
+        list.add(new ListViewItem(R.drawable.exercise3,"Barbell Ab Rollout","Strength"));
+        list.add(new ListViewItem(R.drawable.exercise4,"Barbell Deadlift","Strength"));
 
         //어댑터 만들기
         ExerciseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.activity_exercise_item, list);
@@ -37,15 +38,18 @@ public class Exercise extends Exerciselist {
         //리스트뷰와 어댑터 연결하기
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplication(), Detailview.class);
+                Intent intent = new Intent(getApplicationContext(), Detailview.class);
                 startActivity(intent);
             }
 
 
         });
+
+
+
     }
 
 

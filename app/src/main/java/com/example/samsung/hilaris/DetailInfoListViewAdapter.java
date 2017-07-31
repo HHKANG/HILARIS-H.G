@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DetailInfoListViewAdapter extends BaseAdapter {
 
-    private ArrayList<DetailInfoItem> DetailInfoListViewItemList = new ArrayList<DetailInfoItem>() ;
+    private ArrayList<ListViewItem> DetailInfoListViewItemList = new ArrayList<ListViewItem>() ;
 
     // DetailInfoViewAdapter의 생성자
     public DetailInfoListViewAdapter() {
@@ -41,10 +41,10 @@ public class DetailInfoListViewAdapter extends BaseAdapter {
 
 
         // Data Set(DetailInfoListViewItemList)에서 position에 위치한 데이터 참조 획득
-        DetailInfoItem listViewItem = DetailInfoListViewItemList.get(position);
+        ListViewItem listViewItem = DetailInfoListViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        objectName.setText(listViewItem.getinfo1());
+        objectName.setText(listViewItem.getinfo_detail());
         return convertView;
     }
 
@@ -60,7 +60,7 @@ public class DetailInfoListViewAdapter extends BaseAdapter {
     }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
     public void addItem(String info1) {
-        DetailInfoItem item = new DetailInfoItem();
+        ListViewItem item = new ListViewItem();
         item.setObjectName(info1);
         DetailInfoListViewItemList.add(item);
     }
