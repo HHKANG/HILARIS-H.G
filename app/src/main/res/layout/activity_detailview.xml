@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context="com.example.samsung.hilaris.DetailView">
+    tools:context="com.example.samsung.hilaris.Detailview">
 
     <FrameLayout
         android:id="@+id/videoSurfaceContainer"
