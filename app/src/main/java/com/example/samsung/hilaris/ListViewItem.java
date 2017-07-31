@@ -2,18 +2,20 @@ package com.example.samsung.hilaris;
 
 
 public class ListViewItem {
-    private String info1;
-    private double info2;
-    private String info3;
-    private double info4;
-    private double info5;
-    private String info6;
+    private String info1;//simple info
+    private double info2;//simple info
+    private String info3;//simple info
+    private double info4;//simple info
+    private double info5;//simple info
+    private String info6;//simple info
 
     private int iconID;//운동 이미지
     private String Name;//운동 이름
     private String Type;//운동 타입
 
     String objectName;//Detail info
+
+
 
     public void setinfo1(String info1) {
         this.info1 = info1;
@@ -77,7 +79,9 @@ public class ListViewItem {
     public void setObjectName(String objectName) {
         this.objectName = objectName;
     }
-    public String getinfo_detail() {return this.objectName;}
+    public String getinfo() {return this.objectName;}
+
+
 
 }
 

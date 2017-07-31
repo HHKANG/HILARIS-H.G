@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class Week_Day_Select extends AppCompatActivity {
@@ -13,6 +15,7 @@ public class Week_Day_Select extends AppCompatActivity {
     Week_list_adapter week_adapter;
     ListView day_listView;
     ListView week_listView;
+    Button select_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,17 @@ public class Week_Day_Select extends AppCompatActivity {
         week_adapter.addItem("Week2");
         week_adapter.addItem("Week3");
         week_adapter.addItem("Week4");
+
+        select_button=(Button)findViewById(R.id.select_button);
+
+        select_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Exerciselist.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

@@ -28,7 +28,7 @@ public class GuideLine extends AppCompatActivity  {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplication(), Exerciselist.class);
+                Intent intent = new Intent(getApplication(), Week_Day_Select.class);
                 startActivity(intent);
             }
         });
