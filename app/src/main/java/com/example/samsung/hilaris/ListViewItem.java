@@ -79,7 +79,7 @@ public class ListViewItem {
     public void setObjectName(String objectName) {
         this.objectName = objectName;
     }
-    public String getinfo() {return this.objectName;}
+    public String getinfo_detail() {return this.objectName;}
 
 
 
