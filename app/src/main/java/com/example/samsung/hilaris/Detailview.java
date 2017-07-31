@@ -45,8 +45,8 @@ public class Detailview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        android.app.ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        //android.app.ActionBar actionBar = getActionBar();
+       // actionBar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_detailview);
 
@@ -96,7 +96,7 @@ public class Detailview extends AppCompatActivity {
         mediaController = new MediaController(this);
 
         //Will get uriPath dynamically from database
-        String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
+        String uriPath = "android.resource://"+getPackageName() + "/raw/dumbbell";
         setVideoview(uriPath);
     }
     @Override
@@ -184,7 +184,19 @@ public class Detailview extends AppCompatActivity {
                mTextFieldsec.setText(""+num%60);
            }
        });
+
+
+       show_HR = (Button)findViewById(R.id.HR_button);
+         show_HR.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
+             startActivity(intent);
+         }
+     });
+
    }
+
    //Settings for visibility when button (Description, Routine, Timer) clicked
      public void setVisibility()
      {

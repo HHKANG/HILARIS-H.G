@@ -9,6 +9,10 @@ public class ListViewItem {
     private double info5;
     private String info6;
 
+    private int iconID;//운동 이미지
+    private String Name;//운동 이름
+    private String Type;//운동 타입
+
     public void setinfo1(String info1) {
         this.info1 = info1;
     }
@@ -43,4 +47,43 @@ public class ListViewItem {
     }
     public String getinfo6() {return this.info6;}
 
+
+
+    public ListViewItem() {
+        // TODO Auto-generated constructor stub
+    }
+    public ListViewItem(int iconID,String Name,String Type){
+        this.iconID=iconID;
+        this.Name=Name;
+        this.Type=Type;
+
+    }
+    public int getIconID() {
+        return iconID;
+    }
+    public void setIconID(int iconID) {
+        this.iconID = iconID;
+    }
+    public String getName() {
+        return Name;
+    }
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+    public String getType() {
+        return Type;
+    }
+    public void setType(String Type) {
+        this.Type = Type;
+    }
+
+    String objectName;
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
+    public String getinfo_detail() {return this.objectName;}
+
 }
+
+
