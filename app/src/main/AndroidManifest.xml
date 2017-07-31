@@ -50,8 +50,9 @@
                     android:enabled="true" />
             </activity>
         </activity>
-        <activity android:name=".GuideLine"></activity>
-
+        <activity android:name=".GuideLine" />
+        <activity android:name=".VideoControllerView" />
+        <activity android:name=".Week_Day_Select"></activity>
     </application>
 
 </manifest>

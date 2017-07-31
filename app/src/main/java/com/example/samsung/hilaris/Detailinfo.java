@@ -34,8 +34,8 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_detailinfo);
+
         set_name = (TextView)findViewById(R.id.name);
         set_Birthdate = (TextView)findViewById(R.id.BirthDate);
 

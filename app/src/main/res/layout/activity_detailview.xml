@@ -8,7 +8,28 @@
 
     tools:context="com.example.js960.myapplication.DetailView">
 
+    <FrameLayout
+        android:id="@+id/videoSurfaceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <SurfaceView
+            android:visibility="invisible"
+            android:id="@+id/videoSurface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containerWithoutSurface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -399,8 +420,12 @@
                             </ScrollView>
                         </LinearLayout>
                     </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
                 </LinearLayout>
-            </FrameLayout>
+            </RelativeLayout>
         </LinearLayout>
-    </RelativeLayout>
+
+
+    </FrameLayout>
 </LinearLayout>

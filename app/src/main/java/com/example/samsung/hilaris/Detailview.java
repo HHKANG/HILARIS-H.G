@@ -1,25 +1,25 @@
 package com.example.samsung.hilaris;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 public class Detailview extends AppCompatActivity {
 
-    VideoView Videoview;
+
     /******Attributes for Timer********/
     EditText mTextFieldmin;
     EditText mTextFieldsec;
@@ -42,6 +42,10 @@ public class Detailview extends AppCompatActivity {
     Object object;
     TextView exercise_name;
     VideoControllerView mediaController;
+    SurfaceView videoSurface;
+    VideoView Videoview;
+    MediaPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,8 @@ public class Detailview extends AppCompatActivity {
 
 
         Videoview = (VideoView) findViewById(R.id.Videoview);
+        videoSurface = (SurfaceView) findViewById(R.id.videoSurface);
+        SurfaceHolder videoHolder = videoSurface.getHolder();
 
         /*********Settings for button Next, Prev when switching the image or video*****/
         Previous = (Button) findViewById(R.id.button_prev);
@@ -96,7 +102,6 @@ public class Detailview extends AppCompatActivity {
 
         //Will get uriPath dynamically from database
         String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
-        setVideoview(uriPath);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -260,6 +265,7 @@ public class Detailview extends AppCompatActivity {
             }
         });
     }
+    /*
     public void setVideoview(String uriPath)
     {
         mediaController.setAnchorView(Videoview);
@@ -276,5 +282,5 @@ public class Detailview extends AppCompatActivity {
                 Videoview.pause();
             }
         }, 100);
-    }
+    }*/
 }
