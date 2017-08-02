@@ -1,5 +1,6 @@
 package com.example.samsung.hilaris;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,12 +46,9 @@ public class Detailview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActionBar actionBar = getSupportActionBar();
+       ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_detailview);
-
-
         Videoview = (VideoView) findViewById(R.id.Videoview);
 
         /*********Settings for button Next, Prev when switching the image or video*****/
@@ -98,6 +96,15 @@ public class Detailview extends AppCompatActivity {
         //Will get uriPath dynamically from database
         String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
         setVideoview(uriPath);
+
+        show_HR = (Button) findViewById(R.id.HR_button);
+        show_HR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
