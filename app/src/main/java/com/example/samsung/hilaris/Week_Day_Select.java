@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class Week_Day_Select extends AppCompatActivity {
     Day_list_adapter day_adapter;
@@ -16,6 +18,7 @@ public class Week_Day_Select extends AppCompatActivity {
     ListView day_listView;
     ListView week_listView;
     Button select_button;
+    int day_position = -1, week_position = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +51,32 @@ public class Week_Day_Select extends AppCompatActivity {
 
         select_button=(Button)findViewById(R.id.select_button);
 
-        select_button.setOnClickListener(new View.OnClickListener() {
+        day_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Exerciselist.class);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                day_position = i;
             }
         });
 
+        week_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                week_position = i;
+            }
+        });
+
+        select_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(week_position != -1 && day_position != -1) {
+                    Intent intent = new Intent(getApplicationContext(), Exerciselist.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Select Week or Day",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
