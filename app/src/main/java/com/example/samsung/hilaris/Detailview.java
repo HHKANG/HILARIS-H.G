@@ -97,14 +97,14 @@ public class Detailview extends AppCompatActivity {
         String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
         setVideoview(uriPath);
 
-        show_HR = (Button) findViewById(R.id.HR_button);
+       /* show_HR = (Button) findViewById(R.id.HR_button);
         show_HR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
