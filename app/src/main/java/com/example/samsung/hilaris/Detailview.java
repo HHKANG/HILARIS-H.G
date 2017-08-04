@@ -98,7 +98,17 @@ public class Detailview extends AppCompatActivity {
         //Will get uriPath dynamically from database
         String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
         setVideoview(uriPath);
+
+        show_HR = (Button)findViewById(R.id.HR_button);
+        show_HR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);

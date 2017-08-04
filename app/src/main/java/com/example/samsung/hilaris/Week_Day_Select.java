@@ -69,7 +69,7 @@ public class Week_Day_Select extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(week_position != -1 && day_position != -1) {
-                    Intent intent = new Intent(getApplicationContext(), Exerciselist.class);
+                    Intent intent = new Intent(getApplicationContext(), Detailview.class);
                     startActivity(intent);
                 }
                 else{

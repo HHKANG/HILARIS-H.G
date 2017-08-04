@@ -1,6 +1,5 @@
 package com.example.samsung.hilaris;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -11,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -146,9 +144,9 @@ public class DeviceControlActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gatt_services_characteristics);
 
-        android.app.ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(mDeviceName);
+        //android.app.ActionBar actionBar = getActionBar();
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.setTitle(mDeviceName);
 
         button = (Button)findViewById(R.id.graph_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +200,7 @@ public class DeviceControlActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.gatt_services, menu);
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
         if (mConnected) {
             menu.findItem(R.id.menu_connect).setVisible(false);
             menu.findItem(R.id.menu_disconnect).setVisible(true);

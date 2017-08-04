@@ -9,11 +9,11 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
 
 import static com.example.samsung.hilaris.DeviceControlActivity.EXTRAS_DEVICE_ADDRESS;
 
