@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Day_list_adapter extends BaseAdapter{
 
-    private ArrayList<Day_list_item> Dayitem = new ArrayList<Day_list_item>() ;
+    private ArrayList<ListViewItem> Dayitem = new ArrayList<ListViewItem>() ;
 
     // DetailInfoViewAdapter의 생성자
     public Day_list_adapter() {
@@ -45,10 +45,10 @@ public class Day_list_adapter extends BaseAdapter{
 
 
         // Data Set(Dayitem)에서 position에 위치한 데이터 참조 획득
-        Day_list_item listViewItem = Dayitem.get(position);
+        ListViewItem listViewItem = Dayitem.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        objectName.setText(listViewItem.getinfo1());
+        objectName.setText(listViewItem.getinfo_detail());
         return convertView;
     }
 
@@ -64,7 +64,7 @@ public class Day_list_adapter extends BaseAdapter{
     }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
     public void addItem(String info1) {
-        Day_list_item item = new Day_list_item();
+        ListViewItem item = new ListViewItem();
         item.setObjectName(info1);
         Dayitem.add(item);
     }

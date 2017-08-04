@@ -1,5 +1,6 @@
 package com.example.samsung.hilaris;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import android.widget.VideoView;
 public class Detailview extends AppCompatActivity {
 
     VideoView Videoview;
+    ImageView Imageview;
     /******Attributes for Timer********/
     EditText mTextFieldmin;
     EditText mTextFieldsec;
@@ -36,6 +39,7 @@ public class Detailview extends AppCompatActivity {
     TextView txtDescription;
     /**********Buttons for Switching Video or Image***********/
     Button Previous, Next;
+    Button B_ImageView, B_VideoView;
     /*****************************************************/
     Button show_HR;
     Object object;
@@ -45,17 +49,16 @@ public class Detailview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActionBar actionBar = getSupportActionBar();
+       ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_detailview);
-
-
-        Videoview = (VideoView) findViewById(R.id.Videoview);
-
-        /*********Settings for button Next, Prev when switching the image or video*****/
+        Videoview = (VideoView) findViewById(R.id.Exercise_Videoview);
+        Imageview = (ImageView) findViewById(R.id.Exercise_ImageView);
+        /*********Settings for button Next, Prev , Image, Video  when switching the image or video*****/
         Previous = (Button) findViewById(R.id.button_prev);
         Next = (Button) findViewById(R.id.button_next);
+        B_ImageView = (Button) findViewById(R.id.button_image);
+        B_VideoView = (Button) findViewById(R.id.button_video);
         /******************Settings for Visibility**********************************/
         Description = (Button) findViewById(R.id.button_description);
         Routine = (Button) findViewById(R.id.button_routine);
@@ -96,19 +99,16 @@ public class Detailview extends AppCompatActivity {
         mediaController = new MediaController(this);
 
         //Will get uriPath dynamically from database
-        String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
-        setVideoview(uriPath);
 
-        show_HR = (Button)findViewById(R.id.HR_button);
+       /* show_HR = (Button) findViewById(R.id.HR_button);
         show_HR.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
@@ -270,6 +270,31 @@ public class Detailview extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public void ImageVideoButton()
+    {
+        B_ImageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String uriPath = "android.resource://"+getPackageName() + "/drawable/exercise1";
+                setImageView(uriPath);
+                Videoview.setVisibility(v.INVISIBLE);
+                Imageview.setVisibility(v.VISIBLE);
+            }
+        });
+        B_VideoView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
+                setVideoview(uriPath);
+                Videoview.setVisibility(v.VISIBLE);
+                Imageview.setVisibility(v.INVISIBLE);
+            }
+        });
+    }
+    public void setImageView(String uriPath)
+    {
+        Imageview.setImageURI(Uri.parse(uriPath));
     }
     public void setVideoview(String uriPath)
     {
