@@ -100,14 +100,14 @@ public class Detailview extends AppCompatActivity {
 
         //Will get uriPath dynamically from database
 
-        show_HR = (Button) findViewById(R.id.HR_button);
+       /* show_HR = (Button) findViewById(R.id.HR_button);
         show_HR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
