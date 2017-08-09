@@ -70,7 +70,6 @@ public class Simpleinfo extends AppCompatActivity {
                 Tests = new JSONObject[response.length()];
                 // Process the JSON
                 try {
-
                     Tests[0] = response.getJSONObject(0);
                     JSON Test = new JSON(Tests[0]);
                     Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
@@ -149,6 +148,7 @@ public class Simpleinfo extends AppCompatActivity {
                 }
         });
     }
+
     /**
      * Action Bar에 메뉴를 생성
      * @param menu
