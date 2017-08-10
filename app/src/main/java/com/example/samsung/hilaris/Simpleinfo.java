@@ -203,7 +203,7 @@ public class Simpleinfo extends AppCompatActivity {
                 if(change_pass.getText().toString().equals(check_pass.getText().toString())){
                     new_pw = change_pass.getText().toString();
 
-                    String url = "http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/changeuserpwd/Kim%20Chang%20Bin/" + new_pw;
+                    String url = "http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/changeuserpwd/" + get_mb_id + "/" + new_pw;
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

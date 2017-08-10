@@ -33,7 +33,7 @@ public class Practicexml extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xml);
 
-        //final check c = new check();
+        final check c = new check();
 
          txtGuidelines = (TextView)findViewById(R.id.txtGuidelines);
         txtguideline1 = (TextView)findViewById(R.id.txtguideline1);
@@ -90,10 +90,6 @@ public class Practicexml extends AppCompatActivity {
                     txtroutine2.setText(routine1.getTitle());
                     txtroutine3.setText(routine2.getTitle());
 
-                    //c.checking(RoutineArray);
-                    //c.checking(GuidelineObject);
-                    //c.checking(GuidelineObject);
-
                 } catch (JSONException e) {
                     Toast.makeText(Practicexml.this, "Error", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -112,15 +108,23 @@ public class Practicexml extends AppCompatActivity {
         // Add JsonArrayRequest to the RequestQueue
         queue.add(jsonArrayRequest);
     }
-/*
+
     class check{
-        public void checking(Object obj){
+        public JSONArray checking(Object obj){
             if(obj instanceof JSONArray) {
                 Toast.makeText(getApplicationContext(), "Array", Toast.LENGTH_SHORT).show();
+
+                return (JSONArray)obj;
             }
+
             else if(obj instanceof JSONObject) {
                 Toast.makeText(getApplicationContext(), "Object", Toast.LENGTH_SHORT).show();
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(obj);
+
+                return jsonArray;
             }
+            return null;
         }
-    }*/
+    }
 }
