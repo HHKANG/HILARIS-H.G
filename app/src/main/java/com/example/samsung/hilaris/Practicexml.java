@@ -1,11 +1,7 @@
 package com.example.samsung.hilaris;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,19 +10,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONString;
-import org.json.JSONStringer;
 import org.json.XML;
-import org.w3c.dom.Text;
 
 public class Practicexml extends AppCompatActivity {
 
@@ -43,6 +32,8 @@ public class Practicexml extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xml);
+
+        //final check c = new check();
 
          txtGuidelines = (TextView)findViewById(R.id.txtGuidelines);
         txtguideline1 = (TextView)findViewById(R.id.txtguideline1);
@@ -69,17 +60,17 @@ public class Practicexml extends AppCompatActivity {
                     JSON GuidelineObject = null;
                     JSONArray RoutineArray = null;
 
-                    Toast.makeText(Practicexml.this, "1", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Practicexml.this, "1", Toast.LENGTH_SHORT).show();
                     JSON GuidelineParent = new JSON(response.getJSONObject(0)); // Parse it into JsonObject --> GuideLine
-                    Toast.makeText(Practicexml.this, "2", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Practicexml.this, "2", Toast.LENGTH_SHORT).show();
                     xmlToJson = new JSON(XML.toJSONObject(GuidelineParent.get_H_Guideline())); // make XML type to Json Type
-                    Toast.makeText(Practicexml.this, "3", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Practicexml.this, "3", Toast.LENGTH_SHORT).show();
                     GuidelineArray = new JSON(xmlToJson.get_M_guidelines()); // Make it into JsonObject
-                    Toast.makeText(Practicexml.this, "4", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Practicexml.this, "4", Toast.LENGTH_SHORT).show();
                     GuidelineObject = new JSON(GuidelineArray.get_L_guideline());
-                    Toast.makeText(Practicexml.this, "5", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Practicexml.this, "5", Toast.LENGTH_SHORT).show();
                     RoutineArray = GuidelineObject.getRoutineArray();
-                    Toast.makeText(Practicexml.this, "6", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Practicexml.this, "6", Toast.LENGTH_SHORT).show();
 
                     String Title = GuidelineObject.getTitle();
                     String description = GuidelineObject.getDescription();
@@ -99,6 +90,10 @@ public class Practicexml extends AppCompatActivity {
                     txtroutine2.setText(routine1.getTitle());
                     txtroutine3.setText(routine2.getTitle());
 
+                    //c.checking(RoutineArray);
+                    //c.checking(GuidelineObject);
+                    //c.checking(GuidelineObject);
+
                 } catch (JSONException e) {
                     Toast.makeText(Practicexml.this, "Error", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -117,4 +112,15 @@ public class Practicexml extends AppCompatActivity {
         // Add JsonArrayRequest to the RequestQueue
         queue.add(jsonArrayRequest);
     }
+/*
+    class check{
+        public void checking(Object obj){
+            if(obj instanceof JSONArray) {
+                Toast.makeText(getApplicationContext(), "Array", Toast.LENGTH_SHORT).show();
+            }
+            else if(obj instanceof JSONObject) {
+                Toast.makeText(getApplicationContext(), "Object", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }*/
 }

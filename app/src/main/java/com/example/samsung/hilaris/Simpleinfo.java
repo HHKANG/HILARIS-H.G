@@ -29,9 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Simpleinfo extends AppCompatActivity {
     private final int History_Data = 3; //Num of Data to compare in History
     Button history;
@@ -45,6 +42,7 @@ public class Simpleinfo extends AppCompatActivity {
     simpleInfo_ListViewAdapter adapter;
     JSONObject[] Tests;
     String SelectedProfile = "SelectedProfile";
+    String new_pw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -56,6 +54,7 @@ public class Simpleinfo extends AppCompatActivity {
         Intent intent = getIntent();
         get_name = intent.getExtras().getString("name");
         get_mb_id = intent.getExtras().getString("mb_id");
+        //pw = intent.getExtras().getString("password");
 
         set_name = (TextView) findViewById(R.id.name);
         set_BirthDate = (TextView) findViewById(R.id.BirthDate);
@@ -195,7 +194,6 @@ public class Simpleinfo extends AppCompatActivity {
         dialog.setView(view);
         dialog.setTitle("Change Password");
 
-
         dialog.setPositiveButton("change", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -203,32 +201,25 @@ public class Simpleinfo extends AppCompatActivity {
                 final EditText check_pass = (EditText)((AlertDialog)dialogInterface).findViewById(R.id.check_pass);
 
                 if(change_pass.getText().toString().equals(check_pass.getText().toString())){
-                    String url = "";
-                    RequestQueue postrequestQueue = Volley.newRequestQueue(Simpleinfo.this);
+                    new_pw = change_pass.getText().toString();
+
+                    String url = "http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/changeuserpwd/Kim%20Chang%20Bin/" + new_pw;
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-
+                            Intent intent = new Intent(Simpleinfo.this, Login.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
                         }
                     }, new Response.ErrorListener(){
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
                         }
-                    }) {
-                        @Override
-                        protected Map<String, String> getParams(){
-                            Map<String, String> params = new HashMap<>();
-                            params.put("New Password", change_pass.getText().toString());
+                    });
 
-                            Intent intent = new Intent(Simpleinfo.this, Login.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
-
-                            return params;
-                        }
-                    };
+                    RequestQueue postrequestQueue = Volley.newRequestQueue(Simpleinfo.this);
                     postrequestQueue.add(stringRequest);
                 }
                 else

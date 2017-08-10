@@ -68,6 +68,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void SendRequest() {
+        pn = pn.replaceAll("\\p{z}", "%20");
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -81,9 +82,10 @@ public class Login extends AppCompatActivity {
                     MB_ID = response.getString("MB_ID");
                     Name = response.getString("Name");
                     if(!MB_ID.equals("null") && !Name.equals("null")) {
-                        Intent intent = new Intent(getApplicationContext(), Practicexml.class);
+                        Intent intent = new Intent(getApplicationContext(), Simpleinfo.class);
                         intent.putExtra("mb_id", MB_ID);
                         intent.putExtra("name", Name);
+                        intent.putExtra("password", pw);
                         startActivity(intent);
                     }
                     else
