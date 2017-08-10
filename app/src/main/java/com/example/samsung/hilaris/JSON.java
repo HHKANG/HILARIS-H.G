@@ -1,5 +1,6 @@
 package com.example.samsung.hilaris;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -863,4 +864,27 @@ public class JSON extends JSONObject implements Serializable {
     public String getStringObject(String string) throws JSONException {
         return json.getString(string);
     }
+
+    public String get_H_Guideline() throws JSONException {
+        return json.getString("Guideline");
+    }
+    public JSONObject get_M_guidelines() throws JSONException {
+        return json.getJSONObject("guidelines");
+    }
+    public JSONObject get_L_guideline() throws JSONException {
+        return json.getJSONObject("guideline");
+    }
+    public String getTitle() throws JSONException {
+        return json.getString("title");
+    }
+    public String getRoutine() throws JSONException {
+        return json.getString("routine");
+    }
+    public String getDescription() throws JSONException {
+        return json.getString("description");
+    }
+    public JSONArray getRoutineArray() throws JSONException {
+        return json.getJSONArray("routine");
+    }
+
 }

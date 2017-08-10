@@ -51,7 +51,8 @@
                     android:enabled="true" />
             </activity>
         <activity android:name=".GuideLine" />
-               <activity android:name=".Week_Day_Select"></activity>
+        <activity android:name=".Week_Day_Select" />
+        <activity android:name=".Practicexml"></activity>
     </application>
 
 </manifest>

@@ -54,11 +54,20 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                        <ImageView
+                        <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:visibility="visible"
-                            android:id="@+id/Exercise_ImageView"/>
+                            android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_weight="1"
+                            android:id="@+id/ImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </ImageView>
+
+                        </LinearLayout>
+
                         <VideoView
                             android:visibility="invisible"
                             android:id="@+id/Exercise_Videoview"
@@ -161,15 +170,17 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="Description "
+                                    android:text="Description/Benefit/Caution "
                                     android:textStyle="bold" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
                                 <ScrollView
+                                    android:layout_weight="1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent">
 
@@ -178,9 +189,32 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:scrollbars="vertical"
-                                        android:text="Description will be printed here\n\n\n\n\n\n\n\\n\n\n\n\n\n\n\n\n\n\nadsasdasd\n\n\dasdasd\n\n" />
+                                        android:text="Description will be printed here" />
                                 </ScrollView>
-
+                                <ScrollView
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                <TextView
+                                    android:id="@+id/textview_benefit"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scrollbars="vertical"
+                                    android:text="Benefits will be printed here"
+                                    />
+                                </ScrollView>
+                                <ScrollView
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                <TextView
+                                    android:id="@+id/textview_caution"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scrollbars="vertical"
+                                    android:text="Cautions will be printed here"
+                                    />
+                                </ScrollView>
                             </LinearLayout>
 
 
@@ -242,46 +276,34 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center">
-
-                                <Button
-                                    android:id="@+id/HR_button"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="show heart rate" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
-                                <Button
+                                <ImageButton
                                     android:id="@+id/button_start"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     android:layout_gravity="center"
-                                    android:text="Start" />
+                                    android:background="@android:color/white"
+                                    />
 
-                                <Button
+                                <ImageButton
                                     android:id="@+id/button_stop"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     android:layout_gravity="center"
-
+                                    android:background="@android:color/white"
                                     android:text="Stop" />
 
-                                <Button
+                                <ImageButton
                                     android:id="@+id/button_reset"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     android:layout_gravity="center"
+                                    android:background="@android:color/white"
                                     android:text="Reset" />
 
                             </LinearLayout>
@@ -463,16 +485,23 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
 
-                <Button
+                <ImageButton
                     android:id="@+id/button_prev"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@android:color/white"
                     android:text="Previous" />
 
                 <Button
-                    android:id="@+id/button_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"/>
+
+                <ImageButton
+                    android:id="@+id/button_next"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@android:color/white"
                     android:text="Next" />
 
             </LinearLayout>

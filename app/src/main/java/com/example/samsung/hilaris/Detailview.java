@@ -1,32 +1,46 @@
 package com.example.samsung.hilaris;
 
-import android.app.Activity;
+
 import android.content.Intent;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import org.json.JSONObject;
+
+
 public class Detailview extends AppCompatActivity {
 
+    JSONObject Exercise = null;
+    /*******For Image and Video**********/
+    String ImageUri;
+    String VideoUri;
+   ImageView Imageview;
     VideoView Videoview;
-    ImageView Imageview;
+    Button B_ImageView, B_VideoView;
     /******Attributes for Timer********/
     EditText mTextFieldmin;
     EditText mTextFieldsec;
     CountDownTimer countDownTimer;
-    Button start, stop, reset;
+    ImageButton start, pause, reset;
     int num;
     int seconds;
     boolean ChangeableNum = true;
@@ -36,27 +50,25 @@ public class Detailview extends AppCompatActivity {
     /******TextViews of Routine**********/
     TextView Set, Repetition, Time, Intensity, BodyPart, Equipment;
     /*********TextView for Description********/
-    TextView txtDescription;
+    TextView txtDescription,txtBenefit,txtCaution;
     /**********Buttons for Switching Video or Image***********/
-    Button Previous, Next;
-    Button B_ImageView, B_VideoView;
+    ImageButton Previous, Next;
+
     /*****************************************************/
-    Button show_HR;
     Object object;
     TextView exercise_name;
     MediaController mediaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_detailview);
+
+        //Switch = (ImageSwitcher) findViewById(R.id.ImageSwitcher);
+        Imageview = (ImageView) findViewById(R.id.ImageView) ;
         Videoview = (VideoView) findViewById(R.id.Exercise_Videoview);
-        Imageview = (ImageView) findViewById(R.id.Exercise_ImageView);
         /*********Settings for button Next, Prev , Image, Video  when switching the image or video*****/
-        Previous = (Button) findViewById(R.id.button_prev);
-        Next = (Button) findViewById(R.id.button_next);
         B_ImageView = (Button) findViewById(R.id.button_image);
         B_VideoView = (Button) findViewById(R.id.button_video);
         /******************Settings for Visibility**********************************/
@@ -69,6 +81,8 @@ public class Detailview extends AppCompatActivity {
         setVisibility();
         /*************************Settings for Description********************************/
         txtDescription =(TextView) findViewById(R.id.textview_desription);
+        txtBenefit = (TextView) findViewById(R.id.textview_benefit);
+        txtCaution = (TextView) findViewById(R.id.textview_caution);
         /*******************Settings for Routine*****************************************/
         Set = (TextView) findViewById(R.id.routine_set);
         Repetition = (TextView) findViewById(R.id.routine_repetition);
@@ -79,35 +93,35 @@ public class Detailview extends AppCompatActivity {
         /****************Settings for Timer*********************/
         mTextFieldmin = (EditText) findViewById(R.id.edittext_timermin);
         mTextFieldsec = (EditText) findViewById(R.id.edittext_timersec);
-        start = (Button) findViewById(R.id.button_start);
-        stop = (Button) findViewById(R.id.button_stop);
-        reset = (Button) findViewById(R.id.button_reset);
+        start = (ImageButton) findViewById(R.id.button_start);
+        pause = (ImageButton) findViewById(R.id.button_stop);
+        reset = (ImageButton) findViewById(R.id.button_reset);
         Timer();
         /*******************Settings for Button (next, previous)*****************************************/
-        Next = (Button)findViewById(R.id.button_next);
-        Previous = (Button) findViewById(R.id.button_prev);
+        Previous = (ImageButton) findViewById(R.id.button_prev);
+        Next = (ImageButton) findViewById(R.id.button_next);
         NextPrevButton();
         /**********************************************************************************************/
         //Need to get Exercise Name from previous class or Get it frome current class --> code change needed below
-        Intent intent = getIntent();
         exercise_name = (TextView) findViewById(R.id.exercise_name);
-        exercise_name.setText(intent.getStringExtra("exercise_name"));
-        /*************************
+
+        Intent intent = getIntent();
+        /*************Set Values of Description and Routine Part************
+         *
+         *
         object = intent.getStringExtra("object");
+         change object to Json Object
         setValues(object);
+         *
+         *
+         *
         **************************/
         mediaController = new MediaController(this);
 
-        //Will get uriPath dynamically from database
-
-       /* show_HR = (Button) findViewById(R.id.HR_button);
-        show_HR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
-                startActivity(intent);
-            }
-        });*/
+        String uriPath = "android.resource://"+getPackageName() + "/drawable/exercise1";
+        //String uriPath = "http://221.153.186.186:3100/"+Exercise.toString(); //Get Name of Image from Json Object
+        setImageView(uriPath);
+        ImageVideoButton(Exercise);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -132,6 +146,7 @@ public class Detailview extends AppCompatActivity {
     //Settings for TImer (Start, Stop, Reset)
      public void Timer()
      {
+         adjustTimerImageButton();
        //When Start button clicked
        start.setOnClickListener(new View.OnClickListener() {
 
@@ -142,7 +157,7 @@ public class Detailview extends AppCompatActivity {
 
 
                start.setClickable(false);
-               stop.setClickable(true);
+               pause.setClickable(true);
 
                if(ChangeableNum) {
                    num = Integer.parseInt(mTextFieldmin.getText().toString()) * 60 + Integer.parseInt(mTextFieldsec.getText().toString());
@@ -170,13 +185,12 @@ public class Detailview extends AppCompatActivity {
        });
        //When Stop Button Clicked
 
-       stop.setOnClickListener(new View.OnClickListener() {
+       pause.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                countDownTimer.cancel();
                start.setClickable(true);
-
-               stop.setClickable(false);
+               pause.setClickable(false);
            }
        });
        //When Reset Button Clicked
@@ -188,7 +202,7 @@ public class Detailview extends AppCompatActivity {
                mTextFieldmin.setEnabled(true);
                mTextFieldsec.setEnabled(true);
                start.setClickable(true);
-               stop.setClickable(true);
+               pause.setClickable(true);
                ChangeableNum = true;
                mTextFieldmin.setText(""+num/60);
                mTextFieldsec.setText(""+num%60);
@@ -196,8 +210,8 @@ public class Detailview extends AppCompatActivity {
        });
    }
    //Settings for visibility when button (Description, Routine, Timer) clicked
-     public void setVisibility()
-     {
+   public void setVisibility()
+   {
        Description.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -225,19 +239,31 @@ public class Detailview extends AppCompatActivity {
    }
    public void setValues(Object object)
    {
+       String exercise_title;
        String set, repetition, time, intensity, body_part, equipment;
-       String description;
+       String description, benefit, caution;
        /***********Below will be changed when Database construction finish****/
-       set = object.toString();
+
+       //Should be implented when JSon Object reached
+       exercise_title = object.toString(); //title
+        set = object.toString();
        repetition = object.toString();
        time=object.toString();
        intensity = object.toString();
        body_part = object.toString();
        equipment = object.toString();
+       /*******************/
        description = object.toString();
+       benefit = object.toString();
+       caution = object.toString();
        /****************/
+       setExerciseTitle(exercise_title);
        setRoutineValue(set, repetition, time, intensity, body_part, equipment );
-       setDescription(description);
+       setDescription(description, benefit, caution);
+   }
+   public void setExerciseTitle(String title)
+   {
+       exercise_name.setText(title);
    }
    public void setRoutineValue(String set, String repetition, String time, String intensity, String body_part, String equipment)
    {
@@ -248,12 +274,31 @@ public class Detailview extends AppCompatActivity {
        BodyPart.setText(body_part);
        Equipment.setText(equipment);
    }
-    public void setDescription(String description)
+    public void setDescription(String description, String benefits, String caution)
     {
         txtDescription.setText(description);
+        txtBenefit.setText(benefits);
+        txtCaution.setText(caution);
+    }
+    public void adjustTimerImageButton()
+    {
+       start.setImageResource(R.drawable.ic_media_start);
+        start.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        pause.setImageResource(R.drawable.ic_media_pause);
+        pause.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        reset.setImageResource(R.drawable.ic_media_reset);
+        reset.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+    public void adjustPrevNextImageButton()
+    {
+        Previous.setImageResource(R.drawable.exercise_prev);
+        Previous.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        Next.setImageResource(R.drawable.exercise_next);
+        Next.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
     public void NextPrevButton()
     {
+     adjustPrevNextImageButton();
         Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,13 +316,18 @@ public class Detailview extends AppCompatActivity {
             }
         });
     }
-    public void ImageVideoButton()
+    public void ImageVideoButton(JSONObject Exercise)
     {
+        /*
+         ImageUri = "http://221.153.186.186:3100/"+Exercise.toString(); //Get Name of Image from Json Object
+         VideoUri = "http://221.153.186.186:3100/"+Exercise.toString(); // Get Name of Video from Json Object
+        */
+
         B_ImageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String uriPath = "android.resource://"+getPackageName() + "/drawable/exercise1";
-                setImageView(uriPath);
+                String uriPath = "android.resource://"+getPackageName() + "/drawable/exercise1";//임시방편
+               // setImageView(ImageUri);
                 Videoview.setVisibility(v.INVISIBLE);
                 Imageview.setVisibility(v.VISIBLE);
             }
@@ -285,8 +335,10 @@ public class Detailview extends AppCompatActivity {
         B_VideoView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";
-                setVideoview(uriPath);
+               String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";//임시방편
+                setVideoview(uriPath); // 임시방편
+                // setVideoview(VideoUri);
+
                 Videoview.setVisibility(v.VISIBLE);
                 Imageview.setVisibility(v.INVISIBLE);
             }
@@ -313,4 +365,5 @@ public class Detailview extends AppCompatActivity {
             }
         }, 100);
     }
+
 }

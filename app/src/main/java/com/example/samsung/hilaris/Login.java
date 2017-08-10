@@ -81,7 +81,7 @@ public class Login extends AppCompatActivity {
                     MB_ID = response.getString("MB_ID");
                     Name = response.getString("Name");
                     if(!MB_ID.equals("null") && !Name.equals("null")) {
-                        Intent intent = new Intent(getApplicationContext(), Simpleinfo.class);
+                        Intent intent = new Intent(getApplicationContext(), Practicexml.class);
                         intent.putExtra("mb_id", MB_ID);
                         intent.putExtra("name", Name);
                         startActivity(intent);
