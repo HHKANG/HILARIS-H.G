@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/change_password"
-        android:title="Chage Password"
+        android:title="Change Password"
         android:orderInCategory="1"
         app:showAsAction="never"/>
 </menu>
