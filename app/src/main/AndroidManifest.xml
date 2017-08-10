@@ -29,7 +29,7 @@
         <activity android:name=".Detail_bar_graph" />
         <activity android:name=".Detail_Flexibility_Graph" />
         <activity android:name=".History" />
-        <activity android:name=".History_list">
+        <activity android:name=".History_list"/>
             <activity
                 android:name=".DeviceScanActivity"
                 android:enabled="true"
@@ -50,7 +50,6 @@
                     android:name=".BluetoothLeService"
                     android:enabled="true" />
             </activity>
-        </activity>
         <activity android:name=".GuideLine" />
         <activity android:name=".Week_Day_Select" />
         <activity android:name=".Practicexml"></activity>

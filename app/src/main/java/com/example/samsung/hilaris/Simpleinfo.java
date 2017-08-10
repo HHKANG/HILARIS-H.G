@@ -49,17 +49,16 @@ public class Simpleinfo extends AppCompatActivity {
         get_name = intent.getExtras().getString("name");
         get_mb_id = intent.getExtras().getString("mb_id");
 
-
         set_name = (TextView) findViewById(R.id.name);
         set_BirthDate = (TextView) findViewById(R.id.BirthDate);
 
         set_name.setText(get_name);
         recentadapter = new simpleInfo_ListViewAdapter();
         adapter = new simpleInfo_ListViewAdapter();
+
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetMedifitTestByUserJSON/" + get_mb_id;
-
 
 // Request a string response from the provided URL.
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
