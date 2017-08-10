@@ -1,14 +1,12 @@
 package com.example.samsung.hilaris;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
-
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -16,7 +14,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -71,7 +68,8 @@ public class Login extends AppCompatActivity {
     }
 
     public void SendRequest() {
-pn=pn.replaceAll(" ","%20");
+        pn = pn.replaceAll(" ", "%20");
+
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -84,9 +82,10 @@ pn=pn.replaceAll(" ","%20");
                     MB_ID = response.getString("MB_ID");
                     Name = response.getString("Name");
                     if(!MB_ID.equals("null") && !Name.equals("null")) {
-                        Intent intent = new Intent(getApplicationContext(), Practicexml.class);
+                        Intent intent = new Intent(getApplicationContext(), Simpleinfo.class);
                         intent.putExtra("mb_id", MB_ID);
                         intent.putExtra("name", Name);
+                        intent.putExtra("password", pw);
                         startActivity(intent);
                     }
                     else
@@ -105,5 +104,20 @@ pn=pn.replaceAll(" ","%20");
         });
         queue.add(objRequest);
 // Add the request to the RequestQueue.
+    }
+
+    private void Dialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+        dialog.setTitle("Change Password");
+        dialog.setMessage("Current Password:");
+        final EditText current_pass = new EditText(Login.this);
+        dialog.setView(current_pass);
+        dialog.setMessage("Changed_Password:");
+        final EditText changed_pass = new EditText(Login.this);
+        dialog.setView(changed_pass);
+        dialog.setPositiveButton("change", null);
+        dialog.setNegativeButton("cancel", null);
+        AlertDialog alert = dialog.create();
+        alert.show();
     }
 }

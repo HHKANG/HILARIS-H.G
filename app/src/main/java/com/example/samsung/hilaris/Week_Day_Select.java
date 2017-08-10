@@ -6,19 +6,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class Week_Day_Select extends AppCompatActivity {
-    Day_list_adapter day_adapter;
-    Week_list_adapter week_adapter;
-    ListView day_listView;
-    ListView week_listView;
-    Button select_button;
-    int day_position = -1, week_position = -1;
+    TextView week1_day1, week1_day2, week1_day3, week1_day4, week1_day5, week1_day6, week1_day7;
+    TextView week2_day1, week2_day2, week2_day3, week2_day4, week2_day5, week2_day6, week2_day7;
+    TextView week3_day1, week3_day2, week3_day3, week3_day4, week3_day5, week3_day6, week3_day7;
+    TextView week4_day1, week4_day2, week4_day3, week4_day4, week4_day5, week4_day6, week4_day7;
+    TextView[][] week_day = new TextView[4][7];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,56 +22,12 @@ public class Week_Day_Select extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_week__day__select);
 
-        day_adapter = new Day_list_adapter();
-        week_adapter = new Week_list_adapter();
+        /*week_day[4][7] = {{findViewById(R.id.week1_day1), week1_day2.findViewById(R.id.week1_day2), week1_day3.findViewById(R.id.week1_day3), week1_day4.findViewById(R.id.week1_day4), week1_day5.findViewById(R.id.week1_day5), week1_day6.findViewById(R.id.week1_day6), week1_day7.findViewById(R.id.week1_day7)},
+                {week2_day1.findViewById(R.id.week2_day1), week2_day2.findViewById(R.id.week2_day2), week2_day3.findViewById(R.id.week2_day3), week2_day4.findViewById(R.id.week2_day4), week2_day5.findViewById(R.id.week2_day5), week2_day6.findViewById(R.id.week2_day6), week2_day7.findViewById(R.id.week2_day7)},
+                {week3_day1.findViewById(R.id.week3_day1), week3_day2.findViewById(R.id.week3_day2), week3_day3.findViewById(R.id.week3_day3), week3_day4.findViewById(R.id.week3_day4), week3_day5.findViewById(R.id.week3_day5), week3_day6.findViewById(R.id.week3_day6), week3_day7.findViewById(R.id.week3_day7)},
+                {week4_day1.findViewById(R.id.week4_day1), week4_day2.findViewById(R.id.week4_day2), week4_day3.findViewById(R.id.week4_day3), week4_day4.findViewById(R.id.week4_day4), week4_day5.findViewById(R.id.week4_day5), week4_day6.findViewById(R.id.week4_day6), week4_day7.findViewById(R.id.week4_day7)}};
+*/
 
-        day_listView = (ListView)findViewById(R.id.day_list);
-        day_listView.setAdapter(day_adapter);
-
-        week_listView = (ListView)findViewById(R.id.week_list);
-        week_listView.setAdapter(week_adapter);
-
-        day_adapter.addItem("Day 1");
-        day_adapter.addItem("Day 2");
-        day_adapter.addItem("Day 3");
-        day_adapter.addItem("Day 4");
-        day_adapter.addItem("Day 5");
-        day_adapter.addItem("Day 6");
-        day_adapter.addItem("Day 7");
-
-        week_adapter.addItem("Week1");
-        week_adapter.addItem("Week2");
-        week_adapter.addItem("Week3");
-        week_adapter.addItem("Week4");
-
-        select_button=(Button)findViewById(R.id.select_button);
-
-        day_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                day_position = i;
-            }
-        });
-
-        week_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                week_position = i;
-            }
-        });
-
-        select_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(week_position != -1 && day_position != -1) {
-                    Intent intent = new Intent(getApplicationContext(), Detailview.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Select Week or Day",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override

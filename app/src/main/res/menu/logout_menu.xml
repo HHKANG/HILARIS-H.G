@@ -5,31 +5,12 @@
     <item
         android:id="@+id/logout"
         android:title="LogOut"
-        app:showAsAction="always"/>
+        android:orderInCategory="2"
+        app:showAsAction="never"/>
+
     <item
-        android:id="@+id/menu_refresh"
-        android:checkable="false"
+        android:id="@+id/change_password"
+        android:title="Chage Password"
         android:orderInCategory="1"
-        app:showAsAction="ifRoom"
-        android:title=" " />
-    <item
-        android:id="@+id/menu_connect"
-        android:title="Connect"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText"/>
-    <item
-        android:id="@+id/menu_disconnect"
-        android:title="Disconnect"
-        android:orderInCategory="101"
-        app:showAsAction="ifRoom|withText"/>
-    <item
-        android:id="@+id/menu_scan"
-        android:title="Scan"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText"/>
-    <item
-        android:id="@+id/menu_stop"
-        android:title="Stop"
-        android:orderInCategory="101"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 </menu>

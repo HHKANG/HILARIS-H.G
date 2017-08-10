@@ -1,14 +1,18 @@
 package com.example.samsung.hilaris;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -37,6 +42,7 @@ public class Simpleinfo extends AppCompatActivity {
     simpleInfo_ListViewAdapter adapter;
     JSONObject[] Tests;
     String SelectedProfile = "SelectedProfile";
+    String new_pw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,6 +54,7 @@ public class Simpleinfo extends AppCompatActivity {
         Intent intent = getIntent();
         get_name = intent.getExtras().getString("name");
         get_mb_id = intent.getExtras().getString("mb_id");
+        //pw = intent.getExtras().getString("password");
 
         set_name = (TextView) findViewById(R.id.name);
         set_BirthDate = (TextView) findViewById(R.id.BirthDate);
@@ -70,7 +77,6 @@ public class Simpleinfo extends AppCompatActivity {
                 Tests = new JSONObject[response.length()];
                 // Process the JSON
                 try {
-
                     Tests[0] = response.getJSONObject(0);
                     JSON Test = new JSON(Tests[0]);
                     Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
@@ -149,6 +155,7 @@ public class Simpleinfo extends AppCompatActivity {
                 }
         });
     }
+
     /**
      * Action Bar에 메뉴를 생성
      * @param menu
@@ -172,7 +179,54 @@ public class Simpleinfo extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
+
+            case R.id.change_password:
+                Dialog();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void Dialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.change_password, null);
+        dialog.setView(view);
+        dialog.setTitle("Change Password");
+
+        dialog.setPositiveButton("change", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                final EditText change_pass = (EditText)((AlertDialog)dialogInterface).findViewById(R.id.change_pass);
+                final EditText check_pass = (EditText)((AlertDialog)dialogInterface).findViewById(R.id.check_pass);
+
+                if(change_pass.getText().toString().equals(check_pass.getText().toString())){
+                    new_pw = change_pass.getText().toString();
+
+                    String url = "http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/changeuserpwd/Kim%20Chang%20Bin/" + new_pw;
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Intent intent = new Intent(Simpleinfo.this, Login.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }, new Response.ErrorListener(){
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    RequestQueue postrequestQueue = Volley.newRequestQueue(Simpleinfo.this);
+                    postrequestQueue.add(stringRequest);
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Password not match", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.setNegativeButton("cancel", null);
+        dialog.show();
     }
 }
