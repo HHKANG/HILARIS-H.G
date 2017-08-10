@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void SendRequest() {
-        pn = pn.replaceAll("\\p{z}", "%20");
+        pn = pn.replaceAll(" ", "%20");
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
