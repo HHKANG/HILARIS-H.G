@@ -29,27 +29,27 @@
         <activity android:name=".Detail_bar_graph" />
         <activity android:name=".Detail_Flexibility_Graph" />
         <activity android:name=".History" />
-        <activity android:name=".History_list"/>
-            <activity
-                android:name=".DeviceScanActivity"
-                android:enabled="true"
-                android:label="@string/app_name" />
+        <activity android:name=".History_list" />
+        <activity
+            android:name=".DeviceScanActivity"
+            android:enabled="true"
+            android:label="@string/app_name" />
 
+        <service
+            android:name=".BluetoothLeService"
+            android:enabled="true" />
+
+        <activity android:name=".DeviceControlActivity" />
+
+        <service
+            android:name=".BluetoothLeService"
+            android:enabled="true" />
+
+        <activity android:name=".BLE_HeartRateGraph">
             <service
                 android:name=".BluetoothLeService"
                 android:enabled="true" />
-
-            <activity android:name=".DeviceControlActivity" />
-
-            <service
-                android:name=".BluetoothLeService"
-                android:enabled="true" />
-
-            <activity android:name=".BLE_HeartRateGraph">
-                <service
-                    android:name=".BluetoothLeService"
-                    android:enabled="true" />
-            </activity>
+        </activity>
         <activity android:name=".GuideLine" />
         <activity android:name=".Week_Day_Select" />
         <activity android:name=".Practicexml"></activity>

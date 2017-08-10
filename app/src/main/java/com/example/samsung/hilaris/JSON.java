@@ -1,5 +1,7 @@
 package com.example.samsung.hilaris;
 
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 
 public class JSON extends JSONObject implements Serializable {
 
+    check converter = new check();
     transient JSONObject json;
 
     double AgeMatched;
@@ -861,30 +864,39 @@ public class JSON extends JSONObject implements Serializable {
         return getAgilityReactionULRight() + getAgilityMovementULRight();
     }
 
-    public String getStringObject(String string) throws JSONException {
-        return json.getString(string);
+    public JSONArray getRoutine() throws JSONException {
+        return json.getJSONArray("routine");
     }
-
-    public String get_H_Guideline() throws JSONException {
+    public String get_Guideline() throws JSONException {
         return json.getString("Guideline");
     }
-    public JSONObject get_M_guidelines() throws JSONException {
+    public JSONObject get_guidelines() throws JSONException {
         return json.getJSONObject("guidelines");
     }
-    public JSONObject get_L_guideline() throws JSONException {
-        return json.getJSONObject("guideline");
+    public JSONArray get_guidelineConvert() throws JSONException {
+        return converter.checking(json.get("guideline"));
     }
+
     public String getTitle() throws JSONException {
         return json.getString("title");
     }
-    public String getRoutine() throws JSONException {
-        return json.getString("routine");
-    }
-    public String getDescription() throws JSONException {
-        return json.getString("description");
-    }
-    public JSONArray getRoutineArray() throws JSONException {
-        return json.getJSONArray("routine");
+    public String getDate() throws JSONException {
+        return json.getString("Date");
     }
 
+
+
+    class check{
+        public JSONArray checking(Object obj){
+            if(obj instanceof JSONArray) {
+                return (JSONArray)obj;
+            }
+            else if(obj instanceof JSONObject) {
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(obj);
+                return jsonArray;
+            }
+            return null;
+        }
+    }
 }
