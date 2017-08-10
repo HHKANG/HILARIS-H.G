@@ -5,5 +5,12 @@
     <item
         android:id="@+id/logout"
         android:title="LogOut"
-        app:showAsAction="always"/>
+        android:orderInCategory="2"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/change_password"
+        android:title="Chage Password"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
 </menu>
