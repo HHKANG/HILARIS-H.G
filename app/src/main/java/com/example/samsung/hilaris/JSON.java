@@ -929,7 +929,7 @@ public class JSON extends JSONObject implements Serializable {
         return json.getString("equipment");
     }
 
-    public String get_Routine_Description()  throws JSONException {
+    public String get_Description()  throws JSONException {
         return json.getString("description");
     }
 

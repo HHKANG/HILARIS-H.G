@@ -16,11 +16,34 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
 
 public class GuideLineList extends AppCompatActivity {
 
     List<NLevelItem> list;
     ListView listView;
+
+    private RequestQueue queue;
+    private String url;
+    public Prescription_Guideline[] prescription_guidelines;
+
+
+    private String date;
+    public Guidelines guideline;
+    public Prescription prescription;
+    private JSON response_JSON;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,71 +51,106 @@ public class GuideLineList extends AppCompatActivity {
         setContentView(R.layout.activity_guideline_list);
         listView = (ListView) findViewById(R.id.listView1);
         list = new ArrayList<NLevelItem>();
-        Random rng = new Random();
         final LayoutInflater inflater = LayoutInflater.from(this);
-        for (int i = 1; i < 6; i++) {
 
-            final NLevelItem grandParent = new NLevelItem(new SomeObject("Date "+i),null, new NLevelView() {
 
-                @Override
-                public View getView(NLevelItem item) {
-                    View view = inflater.inflate(R.layout.list_item, null);
-                    TextView tv = (TextView) view.findViewById(R.id.textView);
-                    String name = (String) ((SomeObject) item.getWrappedObject()).getName();
-                    tv.setText(name);
-                    return view;
-                }
-            });
-            list.add(grandParent);
-            int numChildren = rng.nextInt(4) + 1;
-            for (int j = 1; j < numChildren+1; j++) {
-                NLevelItem parent = new NLevelItem(new SomeObject("->Guideline "+j),grandParent, new NLevelView() {
+        url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/MF000004_00012054_20170627131529";
+        queue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) { // Date 가 하나 일때 오류발생?
+                int responseLength = response.length();
+                for(int responseIndex = 0 ; responseIndex < responseLength; responseIndex++)
+                {
 
-                    @Override
-                    public View getView(NLevelItem item) {
-                        View view = inflater.inflate(R.layout.list_item, null);
-                        TextView tv = (TextView) view.findViewById(R.id.textView);
-                        tv.setPadding(50,0,0,0);
-                        String name = (String) ((SomeObject) item.getWrappedObject()).getName();
-                        tv.setText(name);
-                        return view;
-                    }
-                });
+                    try {
+                        prescription_guidelines = new Prescription_Guideline[responseLength];
+                        prescription_guidelines[responseIndex] = new Prescription_Guideline(response.getJSONObject(responseIndex));
+                        Toast.makeText(GuideLineList.this, "numOfobjects: " + responseLength, Toast.LENGTH_SHORT).show();
+                        try
+                        {
 
-                list.add(parent);
-                int grandChildren = rng.nextInt(5)+1;
-                for( int k = 1; k < grandChildren+1; k++) {
-                    NLevelItem child = new NLevelItem(new SomeObject("-->routine "+k),parent, new NLevelView() {
-
-                        @Override
-                        public View getView(NLevelItem item) {
-                            View view = inflater.inflate(R.layout.list_item, null);
-                            TextView tv = (TextView) view.findViewById(R.id.textView);
-                            tv.setPadding(100,0,0,0);
-                            String name = (String) ((SomeObject) item.getWrappedObject()).getName();
-                            tv.setText(name);
-                            return view;
                         }
-                    });
+                        Toast.makeText(GuideLineList.this, "numOfguidelines: " + guideline.numOfguidelines, Toast.LENGTH_SHORT).show();
+                        /*
+                        for (int i = 0; i < responseLength; i++) {
+                            NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].getDate()),null, new NLevelView() {
+                                @Override
+                                public View getView(NLevelItem item) {
+                                    View view = inflater.inflate(R.layout.list_item, null);
+                                    TextView tv = (TextView) view.findViewById(R.id.textView);
+                                    String name = (String) ((SomeObject) item.getWrappedObject()).getName();
+                                    tv.setText(name);
+                                    return view;
+                                }
+                            });
+                            list.add(grandParent);
+                            for (int j = 0; j < prescription_guidelines[i].guideline.numOfguidelines; j++) {
+                                NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title),grandParent, new NLevelView() {
+                                    @Override
+                                    public View getView(NLevelItem item) {
+                                        View view = inflater.inflate(R.layout.list_item, null);
+                                        TextView tv = (TextView) view.findViewById(R.id.textView);
+                                        tv.setPadding(50,0,0,0);
+                                        String name = (String) ((SomeObject) item.getWrappedObject()).getName();
+                                        tv.setText(name);
+                                        return view;
+                                    }
+                                });
 
-                    list.add(child);
+                                list.add(parent);
+                                for( int k = 0; k < prescription_guidelines[i].guideline.Objects[j].numOfroutines; k++) {
+                                    NLevelItem child = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].routine[k]),parent, new NLevelView() {
+
+                                        @Override
+                                        public View getView(NLevelItem item) {
+                                            View view = inflater.inflate(R.layout.list_item, null);
+                                            TextView tv = (TextView) view.findViewById(R.id.textView);
+                                            tv.setPadding(100,0,0,0);
+                                            String name = (String) ((SomeObject) item.getWrappedObject()).getName();
+                                            tv.setText(name);
+                                            return view;
+                                        }
+                                    });
+
+                                    list.add(child);
+                                }
+                            }
+                        }
+
+                        NLevelAdapter adapter = new NLevelAdapter(list);
+                        listView.setAdapter(adapter);
+                        listView.setOnItemClickListener(new OnItemClickListener() {
+
+                            @Override
+                            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                                    long arg3) {
+                                ((NLevelAdapter)listView.getAdapter()).toggle(arg2);
+                                ((NLevelAdapter)listView.getAdapter()).getFilter().filter();
+
+                            }
+                        });
+                        */
+
+
+                    } catch (JSONException e) {
+                        Toast.makeText(GuideLineList.this, "GuidelineListError", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+
                 }
             }
-        }
-
-        NLevelAdapter adapter = new NLevelAdapter(list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-
+        }, new Response.ErrorListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ((NLevelAdapter)listView.getAdapter()).toggle(arg2);
-                ((NLevelAdapter)listView.getAdapter()).getFilter().filter();
-
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
             }
         });
+        // Add JsonArrayRequest to the RequestQueue
+        queue.add(jsonArrayRequest);
     }
+
 
     class SomeObject {
         public String name;
@@ -103,6 +161,21 @@ public class GuideLineList extends AppCompatActivity {
         public String getName() {
             return name;
         }
+    }
+
+    public void setGuidelines(JSONObject response) throws JSONException {
+        JSON Guideline = new JSON(response); // Parse it into JsonObject --> GuideLine
+        JSON xmlToJson = new JSON(XML.toJSONObject(Guideline.get_Guideline())); // make XML type to Json Type
+        JSON guidelines_JSON = new JSON(xmlToJson.get_guidelines()); // Make it into JsonObject
+        JSONArray GuidelineArray = guidelines_JSON.get_guidelineConvert();
+        guideline = new Guidelines(GuidelineArray);
+    }
+    public void setPrescriptions(JSONObject response) throws JSONException {
+        JSON Prescription = new JSON(response); // Parse it into JsonObject --> GuideLine
+        JSON xmlToJson = new JSON(XML.toJSONObject(Prescription.get_Prescription())); // make XML type to Json Type
+        JSON prescriptions_JSON = new JSON(xmlToJson.get_prescriptions());
+        JSONArray PrescriptionArray = prescriptions_JSON.get_ExerciseRoutineConvert();
+        prescription = new Prescription(PrescriptionArray);
     }
 
 }

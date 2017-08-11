@@ -28,6 +28,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 
+import org.json.JSONException;
+
 /**
  * A canned request for getting an image at a given URL and calling
  * back with a decoded Bitmap.
@@ -215,8 +217,12 @@ public class ImageRequest extends Request<Bitmap> {
     }
 
     @Override
-    protected void deliverResponse(Bitmap response) {
-        mListener.onResponse(response);
+    protected void deliverResponse(Bitmap response)  {
+        try {
+            mListener.onResponse(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

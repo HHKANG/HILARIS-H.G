@@ -12,19 +12,21 @@ public class GuideLineObject {
 
 
 
-    public String routine[];
+    public String title;
+    public String description;
 
+    public String routine[];
     private JSON json;
     private JSONArray routineArray;
     private JSON jsonObject;
-    public int getNumOfroutines() {
-        return numOfroutines;
-    }
-
-    private int numOfroutines;
+    public int numOfroutines;
 
     GuideLineObject(JSONObject JsonObject) throws JSONException {
+
+
         json = new JSON (JsonObject);
+        title = json.getTitle();
+        description = json.get_Description();
         routineArray = json.getRoutine();
         numOfroutines = routineArray.length();
         routine = new String[numOfroutines];
