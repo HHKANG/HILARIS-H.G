@@ -39,12 +39,6 @@ public class GuideLineList extends AppCompatActivity {
     private String url;
     public Prescription_Guideline[] prescription_guidelines;
 
-
-    private String date;
-    public Guidelines guideline;
-    public Prescription prescription;
-    private JSON response_JSON;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +47,7 @@ public class GuideLineList extends AppCompatActivity {
         list = new ArrayList<NLevelItem>();
         final LayoutInflater inflater = LayoutInflater.from(this);
 
-
-
         url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/MF000004_00012054_20170627131529";
-
-
-
         queue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -70,7 +59,6 @@ public class GuideLineList extends AppCompatActivity {
                     try {
                         prescription_guidelines = new Prescription_Guideline[responseLength];
                         prescription_guidelines[i] = new Prescription_Guideline(response.getJSONObject(i));
-                        Toast.makeText(GuideLineList.this, "numOfresponseIndex"+responseLength+"-"+i, Toast.LENGTH_SHORT).show();
                         try
                         {
                                 NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].date),null, new NLevelView() {
@@ -97,8 +85,6 @@ public class GuideLineList extends AppCompatActivity {
                                             return view;
                                         }
                                     });
-                                    Toast.makeText(GuideLineList.this, "numOfguidelines"+prescription_guidelines[i].guideline.numOfguidelines+"-"+j, Toast.LENGTH_SHORT).show();
-
                                     list.add(parent);
                                     for( int k = 0; k < prescription_guidelines[i].guideline.Objects[j].numOfroutines; k++) {
                                         NLevelItem child = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].routine[k]),parent, new NLevelView() {
@@ -113,7 +99,6 @@ public class GuideLineList extends AppCompatActivity {
                                                 return view;
                                             }
                                         });
-                                        Toast.makeText(GuideLineList.this, "numOfRoutines"+prescription_guidelines[i].guideline.Objects[j].numOfroutines+"-"+k, Toast.LENGTH_SHORT).show();
                                         list.add(child);
                                     }
                                 }
@@ -163,21 +148,6 @@ public class GuideLineList extends AppCompatActivity {
         public String getName() {
             return name;
         }
-    }
-
-    public void setGuidelines(JSONObject response) throws JSONException {
-        JSON Guideline = new JSON(response); // Parse it into JsonObject --> GuideLine
-        JSON xmlToJson = new JSON(XML.toJSONObject(Guideline.get_Guideline())); // make XML type to Json Type
-        JSON guidelines_JSON = new JSON(xmlToJson.get_guidelines()); // Make it into JsonObject
-        JSONArray GuidelineArray = guidelines_JSON.get_guidelineConvert();
-        guideline = new Guidelines(GuidelineArray);
-    }
-    public void setPrescriptions(JSONObject response) throws JSONException {
-        JSON Prescription = new JSON(response); // Parse it into JsonObject --> GuideLine
-        JSON xmlToJson = new JSON(XML.toJSONObject(Prescription.get_Prescription())); // make XML type to Json Type
-        JSON prescriptions_JSON = new JSON(xmlToJson.get_prescriptions());
-        JSONArray PrescriptionArray = prescriptions_JSON.get_ExerciseRoutineConvert();
-        prescription = new Prescription(PrescriptionArray);
     }
 
 }
