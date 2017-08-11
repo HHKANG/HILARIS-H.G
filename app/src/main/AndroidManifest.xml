@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".Simpleinfo" />
         <activity android:name=".Detailinfo" />
-        <activity android:name=".Exerciselist" />
         <activity android:name=".Exercise" />
         <activity android:name=".Detailview" />
         <activity android:name=".Detail_BloodPressureGraph" />
