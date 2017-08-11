@@ -35,7 +35,7 @@ public class Week_Day_Select extends AppCompatActivity {
             }
         }
 
-        Toast.makeText(getApplicationContext(),""+unit.week,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(),""+unit.week,Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -34,6 +34,7 @@ import org.json.XML;
 public class GuideLineList extends AppCompatActivity {
 
     List<NLevelItem> list;
+    List<NLevelItem> listchild;
     ListView listView;
 
     private RequestQueue queue;
@@ -46,6 +47,7 @@ public class GuideLineList extends AppCompatActivity {
         setContentView(R.layout.activity_guideline_list);
         listView = (ListView) findViewById(R.id.listView1);
         list = new ArrayList<NLevelItem>();
+        listchild = new ArrayList<NLevelItem>();
         final LayoutInflater inflater = LayoutInflater.from(this);
 
         url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/MF000004_00012054_20170627131529";
@@ -72,7 +74,7 @@ public class GuideLineList extends AppCompatActivity {
                                         return view;
                                     }
                                 });
-                                Toast.makeText(GuideLineList.this, "i="+i+":"+prescription_guidelines[i].date, Toast.LENGTH_SHORT).show();
+
                                 list.add(grandParent);
                                 for (int j = 0; j < prescription_guidelines[i].guideline.numOfguidelines; j++) {
                                     NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title,prescription_guidelines[i].guideline.Objects[j].description),grandParent, new NLevelView() {
@@ -109,6 +111,7 @@ public class GuideLineList extends AppCompatActivity {
                                             }
                                         });
                                         list.add(child);
+                                        /*
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -118,20 +121,21 @@ public class GuideLineList extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                         });
+                                        */
 
                                     }
                                 }
 
 
-                            NLevelAdapter adapter = new NLevelAdapter(list);
+                            final NLevelAdapter adapter = new NLevelAdapter(list);
                             listView.setAdapter(adapter);
                             listView.setOnItemClickListener(new OnItemClickListener() {
-
                                 @Override
                                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                                         long arg3) {
                                     ((NLevelAdapter)listView.getAdapter()).toggle(arg2);
                                     ((NLevelAdapter)listView.getAdapter()).getFilter().filter();
+
 
                                 }
                             });
