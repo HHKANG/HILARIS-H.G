@@ -29,7 +29,7 @@ public class ExerciseListview extends AppCompatActivity {
         parentList.add("Work Out");
         parentList.add("Cool Dowm");
 
-
+/*
         // 앞서 ParentList에 연결할 ChildList 항목을 선언 및 입력
         ChildListData apple = new ChildListData(getResources().getDrawable(R.mipmap.apple), "사과","phrase");
         ChildListData pair = new ChildListData(getResources().getDrawable(R.mipmap.pair), "배","phrase");
@@ -38,6 +38,7 @@ public class ExerciseListview extends AppCompatActivity {
         fruit.add(apple);
         fruit.add(pair);
         fruit.add(persimmon);
+        */
 
 /*
         ChildListData onion = new ChildListData(getResources().getDrawable(R.mipmap.onion), "양파");

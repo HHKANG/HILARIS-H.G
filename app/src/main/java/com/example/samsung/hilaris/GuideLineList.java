@@ -7,6 +7,7 @@ import java.util.Random;
 
 //import com.example.expandable3.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public class GuideLineList extends AppCompatActivity {
                                     @Override
                                     public View getView(NLevelItem item) {
                                         View view = inflater.inflate(R.layout.list_item, null);
-                                        TextView tv = (TextView) view.findViewById(R.id.textView);
+                                        TextView tv = (TextView) view.findViewById(R.id.textView01);
                                         String name = (String) ((SomeObject) item.getWrappedObject()).getName();
                                         tv.setText(name);
                                         return view;
@@ -74,14 +75,22 @@ public class GuideLineList extends AppCompatActivity {
                                 Toast.makeText(GuideLineList.this, "i="+i+":"+prescription_guidelines[i].date, Toast.LENGTH_SHORT).show();
                                 list.add(grandParent);
                                 for (int j = 0; j < prescription_guidelines[i].guideline.numOfguidelines; j++) {
-                                    NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title),grandParent, new NLevelView() {
+                                    NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title,prescription_guidelines[i].guideline.Objects[j].description),grandParent, new NLevelView() {
                                         @Override
                                         public View getView(NLevelItem item) {
-                                            View view = inflater.inflate(R.layout.list_item, null);
-                                            TextView tv = (TextView) view.findViewById(R.id.textView);
-                                            tv.setPadding(50,0,0,0);
-                                            String name = (String) ((SomeObject) item.getWrappedObject()).getName();
-                                            tv.setText(name);
+                                            View view = inflater.inflate(R.layout.list_item2, null);
+                                            TextView tv01 = (TextView) view.findViewById(R.id.textView01);
+                                            TextView tv02 = (TextView) view.findViewById(R.id.textView02);
+
+                                            tv01.setPadding(50,0,0,0);
+                                            tv02.setPadding(50,0,0,0);
+
+                                            String name1 = (String) ((SomeObject) item.getWrappedObject()).getName();
+                                            String name2 = (String) ((SomeObject) item.getWrappedObject()).getName2();
+
+                                            tv01.setText(name1);
+                                            tv02.setText(name2);
+
                                             return view;
                                         }
                                     });
@@ -92,7 +101,7 @@ public class GuideLineList extends AppCompatActivity {
                                             @Override
                                             public View getView(NLevelItem item) {
                                                 View view = inflater.inflate(R.layout.list_item, null);
-                                                TextView tv = (TextView) view.findViewById(R.id.textView);
+                                                TextView tv = (TextView) view.findViewById(R.id.textView01);
                                                 tv.setPadding(100,0,0,0);
                                                 String name = (String) ((SomeObject) item.getWrappedObject()).getName();
                                                 tv.setText(name);
@@ -100,6 +109,16 @@ public class GuideLineList extends AppCompatActivity {
                                             }
                                         });
                                         list.add(child);
+                                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                                                Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
+                                                intent.putExtra("position", position);
+                                                startActivity(intent);
+                                            }
+                                        });
+
                                     }
                                 }
 
@@ -141,12 +160,23 @@ public class GuideLineList extends AppCompatActivity {
 
     class SomeObject {
         public String name;
+        public String name2;
+
 
         public SomeObject(String name) {
             this.name = name;
         }
+
+        public SomeObject(String name, String name2) {
+            this.name = name;
+            this.name2 = name2;
+
+        }
         public String getName() {
             return name;
+        }
+        public String getName2() {
+            return name2;
         }
     }
 
