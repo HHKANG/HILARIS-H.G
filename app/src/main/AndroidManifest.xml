@@ -31,7 +31,8 @@
         <activity android:name=".History_list" />
         <activity android:name=".GuideLineList" />
         <activity android:name=".Week_Day_Select" />
-        <activity android:name=".Practicexml"></activity>
+        <activity android:name=".Prescription_Guideline" />
+        <activity android:name=".forTeest"></activity>
     </application>
 
 </manifest>

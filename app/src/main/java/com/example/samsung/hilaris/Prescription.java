@@ -2,7 +2,6 @@ package com.example.samsung.hilaris;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by js960 on 2017-08-10.
@@ -20,5 +19,4 @@ public class Prescription {
         }
 
     }
-
 }

@@ -18,6 +18,8 @@ package com.android.volley;
 
 import android.os.Handler;
 
+import org.json.JSONException;
+
 import java.util.concurrent.Executor;
 
 /**
@@ -96,7 +98,11 @@ public class ExecutorDelivery implements ResponseDelivery {
 
             // Deliver a normal response or error, depending.
             if (mResponse.isSuccess()) {
-                mRequest.deliverResponse(mResponse.result);
+                try {
+                    mRequest.deliverResponse(mResponse.result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             } else {
                 mRequest.deliverError(mResponse.error);
             }

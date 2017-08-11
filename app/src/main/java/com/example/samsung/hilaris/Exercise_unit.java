@@ -17,8 +17,7 @@ public class Exercise_unit {
     public String type;
 
     public String bodypart;
-    public String bodypart2
-            ;
+    public String bodypart2;
     public String equipment;
     public String description;
     public String benefit;
@@ -45,7 +44,7 @@ public class Exercise_unit {
         bodypart = E_Unit.getBodypart();
         bodypart2 = E_Unit.getBodypart2();
         equipment = E_Unit.getEquipment();
-        description = E_Unit.get_Routine_Description();
+        description = E_Unit.get_Description();
         benefit = E_Unit.getBenefit();
         caution = E_Unit.getCauiton();
         image = E_Unit.getImage();

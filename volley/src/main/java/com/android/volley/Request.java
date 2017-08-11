@@ -24,6 +24,8 @@ import android.text.TextUtils;
 
 import com.android.volley.VolleyLog.MarkerLog;
 
+import org.json.JSONException;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Collections;
@@ -570,7 +572,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      * @param response The parsed response returned by
      * {@link #parseNetworkResponse(NetworkResponse)}
      */
-    abstract protected void deliverResponse(T response);
+    abstract protected void deliverResponse(T response) throws JSONException;
 
     /**
      * Delivers error message to the ErrorListener that the Request was
