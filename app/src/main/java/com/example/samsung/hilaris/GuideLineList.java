@@ -156,8 +156,6 @@ public class GuideLineList extends AppCompatActivity {
         // Add JsonArrayRequest to the RequestQueue
         queue.add(jsonArrayRequest);
     }
-
-
     class SomeObject {
         public String name;
         public String name2;
@@ -179,5 +177,4 @@ public class GuideLineList extends AppCompatActivity {
             return name2;
         }
     }
-
 }

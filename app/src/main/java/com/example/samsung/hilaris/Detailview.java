@@ -24,7 +24,10 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.example.samsung.hilaris.R.drawable.exercise1;
 
 
 public class Detailview extends AppCompatActivity {
@@ -104,24 +107,19 @@ public class Detailview extends AppCompatActivity {
         /**********************************************************************************************/
         //Need to get Exercise Name from previous class or Get it frome current class --> code change needed below
         exercise_name = (TextView) findViewById(R.id.exercise_name);
-
         Intent intent = getIntent();
-        /*************Set Values of Description and Routine Part************
-         *
-         *
-        object = intent.getStringExtra("object");
-         change object to Json Object
-        setValues(object);
-         *
-         *
-         *
-        **************************/
+        try {
+            JSONObject E_Unit = new JSONObject(intent.getStringExtra("exercise_unit"));
+            Exercise_unit unit = new Exercise_unit(E_Unit);
+            ImageUri = "http://221.153.186.186:3100/" + unit.image;
+            VideoUri = "http://221.153.186.186:3100/" + unit.video;
+            setImageView(ImageUri);
+            setValues(unit);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mediaController = new MediaController(this);
-
-        String uriPath = "android.resource://"+getPackageName() + "/drawable/exercise1";
-        //String uriPath = "http://221.153.186.186:3100/"+Exercise.toString(); //Get Name of Image from Json Object
-        setImageView(uriPath);
-        ImageVideoButton(Exercise);
+        ImageVideoButton();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -237,25 +235,24 @@ public class Detailview extends AppCompatActivity {
            }
        });
    }
-   public void setValues(Object object)
+   public void setValues(Exercise_unit unit)
    {
        String exercise_title;
        String set, repetition, time, intensity, body_part, equipment;
        String description, benefit, caution;
        /***********Below will be changed when Database construction finish****/
-
        //Should be implented when JSon Object reached
-       exercise_title = object.toString(); //title
-        set = object.toString();
-       repetition = object.toString();
-       time=object.toString();
-       intensity = object.toString();
-       body_part = object.toString();
-       equipment = object.toString();
+       exercise_title = unit.title; //title
+        set = unit.set;
+       repetition = unit.repetition;
+       time=unit.time;
+       intensity = unit.intensity;
+       body_part = unit.bodypart;
+       equipment = unit.equipment;
        /*******************/
-       description = object.toString();
-       benefit = object.toString();
-       caution = object.toString();
+       description = unit.description;
+       benefit = unit.benefit;
+       caution = unit.caution;
        /****************/
        setExerciseTitle(exercise_title);
        setRoutineValue(set, repetition, time, intensity, body_part, equipment );
@@ -316,7 +313,7 @@ public class Detailview extends AppCompatActivity {
             }
         });
     }
-    public void ImageVideoButton(JSONObject Exercise)
+    public void ImageVideoButton()
     {
         /*
          ImageUri = "http://221.153.186.186:3100/"+Exercise.toString(); //Get Name of Image from Json Object
@@ -326,8 +323,7 @@ public class Detailview extends AppCompatActivity {
         B_ImageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String uriPath = "android.resource://"+getPackageName() + "/drawable/exercise1";//임시방편
-               // setImageView(ImageUri);
+               setImageView(ImageUri);
                 Videoview.setVisibility(v.INVISIBLE);
                 Imageview.setVisibility(v.VISIBLE);
             }
@@ -335,10 +331,8 @@ public class Detailview extends AppCompatActivity {
         B_VideoView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-               String uriPath = "android.resource://"+getPackageName() + "/raw/dumbell";//임시방편
-                setVideoview(uriPath); // 임시방편
-                // setVideoview(VideoUri);
 
+                 setVideoview(VideoUri);
                 Videoview.setVisibility(v.VISIBLE);
                 Imageview.setVisibility(v.INVISIBLE);
             }
