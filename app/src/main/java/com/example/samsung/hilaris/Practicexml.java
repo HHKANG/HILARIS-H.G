@@ -1,7 +1,7 @@
 package com.example.samsung.hilaris;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,9 +14,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.XML;
-import org.w3c.dom.Text;
 
 
 public class Practicexml extends AppCompatActivity {
@@ -88,7 +86,6 @@ public class Practicexml extends AppCompatActivity {
                     JSONArray PrescriptionArray = prescriptions_JSON.get_ExerciseRoutineConvert();
                     Prescriptions = new Prescription(PrescriptionArray);
 
-             
                 } catch (JSONException e) {
                     Toast.makeText(Practicexml.this, "Error", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -104,6 +101,4 @@ public class Practicexml extends AppCompatActivity {
         queue.add(jsonArrayRequest);
 
     }
-
-
 }
