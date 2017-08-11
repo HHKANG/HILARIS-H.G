@@ -14,7 +14,7 @@ public class Prescription_Guideline extends AppCompatActivity {
         return date;
     }
 
-    private String date;
+    public String date;
     public Guidelines guideline;
     public Prescription prescription;
     private JSON response_JSON;

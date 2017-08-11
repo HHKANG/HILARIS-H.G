@@ -54,86 +54,88 @@ public class GuideLineList extends AppCompatActivity {
         final LayoutInflater inflater = LayoutInflater.from(this);
 
 
+
         url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/MF000004_00012054_20170627131529";
+
+
+
         queue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) { // Date 가 하나 일때 오류발생?
                 int responseLength = response.length();
-                for(int responseIndex = 0 ; responseIndex < responseLength; responseIndex++)
+                for(int i = 0 ; i < responseLength; i++)
                 {
-
                     try {
                         prescription_guidelines = new Prescription_Guideline[responseLength];
-                        prescription_guidelines[responseIndex] = new Prescription_Guideline(response.getJSONObject(responseIndex));
-                        Toast.makeText(GuideLineList.this, "numOfobjects: " + responseLength, Toast.LENGTH_SHORT).show();
+                        prescription_guidelines[i] = new Prescription_Guideline(response.getJSONObject(i));
+                        Toast.makeText(GuideLineList.this, "numOfresponseIndex"+responseLength+"-"+i, Toast.LENGTH_SHORT).show();
                         try
                         {
-
-                        }
-                        Toast.makeText(GuideLineList.this, "numOfguidelines: " + guideline.numOfguidelines, Toast.LENGTH_SHORT).show();
-                        /*
-                        for (int i = 0; i < responseLength; i++) {
-                            NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].getDate()),null, new NLevelView() {
-                                @Override
-                                public View getView(NLevelItem item) {
-                                    View view = inflater.inflate(R.layout.list_item, null);
-                                    TextView tv = (TextView) view.findViewById(R.id.textView);
-                                    String name = (String) ((SomeObject) item.getWrappedObject()).getName();
-                                    tv.setText(name);
-                                    return view;
-                                }
-                            });
-                            list.add(grandParent);
-                            for (int j = 0; j < prescription_guidelines[i].guideline.numOfguidelines; j++) {
-                                NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title),grandParent, new NLevelView() {
+                                NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].date),null, new NLevelView() {
                                     @Override
                                     public View getView(NLevelItem item) {
                                         View view = inflater.inflate(R.layout.list_item, null);
                                         TextView tv = (TextView) view.findViewById(R.id.textView);
-                                        tv.setPadding(50,0,0,0);
                                         String name = (String) ((SomeObject) item.getWrappedObject()).getName();
                                         tv.setText(name);
                                         return view;
                                     }
                                 });
-
-                                list.add(parent);
-                                for( int k = 0; k < prescription_guidelines[i].guideline.Objects[j].numOfroutines; k++) {
-                                    NLevelItem child = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].routine[k]),parent, new NLevelView() {
-
+                                Toast.makeText(GuideLineList.this, "i="+i+":"+prescription_guidelines[i].date, Toast.LENGTH_SHORT).show();
+                                list.add(grandParent);
+                                for (int j = 0; j < prescription_guidelines[i].guideline.numOfguidelines; j++) {
+                                    NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title),grandParent, new NLevelView() {
                                         @Override
                                         public View getView(NLevelItem item) {
                                             View view = inflater.inflate(R.layout.list_item, null);
                                             TextView tv = (TextView) view.findViewById(R.id.textView);
-                                            tv.setPadding(100,0,0,0);
+                                            tv.setPadding(50,0,0,0);
                                             String name = (String) ((SomeObject) item.getWrappedObject()).getName();
                                             tv.setText(name);
                                             return view;
                                         }
                                     });
+                                    Toast.makeText(GuideLineList.this, "numOfguidelines"+prescription_guidelines[i].guideline.numOfguidelines+"-"+j, Toast.LENGTH_SHORT).show();
 
-                                    list.add(child);
+                                    list.add(parent);
+                                    for( int k = 0; k < prescription_guidelines[i].guideline.Objects[j].numOfroutines; k++) {
+                                        NLevelItem child = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].routine[k]),parent, new NLevelView() {
+
+                                            @Override
+                                            public View getView(NLevelItem item) {
+                                                View view = inflater.inflate(R.layout.list_item, null);
+                                                TextView tv = (TextView) view.findViewById(R.id.textView);
+                                                tv.setPadding(100,0,0,0);
+                                                String name = (String) ((SomeObject) item.getWrappedObject()).getName();
+                                                tv.setText(name);
+                                                return view;
+                                            }
+                                        });
+                                        Toast.makeText(GuideLineList.this, "numOfRoutines"+prescription_guidelines[i].guideline.Objects[j].numOfroutines+"-"+k, Toast.LENGTH_SHORT).show();
+                                        list.add(child);
+                                    }
                                 }
-                            }
+
+
+                            NLevelAdapter adapter = new NLevelAdapter(list);
+                            listView.setAdapter(adapter);
+                            listView.setOnItemClickListener(new OnItemClickListener() {
+
+                                @Override
+                                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                                        long arg3) {
+                                    ((NLevelAdapter)listView.getAdapter()).toggle(arg2);
+                                    ((NLevelAdapter)listView.getAdapter()).getFilter().filter();
+
+                                }
+                            });
+
+                        }catch (Exception e)
+                        {
+                            Toast.makeText(GuideLineList.this, "Please", Toast.LENGTH_SHORT).show();
                         }
-
-                        NLevelAdapter adapter = new NLevelAdapter(list);
-                        listView.setAdapter(adapter);
-                        listView.setOnItemClickListener(new OnItemClickListener() {
-
-                            @Override
-                            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                                    long arg3) {
-                                ((NLevelAdapter)listView.getAdapter()).toggle(arg2);
-                                ((NLevelAdapter)listView.getAdapter()).getFilter().filter();
-
-                            }
-                        });
-                        */
-
-
                     } catch (JSONException e) {
                         Toast.makeText(GuideLineList.this, "GuidelineListError", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
