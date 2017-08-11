@@ -10,6 +10,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/table_layout"
         android:stretchColumns="*">
 
         <TableRow
@@ -69,28 +70,32 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:gravity="center_horizontal"
-                android:id="@+id/week1_day1"/>
+                android:id="@+id/week1_day1"
+                android:tag="0"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week2_day1"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week3_day1"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="2"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week4_day1"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="3"/>
         </TableRow>
 
         <TableRow
@@ -110,28 +115,32 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week1_day2"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="4"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week2_day2"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="5"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week3_day2"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="6"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week4_day2"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="7"/>
         </TableRow>
 
         <TableRow
@@ -151,28 +160,32 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week1_day3"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="8"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week2_day3"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="9"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week3_day3"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="10"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week4_day3"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="11"/>
         </TableRow>
 
         <TableRow
@@ -192,28 +205,32 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week1_day4"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="12"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week2_day4"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="13"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week3_day4"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="14"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week4_day4"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="15"/>
         </TableRow>
 
         <TableRow
@@ -233,28 +250,32 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week1_day5"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="16"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week2_day5"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="17"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week3_day5"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="18"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week4_day5"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="19"/>
         </TableRow>
 
         <TableRow
@@ -274,28 +295,32 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week1_day6"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="20"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week2_day6"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="21"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week3_day6"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="22"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week4_day6"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="23"/>
         </TableRow>
 
         <TableRow
@@ -315,28 +340,32 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week1_day7"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="24"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week2_day7"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="25"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week3_day7"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="26"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/week4_day7"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:tag="27"/>
         </TableRow>
     </TableLayout>
 </LinearLayout>

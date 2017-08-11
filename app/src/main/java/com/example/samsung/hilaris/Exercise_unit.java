@@ -17,8 +17,7 @@ public class Exercise_unit {
     public String type;
 
     public String bodypart;
-    public String bodypart2
-            ;
+    public String bodypart2;
     public String equipment;
     public String description;
     public String benefit;
