@@ -82,11 +82,12 @@ public class Login extends AppCompatActivity {
                     MB_ID = response.getString("MB_ID");
                     Name = response.getString("Name");
                     if(!MB_ID.equals("null") && !Name.equals("null")) {
-                        Intent intent = new Intent(getApplicationContext(), Prescription_Guideline.class);
+                        Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
                         intent.putExtra("mb_id", MB_ID);
                         intent.putExtra("name", Name);
                         intent.putExtra("password", pw);
                         startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
