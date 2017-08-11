@@ -22,6 +22,9 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 
+
+import org.json.JSONException;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -56,8 +59,12 @@ public class StringRequest extends Request<String> {
     }
 
     @Override
-    protected void deliverResponse(String response) {
-        mListener.onResponse(response);
+    protected void deliverResponse(String response)  {
+        try {
+            mListener.onResponse(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
