@@ -865,14 +865,25 @@ public class JSON extends JSONObject implements Serializable {
     }
 
     public JSONArray getRoutine() throws JSONException {
-        return json.getJSONArray("routine");
+        return converter.checking(json.get("routine"));
     }
     public String get_Guideline() throws JSONException {
         return json.getString("Guideline");
     }
+    public String get_Prescription() throws JSONException {
+        return json.getString("Prescription");
+    }
+    public JSONObject get_prescriptions() throws JSONException {
+        return json.getJSONObject("prescription");
+    }
     public JSONObject get_guidelines() throws JSONException {
         return json.getJSONObject("guidelines");
     }
+
+    public JSONObject getExercises() throws JSONException {
+        return json.getJSONObject("exercises");
+    }
+
     public JSONArray get_guidelineConvert() throws JSONException {
         return converter.checking(json.get("guideline"));
     }
@@ -883,8 +894,80 @@ public class JSON extends JSONObject implements Serializable {
     public String getDate() throws JSONException {
         return json.getString("Date");
     }
+    public JSONArray get_ExerciseRoutineConvert() throws JSONException {
+        return converter.checking(json.get("exercise-routine"));
+    }
+    public JSONArray getExercise_Unit() throws JSONException {
+        return converter.checking(json.get("exercise-unit"));
+    }
 
+    public String getPrescription_id()  throws JSONException {
+        return json.getString("id");
+    }
 
+    public String getSession() throws JSONException {
+        return json.getString("session");
+    }
+
+    public String getPhase()  throws JSONException {
+        return json.getString("phase");
+    }
+
+    public String getType()  throws JSONException {
+        return json.getString("type");
+    }
+
+    public String getBodypart()  throws JSONException {
+        return json.getString("bodypart");
+    }
+
+    public String getBodypart2()  throws JSONException {
+        return json.getString("bodypart2");
+    }
+
+    public String getEquipment() throws JSONException {
+        return json.getString("equipment");
+    }
+
+    public String get_Routine_Description()  throws JSONException {
+        return json.getString("description");
+    }
+
+    public String  getBenefit() throws JSONException {
+        return json.getString("benefit");
+    }
+
+    public String getCauiton()  throws JSONException {
+        return json.getString("caution");
+    }
+
+    public String getImage()  throws JSONException {
+        return json.getString("image");
+    }
+
+    public String getVideo()  throws JSONException {
+        return json.getString("video");
+    }
+
+    public String getSet()  throws JSONException {
+        return json.getString("set");
+    }
+
+    public String getRepetition() throws JSONException {
+        return json.getString("repetition");
+    }
+
+    public String getTime()  throws JSONException {
+        return json.getString("time");
+    }
+
+    public String getIntensity()  throws JSONException {
+        return json.getString("intensity");
+    }
+
+    public String getWeek() throws JSONException {
+        return json.getString("week");
+    }
 
     class check{
         public JSONArray checking(Object obj){
