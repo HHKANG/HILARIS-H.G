@@ -1,14 +1,6 @@
 package com.example.samsung.hilaris;
 
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +34,7 @@ public class Prescription_Guideline extends AppCompatActivity {
         JSONArray GuidelineArray = guidelines_JSON.get_guidelineConvert();
         guideline = new Guidelines(GuidelineArray);
     }
+
     public void setPrescriptions(JSONObject response) throws JSONException {
         JSON Prescription = new JSON(response); // Parse it into JsonObject --> GuideLine
         JSON xmlToJson = new JSON(XML.toJSONObject(Prescription.get_Prescription())); // make XML type to Json Type
