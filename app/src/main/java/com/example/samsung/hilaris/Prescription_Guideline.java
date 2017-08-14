@@ -14,6 +14,8 @@ public class Prescription_Guideline extends AppCompatActivity {
         return date;
     }
 
+
+
     public String date;
     public Guidelines guideline;
     public Prescription prescription;
@@ -41,5 +43,8 @@ public class Prescription_Guideline extends AppCompatActivity {
         JSON prescriptions_JSON = new JSON(xmlToJson.get_prescriptions());
         JSONArray PrescriptionArray = prescriptions_JSON.get_ExerciseRoutineConvert();
         prescription = new Prescription(PrescriptionArray);
+
     }
+
+
 }

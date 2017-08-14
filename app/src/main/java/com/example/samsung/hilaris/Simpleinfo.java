@@ -32,6 +32,7 @@ import org.json.JSONObject;
 public class Simpleinfo extends AppCompatActivity {
     private final int History_Data = 3; //Num of Data to compare in History
     Button history;
+    //Button goguideline;
     TextView set_name;
     TextView set_BirthDate;
     String get_name;
@@ -154,6 +155,18 @@ public class Simpleinfo extends AppCompatActivity {
                 }
                 }
         });
+/*
+        goguideline  = (Button) findViewById(R.id.goguideline);
+        goguideline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
+                    startActivity(intent);
+
+            }
+        });
+        */
     }
 
     /**

@@ -10,8 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="50px"
-        android:paddingLeft="30px"
+        android:textSize="70px"
         />
 
     <TextView
@@ -20,6 +19,6 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="50px"
-        android:paddingLeft="30px"
         />
+
 </LinearLayout>

@@ -30,4 +30,9 @@ public class Exercise_routine {
             exercise_unit[i] = new Exercise_unit(JsonArray.getJSONObject(i));
         }
     }
+
+    public String getExerciseUnit() {
+        return exercise_unit.toString();
+    }
+
 }

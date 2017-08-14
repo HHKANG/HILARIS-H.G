@@ -3,7 +3,8 @@ package com.example.samsung.hilaris;
 
 import android.view.View;
 
-public class NLevelItem implements NLevelListItem {
+public class NLevelItem implements NLevelListItem
+{
 
     private Object wrappedObject;
     private Object wrappedObject2;
@@ -25,10 +26,12 @@ public class NLevelItem implements NLevelListItem {
         this.nLevelView = nLevelView;
     }
 
-
     public Object getWrappedObject() {
         return wrappedObject;
     }
+
+
+
 
     @Override
     public boolean isExpanded() {
@@ -46,4 +49,5 @@ public class NLevelItem implements NLevelListItem {
     public void toggle() {
         isExpanded = !isExpanded;
     }
+
 }

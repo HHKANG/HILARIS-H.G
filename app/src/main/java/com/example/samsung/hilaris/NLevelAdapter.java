@@ -45,6 +45,7 @@ public class NLevelAdapter extends BaseAdapter {
         return getItem(arg0).getView();
     }
 
+
     public NLevelFilter getFilter() {
         return new NLevelFilter();
     }
@@ -102,4 +103,5 @@ public class NLevelAdapter extends BaseAdapter {
     public void toggle(int arg2) {
         filtered.get(arg2).toggle();
     }
+
 }

@@ -11,7 +11,7 @@ public class ListViewItem {
 
     private int iconID;//운동 이미지
     private String Name;//운동 이름
-    private String Type;//운동 타입
+    private String Phase;//운동 타입
 
     String objectName;//Detail info
 
@@ -57,10 +57,10 @@ public class ListViewItem {
     }
 
 
-    public ListViewItem(int iconID,String Name,String Type){
+    public ListViewItem(int iconID,String Name,String Phase){
         this.iconID=iconID;
         this.Name=Name;
-        this.Type=Type;
+        this.Phase=Phase;
 
     }
 
@@ -73,7 +73,7 @@ public class ListViewItem {
     public void setName(String Name) {
         this.Name = Name;
     }
-    public String getType() {return Type;}
+    public String getPhase() {return Phase;}
 
 
     public void setObjectName(String objectName) {
