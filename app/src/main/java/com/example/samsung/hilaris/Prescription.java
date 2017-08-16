@@ -10,6 +10,7 @@ import org.json.JSONException;
 public class Prescription {
     public Exercise_routine[] routine;
     public int routine_length;
+    public JSONArray prescription_jsonArray;
     Prescription(JSONArray exercise_routine) throws JSONException {
         routine_length = exercise_routine.length();
         routine = new Exercise_routine[routine_length];
@@ -17,6 +18,8 @@ public class Prescription {
         {
             routine[i] = new Exercise_routine(exercise_routine.getJSONObject(i));
         }
+
+        prescription_jsonArray = new JSONArray(exercise_routine);
 
     }
 }
