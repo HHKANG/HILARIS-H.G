@@ -16,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Detailinfo extends AppCompatActivity implements Serializable{
     Button exercise;
@@ -108,7 +107,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Simpleinfo.class);
+                Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
                 startActivity(intent);
             }
         });
