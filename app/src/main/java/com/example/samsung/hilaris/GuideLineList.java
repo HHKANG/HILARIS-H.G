@@ -1,12 +1,6 @@
 package com.example.samsung.hilaris;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-//import com.example.expandable3.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -30,8 +24,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import com.example.expandable3.R;
 
 public class GuideLineList extends AppCompatActivity {
 
@@ -148,9 +145,9 @@ public class GuideLineList extends AppCompatActivity {
 
                                     }*/
                                         //Toast.makeText(GuideLineList.this, grandparent, Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
+                                        Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
                                         intent.putExtra("rountine", Routine);
-                                       startActivity(intent);
+                                         startActivity(intent);
                                         //intent.putExtra("prescription", prescription_guidelines_selected.prescription.prescription_array.toString());                                        startActivity(intent);
                                     }
                                 }
