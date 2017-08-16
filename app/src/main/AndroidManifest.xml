@@ -31,7 +31,8 @@
         <activity android:name=".History_list" />
         <activity android:name=".GuideLineList" />
         <activity android:name=".Week_Day_Select" />
-        <activity android:name=".Exercises_Select"></activity>
+        <activity android:name=".Exercises_Select" />
+        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>
