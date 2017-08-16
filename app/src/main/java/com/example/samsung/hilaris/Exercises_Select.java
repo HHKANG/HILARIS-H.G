@@ -33,7 +33,13 @@ public class Exercises_Select extends AppCompatActivity {
     JSONObject E_Unit;
     Exercise_unit unit;
     String array[] = null;
-    int index= 0;
+    Exercise_unit warmup_array[] = null;
+    String workout_array[] = null;
+    String cooldown_array[] = null;
+    int index1= 0;
+    int index2= 0;
+    int index3= 0;
+
 
 
 
@@ -79,32 +85,33 @@ public class Exercises_Select extends AppCompatActivity {
         for (int i = 0; i < size; i++) {
             array[i] = intent.getExtras().getString("test2" + i);
             try {
-                index = i;
                 E_Unit = new JSONObject(array[i]);
                 unit = new Exercise_unit(E_Unit);
                 //배열에 값 저장하기
 
                 if (unit.phase.equals("Warm Up")) {
-                    // Toast.makeText(getApplicationContext(),unit.phase+" "+unit.title+" "+unit.type+unit.image,Toast.LENGTH_LONG).show();
-                      ImageUri = "http://221.153.186.186:3100/" + unit.image;
-                    list_warmup.add(new ExerciseItem(ImageUri, unit.title, unit.type));
-                    //리스트뷰와 어댑터 연결하기
-                    listView_warmup.setAdapter(adapter1);
-
-                    listView_warmup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position1, long id) {
-                            Intent intent = new Intent(getApplicationContext(), Detailview.class);
-                            //  intent.putExtra("exercise_unit",E_Unit.toString());
-                            //match가 안됨..ㅠ onclick 리스너부분..index =i 하면 arrary의 마지막 운동이 나옴...ㅠ
-                            Toast.makeText(getApplicationContext(),array[position1],Toast.LENGTH_LONG).show();
-                            // startActivity(intent);
-                        }
+                        // Toast.makeText(getApplicationContext(),unit.phase+" "+unit.title+" "+unit.type+unit.image,Toast.LENGTH_LONG).show();
+                        ImageUri = "http://221.153.186.186:3100/" + unit.image;
+                        list_warmup.add(new ExerciseItem(ImageUri, unit.title, unit.type));
 
 
-                    });
+                        //리스트뷰와 어댑터 연결하기
+                        listView_warmup.setAdapter(adapter1);
+
+                        listView_warmup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position1, long id) {
+                                Intent intent = new Intent(getApplicationContext(), Detailview.class);
+                                intent.putExtra("exercise_unit", array[position1]);
+                                Toast.makeText(getApplicationContext(),array[position1],Toast.LENGTH_LONG).show();
+                                startActivity(intent);
+                            }
+
+
+                        });
+
                 }
-
+                index1  = list_warmup.size();
                 if (unit.phase.equals("Work Out")) {
                    // Toast.makeText(getApplicationContext(),unit.phase+" "+unit.title+" "+unit.type+unit.image,Toast.LENGTH_LONG).show();
                     ImageUri = "http://221.153.186.186:3100/" + unit.image;
@@ -116,9 +123,9 @@ public class Exercises_Select extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
                             Intent intent = new Intent(getApplicationContext(), Detailview.class);
-                            //intent.putExtra("exercise_unit", unit.toString());
-                            Toast.makeText(getApplicationContext(),array[position2],Toast.LENGTH_LONG).show();
-                            // startActivity(intent);
+                            intent.putExtra("exercise_unit", array[index1+position2]);
+                            Toast.makeText(getApplicationContext(),array[index1+position2],Toast.LENGTH_LONG).show();
+                            startActivity(intent);
                         }
 
 
@@ -126,19 +133,21 @@ public class Exercises_Select extends AppCompatActivity {
 
 
                 }
+                index2  = list_workout.size();
+
                 if (unit.phase.equals("Cool Down")) {
-                   // Toast.makeText(getApplicationContext(),unit.phase+""+unit.title+unit.type+""+unit.image,Toast.LENGTH_LONG).show();
                     ImageUri = "http://221.153.186.186:3100/" + unit.image;
                     list_cooldown.add(new ExerciseItem(ImageUri, unit.title, unit.type));
                     listView_cooldown.setAdapter(adapter3);
+                    index3=list_cooldown.size();
 
                     listView_cooldown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position3, long id) {
                             Intent intent = new Intent(getApplicationContext(), Detailview.class);
-                            //intent.putExtra("exercise_unit", unit.toString());
-                            Toast.makeText(getApplicationContext(),array[position3],Toast.LENGTH_LONG).show();
-                            //  startActivity(intent);
+                            intent.putExtra("exercise_unit",array[index1+index3+position3]);
+                            Toast.makeText(getApplicationContext(),array[index1+index3+position3],Toast.LENGTH_LONG).show();
+                            startActivity(intent);
                         }
 
 
