@@ -61,11 +61,28 @@
 
     </LinearLayout>
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/history"
-        android:text="Compare History"/>
+        android:orientation="horizontal">
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/history"
+            android:text="Compare History"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/goguideline"
+            android:text="Guideline"/>
+
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,6 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="#000000" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -115,6 +133,12 @@
                 android:divider="#000000"
                 android:dividerHeight="4px"></ListView>
         </LinearLayout>
+
+
+
+
+
     </LinearLayout>
+
 
 </LinearLayout>

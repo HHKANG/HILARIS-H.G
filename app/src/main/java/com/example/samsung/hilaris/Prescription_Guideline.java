@@ -20,9 +20,10 @@ public class Prescription_Guideline extends AppCompatActivity {
     public Guidelines guideline;
     public Prescription prescription;
     private JSON response_JSON;
-
+    public String responseString;
     Prescription_Guideline(JSONObject response) throws JSONException {
 
+        responseString = response.toString();
         response_JSON = new JSON(response);
         date = response_JSON.getDate();
         setGuidelines(response);

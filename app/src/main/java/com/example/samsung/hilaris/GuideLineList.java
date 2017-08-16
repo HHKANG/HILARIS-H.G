@@ -38,11 +38,15 @@ public class GuideLineList extends AppCompatActivity {
     List<NLevelItem> list;
     ListView listView;
 
+
+
     private RequestQueue queue;
     private String url;
     public  Prescription_Guideline[] prescription_guidelines;
     public Prescription_Guideline prescription_guidelines_selected;
     int responseLength;
+    int myindex = 0;
+
 
 
     @Override
@@ -67,6 +71,7 @@ public class GuideLineList extends AppCompatActivity {
                 for(int i = 0 ; i < responseLength; i++)
                 {
                     try {
+                        myindex= i;
                         prescription_guidelines = new Prescription_Guideline[responseLength];
                         prescription_guidelines[i] = new Prescription_Guideline(response.getJSONObject(i));
                         try
@@ -139,20 +144,15 @@ public class GuideLineList extends AppCompatActivity {
                                         NLevelItem item2 = (NLevelItem) item.getParent().getParent();
                                         String grandparent = ((SomeObject)item2.getWrappedObject()).getName();
                                          Toast.makeText(GuideLineList.this,Routine, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(GuideLineList.this, prescription_guidelines[myindex].responseString, Toast.LENGTH_SHORT).show();
 
-                                    /*for(int i=0;i<responseLength;i++){
-                                        if(prescription_guidelines[i].getDate()==grandparent){
-                                           // prescription_guidelines_selected = prescription_guidelines[i];
-                                            Toast.makeText(GuideLineList.this, prescription_guidelines[i].getDate(), Toast.LENGTH_SHORT).show();
-                                        }
 
-                                    }*/
-                                        //Toast.makeText(GuideLineList.this, grandparent, Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
+                                        Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
                                         intent.putExtra("rountine", Routine);
+                                        intent.putExtra("prescription_guideline",prescription_guidelines[myindex].responseString);
                                        // startActivity(intent);
-                                        //intent.putExtra("prescription", prescription_guidelines_selected.prescription.prescription_array.toString());                                        startActivity(intent);
+                                        startActivity(intent);
                                     }
                                 }
                             });
