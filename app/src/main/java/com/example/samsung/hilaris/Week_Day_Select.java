@@ -11,14 +11,23 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Vector;
+
 public class Week_Day_Select extends AppCompatActivity {
     TableLayout tableLayout;
     int num = 0;
     String title;
+    String prescription_guidline;
+    Prescription_Guideline Prescription_Guideline;
 
     Prescription prescription;
     Exercise_routine ex_routine;
     Exercise_unit unit;
+
+    Vector vextor[][] = new Vector[7][4];
 
     //4*7 TextView array
     TextView[][] week_day = new TextView[7][4];
@@ -33,6 +42,20 @@ public class Week_Day_Select extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_week__day__select);
 
+        Intent intent = getIntent();
+        title = intent.getExtras().getString("routine");
+        prescription_guidline = intent.getExtras().getString("prescription_guidline");
+
+        JSONObject object;
+        try {
+            object = new JSONObject(prescription_guidline);
+            Prescription_Guideline = new Prescription_Guideline(object);
+            prescription = Prescription_Guideline.prescription;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         tableLayout = (TableLayout) findViewById(R.id.table_layout);
 
         for (int m = 0; m < 7; m++) {
@@ -41,13 +64,42 @@ public class Week_Day_Select extends AppCompatActivity {
                 num++;
             }
         }
-/*
-        for(int i=0; i<prescription.routine_length; i++) {
+
+        for(int a=0; a<prescription.routine_length; a++) {
             if(title.equals(prescription.routine[i].Title)){
                 ex_routine=prescription.routine[i];
             }
-        }*/
+        }
 
+        for(int b=0; b<ex_routine.unit_length; b++){
+            vextor[Integer.parseInt(ex_routine.exercise_unit[b].session)][Integer.parseInt(ex_routine.exercise_unit[b].week)].add(ex_routine.exercise_unit[b]);
+        }
+
+        for (int session = 0; session<7; session++){
+            for(int week = 0; week < 4; week++){
+                if(vextor[session][week].isEmpty() == true){
+                    week_day[session][week].setBackgroundResource(android.R.color.darker_gray);
+                    week_day[session][week].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(getApplicationContext(), "No Exercise", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    week_day[session][week].setBackgroundResource(android.R.color.holo_green_light);
+                    week_day[session][week].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+        }
+
+        /*
         week_day[0][0].setBackgroundResource(android.R.color.holo_green_light);
         week_day[0][1].setBackgroundResource(android.R.color.holo_green_light);
         week_day[0][2].setBackgroundResource(android.R.color.holo_green_light);
@@ -76,7 +128,8 @@ public class Week_Day_Select extends AppCompatActivity {
         week_day[6][1].setBackgroundResource(android.R.color.darker_gray);
         week_day[6][2].setBackgroundResource(android.R.color.darker_gray);
         week_day[6][3].setBackgroundResource(android.R.color.holo_green_light);
-
+        */
+/*
         for (i = 0; i < 7; i++) {
             for (j = 0; j < 4; j++) {
                 if((i == 4 && j == 1) || (i == 5 && j == 1) || (i == 6 && j == 1) || (i == 6 && j ==2)) {
@@ -92,13 +145,13 @@ public class Week_Day_Select extends AppCompatActivity {
                     week_day[i][j].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
                             startActivity(intent);
                         }
                     });
                 }
             }
-        }
+        }*/
     }
 
     @Override
