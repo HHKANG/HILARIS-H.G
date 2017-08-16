@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.Vector;
 
 public class Week_Day_Select extends AppCompatActivity {
@@ -27,7 +28,8 @@ public class Week_Day_Select extends AppCompatActivity {
     Exercise_routine ex_routine;
     Exercise_unit unit;
 
-    Vector vextor[][] = new Vector[7][4];
+    Array array[][] = new Array[20][20];
+    Vector[][] vector = new Vector[7][4];
 
     //4*7 TextView array
     TextView[][] week_day = new TextView[7][4];
@@ -44,11 +46,12 @@ public class Week_Day_Select extends AppCompatActivity {
 
         Intent intent = getIntent();
         title = intent.getExtras().getString("routine");
-        prescription_guidline = intent.getExtras().getString("prescription_guidline");
+        prescription_guidline = intent.getExtras().getString("prescription_guideline");
 
-        JSONObject object;
+        Toast.makeText(getApplicationContext(),"get: "+title,Toast.LENGTH_SHORT).show();
+
         try {
-            object = new JSONObject(prescription_guidline);
+            JSONObject object = new JSONObject(prescription_guidline);
             Prescription_Guideline = new Prescription_Guideline(object);
             prescription = Prescription_Guideline.prescription;
         } catch (JSONException e) {
@@ -66,18 +69,30 @@ public class Week_Day_Select extends AppCompatActivity {
         }
 
         for(int a=0; a<prescription.routine_length; a++) {
-            if(title.equals(prescription.routine[i].Title)){
-                ex_routine=prescription.routine[i];
+            if(title.equals(prescription.routine[a].Title)){
+                ex_routine= prescription.routine[a];
+                Toast.makeText(getApplicationContext(), "real"+ex_routine.Title, Toast.LENGTH_SHORT).show();
             }
         }
 
+        for (int session = 0; session<7; session++){
+            for(int week = 0; week < 4; week++) {
+
+                vector[session][week] = new Vector();
+            }
+        }
+
+
+
         for(int b=0; b<ex_routine.unit_length; b++){
-            vextor[Integer.parseInt(ex_routine.exercise_unit[b].session)][Integer.parseInt(ex_routine.exercise_unit[b].week)].add(ex_routine.exercise_unit[b]);
+            JSONObject UnitObject = ex_routine.exercise_unit[b].E_Unit.json;
+            vector[Integer.parseInt(ex_routine.exercise_unit[b].session)-1][Integer.parseInt(ex_routine.exercise_unit[b].week)-1].add(UnitObject);
+
         }
 
         for (int session = 0; session<7; session++){
             for(int week = 0; week < 4; week++){
-                if(vextor[session][week].isEmpty() == true){
+                if(vector[session][week].isEmpty() == true){
                     week_day[session][week].setBackgroundResource(android.R.color.darker_gray);
                     week_day[session][week].setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -98,6 +113,7 @@ public class Week_Day_Select extends AppCompatActivity {
                 }
             }
         }
+
 
         /*
         week_day[0][0].setBackgroundResource(android.R.color.holo_green_light);
