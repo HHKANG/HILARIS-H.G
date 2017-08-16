@@ -48,7 +48,7 @@ public class Week_Day_Select extends AppCompatActivity {
         title = intent.getExtras().getString("routine");
         prescription_guidline = intent.getExtras().getString("prescription_guideline");
 
-        Toast.makeText(getApplicationContext(),"get: "+title,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "get: " + title, Toast.LENGTH_SHORT).show();
 
         try {
             JSONObject object = new JSONObject(prescription_guidline);
@@ -57,7 +57,6 @@ public class Week_Day_Select extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         tableLayout = (TableLayout) findViewById(R.id.table_layout);
 
@@ -68,31 +67,27 @@ public class Week_Day_Select extends AppCompatActivity {
             }
         }
 
-        for(int a=0; a<prescription.routine_length; a++) {
-            if(title.equals(prescription.routine[a].Title)){
-                ex_routine= prescription.routine[a];
-                Toast.makeText(getApplicationContext(), "real"+ex_routine.Title, Toast.LENGTH_SHORT).show();
+        for (int a = 0; a < prescription.routine_length; a++) {
+            if (title.equals(prescription.routine[a].Title)) {
+                ex_routine = prescription.routine[a];
+                Toast.makeText(getApplicationContext(), "real" + ex_routine.Title, Toast.LENGTH_SHORT).show();
             }
         }
 
-        for (int session = 0; session<7; session++){
-            for(int week = 0; week < 4; week++) {
-
+        for (int session = 0; session < 7; session++) {
+            for (int week = 0; week < 4; week++) {
                 vector[session][week] = new Vector();
             }
         }
 
-
-
-        for(int b=0; b<ex_routine.unit_length; b++){
+        for (int b = 0; b < ex_routine.unit_length; b++) {
             JSONObject UnitObject = ex_routine.exercise_unit[b].E_Unit.json;
-            vector[Integer.parseInt(ex_routine.exercise_unit[b].session)-1][Integer.parseInt(ex_routine.exercise_unit[b].week)-1].add(UnitObject);
-
+            vector[Integer.parseInt(ex_routine.exercise_unit[b].session) - 1][Integer.parseInt(ex_routine.exercise_unit[b].week) - 1].add(UnitObject);
         }
 
-        for (int session = 0; session<7; session++){
-            for(int week = 0; week < 4; week++){
-                if(vector[session][week].isEmpty() == true){
+        for (int session = 0; session < 7; session++) {
+            for (int week = 0; week < 4; week++) {
+                if (vector[session][week].isEmpty() == true) {
                     week_day[session][week].setBackgroundResource(android.R.color.darker_gray);
                     week_day[session][week].setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -100,74 +95,27 @@ public class Week_Day_Select extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "No Exercise", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else {
+                } else {
                     week_day[session][week].setBackgroundResource(android.R.color.holo_green_light);
+                    final int finalSession = session;
+                    final int finalWeek = week;
                     week_day[session][week].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
+                            Intent intent = new Intent(getApplicationContext(), Test.class);
+                            int n = vector[finalSession][finalWeek].size();//vector size 찾기
+                            intent.putExtra("size", n);//vector size 보내기
+                            //object 1개씩 보내기
+                            for (int i = 0; i < n; i++){
+                                intent.putExtra("test2"+i, vector[finalSession][finalWeek].get(i).toString());
+                            }
+                            intent.putExtra("test", vector[finalSession][finalWeek].toString());//vector 전체를 한번에 보내기
                             startActivity(intent);
                         }
                     });
                 }
             }
         }
-
-
-        /*
-        week_day[0][0].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[0][1].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[0][2].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[0][3].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[1][0].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[1][1].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[1][2].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[1][3].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[2][0].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[2][1].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[2][2].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[2][3].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[3][0].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[3][1].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[3][2].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[3][3].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[4][0].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[4][1].setBackgroundResource(android.R.color.darker_gray);
-        week_day[4][2].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[4][3].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[5][0].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[5][1].setBackgroundResource(android.R.color.darker_gray);
-        week_day[5][2].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[5][3].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[6][0].setBackgroundResource(android.R.color.holo_green_light);
-        week_day[6][1].setBackgroundResource(android.R.color.darker_gray);
-        week_day[6][2].setBackgroundResource(android.R.color.darker_gray);
-        week_day[6][3].setBackgroundResource(android.R.color.holo_green_light);
-        */
-/*
-        for (i = 0; i < 7; i++) {
-            for (j = 0; j < 4; j++) {
-                if((i == 4 && j == 1) || (i == 5 && j == 1) || (i == 6 && j == 1) || (i == 6 && j ==2)) {
-                    week_day[i][j].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(getApplicationContext(), "No Exercise", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                else{
-                    week_day[i][j].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
-            }
-        }*/
     }
 
     @Override
