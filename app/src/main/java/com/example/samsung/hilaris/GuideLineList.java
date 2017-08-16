@@ -36,6 +36,7 @@ public class GuideLineList extends AppCompatActivity {
     ListView listView;
     NLevelAdapter adapter;
 
+    String responseString;
 
     private RequestQueue queue;
     private String url;
@@ -64,13 +65,13 @@ public class GuideLineList extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONArray response) { // Date 가 하나 일때 오류발생?
+                responseString = response.toString();
                 responseLength = response.length();
                 for(int i = 0 ; i < responseLength; i++)
                 {
                     try {
                         prescription_guidelines = new Prescription_Guideline[responseLength];
                         prescription_guidelines[i] = new Prescription_Guideline(response.getJSONObject(i));
-                      //  Toast.makeText(GuideLineList.this, "responseLength : "+ i, Toast.LENGTH_SHORT).show();
                         try
                         {
                             final NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].date, i),null, new NLevelView() {
@@ -83,7 +84,6 @@ public class GuideLineList extends AppCompatActivity {
                                     return view;
                                 }
                             });
-                            //Toast.makeText(GuideLineList.this, "i="+i+":"+prescription_guidelines[i].date, Toast.LENGTH_SHORT).show();
                             list.add(grandParent);
                             for (int j = 0; j < prescription_guidelines[i].guideline.numOfguidelines; j++) {
                                 NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title,prescription_guidelines[i].guideline.Objects[j].description),grandParent, new NLevelView() {
@@ -128,7 +128,6 @@ public class GuideLineList extends AppCompatActivity {
 
                         }catch (Exception e)
                         {
-                           // Toast.makeText(GuideLineList.this, "Please", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         Toast.makeText(GuideLineList.this, "GuidelineListError", Toast.LENGTH_SHORT).show();
@@ -146,16 +145,13 @@ public class GuideLineList extends AppCompatActivity {
                         String Routine =  ((SomeObject) item.getWrappedObject()).getName();
                         if (Routine.startsWith("R")) {
                             NLevelItem item2 = (NLevelItem) item.getParent().getParent();
-                            String grandparent = ((SomeObject)item2.getWrappedObject()).getName();
                             Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
                             try
                             {
                                 myindex = ((SomeObject) item2.getWrappedObject()).getindex();
-                                Toast.makeText(getApplicationContext(), "Clicked routine's Date: "+grandparent, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(GuideLineList.this, "Clicked Index: "+myindex, Toast.LENGTH_SHORT).show();
                                 intent.putExtra("routine", Routine);
-                                intent.putExtra("prescription_guideline", prescription_guidelines[myindex].responseString);
-                                Toast.makeText(GuideLineList.this, "Success to pass Prescription_guideline", Toast.LENGTH_SHORT).show();
+                                intent.putExtra("Index", myindex);
+                                intent.putExtra("responseString", responseString);
                                 startActivity(intent);
                             }
                             catch(Exception e)

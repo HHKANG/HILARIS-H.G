@@ -33,9 +33,6 @@ public class Exercises_Select extends AppCompatActivity {
     JSONObject E_Unit;
     Exercise_unit unit;
     String array[] = null;
-    Exercise_unit warmup_array[] = null;
-    String workout_array[] = null;
-    String cooldown_array[] = null;
     int index1= 0;
     int index2= 0;
     int index3= 0;
@@ -90,7 +87,6 @@ public class Exercises_Select extends AppCompatActivity {
                 //배열에 값 저장하기
 
                 if (unit.phase.equals("Warm Up")) {
-                        // Toast.makeText(getApplicationContext(),unit.phase+" "+unit.title+" "+unit.type+unit.image,Toast.LENGTH_LONG).show();
                         ImageUri = "http://221.153.186.186:3100/" + unit.image;
                         list_warmup.add(new ExerciseItem(ImageUri, unit.title, unit.type));
 
@@ -108,7 +104,6 @@ public class Exercises_Select extends AppCompatActivity {
                                 }
                                 intent.putExtra("size", size);
                                 intent.putExtra("position", position1);
-                            //    Toast.makeText(getApplicationContext(),array[position1],Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
 
@@ -118,7 +113,6 @@ public class Exercises_Select extends AppCompatActivity {
                 }
                 index1  = list_warmup.size();
                 if (unit.phase.equals("Work Out")) {
-                   // Toast.makeText(getApplicationContext(),unit.phase+" "+unit.title+" "+unit.type+unit.image,Toast.LENGTH_LONG).show();
                     ImageUri = "http://221.153.186.186:3100/" + unit.image;
                     list_workout.add(new ExerciseItem(ImageUri, unit.title, unit.type));
 
@@ -134,7 +128,6 @@ public class Exercises_Select extends AppCompatActivity {
                             }
                             intent.putExtra("size", size);
                             intent.putExtra("position", index1+position2);
-                          //  Toast.makeText(getApplicationContext(),array[index1+position2],Toast.LENGTH_LONG).show();
                             startActivity(intent);
                         }
 
@@ -161,7 +154,6 @@ public class Exercises_Select extends AppCompatActivity {
                             }
                             intent.putExtra("position",index1+index2+position3);
                             intent.putExtra("size", size);
-                         //   Toast.makeText(getApplicationContext(),array[index1+index3+position3],Toast.LENGTH_LONG).show();
                             startActivity(intent);
                         }
 
@@ -186,8 +178,6 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.VISIBLE);
                 layout_workout.setVisibility(v.INVISIBLE);
                 layout_cooldown.setVisibility(v.INVISIBLE);
-              //  Toast.makeText(Exercises_Select.this,"Warm Up", Toast.LENGTH_SHORT).show();
-
             }
         });
         button_workout.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +186,6 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.INVISIBLE);
                 layout_workout.setVisibility(v.VISIBLE);
                 layout_cooldown.setVisibility(v.INVISIBLE);
-           //     Toast.makeText(Exercises_Select.this,"Work Out", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -206,7 +195,6 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.INVISIBLE);
                 layout_workout.setVisibility(v.INVISIBLE);
                 layout_cooldown.setVisibility(v.VISIBLE);
-            //    Toast.makeText(Exercises_Select.this,"Cool Down", Toast.LENGTH_SHORT).show();
 
             }
         });
