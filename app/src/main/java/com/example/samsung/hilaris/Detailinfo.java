@@ -22,6 +22,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
     TextView set_name;
     TextView set_Birthdate;
     String get_name;
+    String TestID;
     ListView listView;
     DetailInfoListViewAdapter adapter;
     String SelectedProfile = "SelectedProfile";
@@ -54,6 +55,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         try {
             profile = new JSONObject(intent.getStringExtra(SelectedProfile));
             json = new JSON(profile);
+            TestID = json.getTestID();
             set_Birthdate.setText(json.getBirthdate());
         } catch (JSONException e) {
             e.printStackTrace();
