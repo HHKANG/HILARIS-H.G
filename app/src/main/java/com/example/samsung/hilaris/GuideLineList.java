@@ -149,7 +149,7 @@ public class GuideLineList extends AppCompatActivity {
 
 
                                         Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
-                                        intent.putExtra("rountine", Routine);
+                                        intent.putExtra("routine", Routine);
                                         intent.putExtra("prescription_guideline",prescription_guidelines[myindex].responseString);
                                        // startActivity(intent);
                                         startActivity(intent);
