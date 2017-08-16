@@ -44,7 +44,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
 
         get_name = intent.getExtras().getString("name");
 
-        exercise = (Button)findViewById(R.id.exercise_list);
+        //exercise = (Button)findViewById(R.id.exercise_list);
         set_name.setText(get_name);
 
         adapter = new DetailInfoListViewAdapter();
@@ -111,6 +111,16 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
                 startActivity(intent);
+            }
+        });
+        Button goguideline = (Button) findViewById(R.id.goguide);
+        goguideline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
+                intent.putExtra("uri", TestID);
+                startActivity(intent);
+
             }
         });
     }

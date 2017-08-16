@@ -34,13 +34,12 @@ public class GuideLineList extends AppCompatActivity {
 
     List<NLevelItem> list;
     ListView listView;
-
+    NLevelAdapter adapter;
 
 
     private RequestQueue queue;
     private String url;
     public  Prescription_Guideline[] prescription_guidelines;
-    public Prescription_Guideline prescription_guidelines_selected;
     int responseLength;
     int myindex = 0;
 
@@ -55,8 +54,9 @@ public class GuideLineList extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView1);
         list = new ArrayList<NLevelItem>();
         final LayoutInflater inflater = LayoutInflater.from(this);
-
-
+        Intent intent = getIntent();
+        String uri = intent.getStringExtra("uri");
+        // url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/"+uri;
         url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/MF000004_00012054_20170627131529";
         queue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -68,12 +68,12 @@ public class GuideLineList extends AppCompatActivity {
                 for(int i = 0 ; i < responseLength; i++)
                 {
                     try {
-                        myindex= i;
                         prescription_guidelines = new Prescription_Guideline[responseLength];
                         prescription_guidelines[i] = new Prescription_Guideline(response.getJSONObject(i));
+                      //  Toast.makeText(GuideLineList.this, "responseLength : "+ i, Toast.LENGTH_SHORT).show();
                         try
                         {
-                            final NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].date),null, new NLevelView() {
+                            final NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].date, i),null, new NLevelView() {
                                 @Override
                                 public View getView(NLevelItem item) {
                                     View view = inflater.inflate(R.layout.list_item, null);
@@ -125,44 +125,47 @@ public class GuideLineList extends AppCompatActivity {
                                 }
                             }
 
-                            final NLevelAdapter adapter = new NLevelAdapter(list);
-                            listView.setAdapter(adapter);
-                            listView.setOnItemClickListener(new OnItemClickListener() {
-
-                                @Override
-                                public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3) {
-                                    ((NLevelAdapter) listView.getAdapter()).toggle(arg2);
-                                    ((NLevelAdapter) listView.getAdapter()).getFilter().filter();
-                                    NLevelItem item = (NLevelItem) adapter.getItem(arg2);
-                                    String Routine =  ((SomeObject) item.getWrappedObject()).getName();
-
-
-                                    if (Routine.startsWith("R")) {
-                                        NLevelItem item2 = (NLevelItem) item.getParent().getParent();
-                                        String grandparent = ((SomeObject)item2.getWrappedObject()).getName();
-                                      //   Toast.makeText(GuideLineList.this,Routine, Toast.LENGTH_SHORT).show();
-                                       // Toast.makeText(GuideLineList.this, prescription_guidelines[myindex].responseString, Toast.LENGTH_SHORT).show();
-
-
-
-                                        Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
-                                        intent.putExtra("routine", Routine);
-                                        intent.putExtra("prescription_guideline",prescription_guidelines[myindex].responseString);
-                                       // startActivity(intent);
-                                        startActivity(intent);
-                                    }
-                                }
-                            });
 
                         }catch (Exception e)
                         {
-                            Toast.makeText(GuideLineList.this, "Please", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(GuideLineList.this, "Please", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         Toast.makeText(GuideLineList.this, "GuidelineListError", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 }
+                adapter = new NLevelAdapter(list);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3) {
+                        ((NLevelAdapter) listView.getAdapter()).toggle(arg2);
+                        ((NLevelAdapter) listView.getAdapter()).getFilter().filter();
+                        NLevelItem item = (NLevelItem) adapter.getItem(arg2);
+                        String Routine =  ((SomeObject) item.getWrappedObject()).getName();
+                        if (Routine.startsWith("R")) {
+                            NLevelItem item2 = (NLevelItem) item.getParent().getParent();
+                            String grandparent = ((SomeObject)item2.getWrappedObject()).getName();
+                            Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
+                            try
+                            {
+                                myindex = ((SomeObject) item2.getWrappedObject()).getindex();
+                                Toast.makeText(getApplicationContext(), "Clicked routine's Date: "+grandparent, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(GuideLineList.this, "Clicked Index: "+myindex, Toast.LENGTH_SHORT).show();
+                                intent.putExtra("routine", Routine);
+                                intent.putExtra("prescription_guideline", prescription_guidelines[myindex].responseString);
+                                Toast.makeText(GuideLineList.this, "Success to pass Prescription_guideline", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            }
+                            catch(Exception e)
+                            {
+                                Toast.makeText(GuideLineList.this, "Failed to pass Prescription_guideline", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                });
             }
         }, new Response.ErrorListener() {
             @Override
@@ -206,10 +209,14 @@ public class GuideLineList extends AppCompatActivity {
     class SomeObject {
         public String name;
         public String name2;
-
+        public int index;
 
         public SomeObject(String name) {
             this.name = name;
+        }
+        public SomeObject(String name, int index) {
+            this.name = name;
+            this.index = index;
         }
 
         public SomeObject(String name, String name2) {
@@ -223,6 +230,7 @@ public class GuideLineList extends AppCompatActivity {
         public String getName2() {
             return name2;
         }
+        public int getindex(){return index;}
     }
 
 }

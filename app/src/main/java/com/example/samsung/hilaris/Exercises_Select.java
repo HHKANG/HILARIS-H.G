@@ -102,8 +102,13 @@ public class Exercises_Select extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position1, long id) {
                                 Intent intent = new Intent(getApplicationContext(), Detailview.class);
-                                intent.putExtra("exercise_unit", array[position1]);
-                                Toast.makeText(getApplicationContext(),array[position1],Toast.LENGTH_LONG).show();
+                                for(int index = 0; index < size; index++)
+                                {
+                                    intent.putExtra("test2"+index, array[index]);
+                                }
+                                intent.putExtra("size", size);
+                                intent.putExtra("position", position1);
+                            //    Toast.makeText(getApplicationContext(),array[position1],Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
 
@@ -123,8 +128,13 @@ public class Exercises_Select extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
                             Intent intent = new Intent(getApplicationContext(), Detailview.class);
-                            intent.putExtra("exercise_unit", array[index1+position2]);
-                            Toast.makeText(getApplicationContext(),array[index1+position2],Toast.LENGTH_LONG).show();
+                            for(int index = 0; index < size; index++)
+                            {
+                                intent.putExtra("test2"+index, array[index]);
+                            }
+                            intent.putExtra("size", size);
+                            intent.putExtra("position", index1+position2);
+                          //  Toast.makeText(getApplicationContext(),array[index1+position2],Toast.LENGTH_LONG).show();
                             startActivity(intent);
                         }
 
@@ -145,8 +155,13 @@ public class Exercises_Select extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position3, long id) {
                             Intent intent = new Intent(getApplicationContext(), Detailview.class);
-                            intent.putExtra("exercise_unit",array[index1+index3+position3]);
-                            Toast.makeText(getApplicationContext(),array[index1+index3+position3],Toast.LENGTH_LONG).show();
+                            for(int index = 0; index < size; index++)
+                            {
+                                intent.putExtra("test2"+index, array[index]);
+                            }
+                            intent.putExtra("position",index1+index2+position3);
+                            intent.putExtra("size", size);
+                         //   Toast.makeText(getApplicationContext(),array[index1+index3+position3],Toast.LENGTH_LONG).show();
                             startActivity(intent);
                         }
 
@@ -171,7 +186,7 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.VISIBLE);
                 layout_workout.setVisibility(v.INVISIBLE);
                 layout_cooldown.setVisibility(v.INVISIBLE);
-                Toast.makeText(Exercises_Select.this,"Warm Up", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(Exercises_Select.this,"Warm Up", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -181,7 +196,7 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.INVISIBLE);
                 layout_workout.setVisibility(v.VISIBLE);
                 layout_cooldown.setVisibility(v.INVISIBLE);
-                Toast.makeText(Exercises_Select.this,"Work Out", Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(Exercises_Select.this,"Work Out", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -191,7 +206,7 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.INVISIBLE);
                 layout_workout.setVisibility(v.INVISIBLE);
                 layout_cooldown.setVisibility(v.VISIBLE);
-                Toast.makeText(Exercises_Select.this,"Cool Down", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(Exercises_Select.this,"Cool Down", Toast.LENGTH_SHORT).show();
 
             }
         });

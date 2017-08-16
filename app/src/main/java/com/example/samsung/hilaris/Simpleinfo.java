@@ -31,6 +31,8 @@ import org.json.JSONObject;
 
 public class Simpleinfo extends AppCompatActivity {
     private final int History_Data = 3; //Num of Data to compare in History
+    JSON Test;
+    String TestID;
     Button history;
     Button goguideline;
     TextView set_name;
@@ -79,9 +81,8 @@ public class Simpleinfo extends AppCompatActivity {
                 // Process the JSON
                 try {
                     Tests[0] = response.getJSONObject(0);
-                    JSON Test = new JSON(Tests[0]);
-                    Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
-
+                    Test = new JSON(Tests[0]);
+                    TestID = Test.getTestID();
                     set_BirthDate.setText(Test.Birthdate());
                     recentlistView = (ListView) findViewById(R.id.recent_simple_list);
                     recentlistView.setAdapter(recentadapter);
@@ -160,8 +161,9 @@ public class Simpleinfo extends AppCompatActivity {
         goguideline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
-                    startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
+                intent.putExtra("uri", TestID);
+                startActivity(intent);
 
             }
         });

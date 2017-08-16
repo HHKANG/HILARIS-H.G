@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,13 +28,11 @@ import android.widget.VideoView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
-
-import static com.example.samsung.hilaris.R.drawable.exercise1;
-
 
 public class Detailview extends AppCompatActivity implements View.OnClickListener, LoadImageTask.Listener{
-
+    int position;
+    String[] array;
+    int size;
     JSONObject Exercise = null;
     /*******For Image and Video**********/
     String ImageUri;
@@ -68,13 +65,13 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_detailview);
 
 
         //Switch = (ImageSwitcher) findViewById(R.id.ImageSwitcher);
-        Imageview = (ImageView) findViewById(R.id.ImageView) ;
+        Imageview = (ImageView) findViewById(R.id.ImageView);
         Videoview = (VideoView) findViewById(R.id.Exercise_Videoview);
         /*********Settings for button Next, Prev , Image, Video  when switching the image or video*****/
         B_ImageView = (Button) findViewById(R.id.button_image);
@@ -88,7 +85,7 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
         layout_timer = (LinearLayout) findViewById(R.id.layout_timer);
         setVisibility();
         /*************************Settings for Description********************************/
-        txtDescription =(TextView) findViewById(R.id.textview_desription);
+        txtDescription = (TextView) findViewById(R.id.textview_desription);
         txtBenefit = (TextView) findViewById(R.id.textview_benefit);
         txtCaution = (TextView) findViewById(R.id.textview_caution);
         /*******************Settings for Routine*****************************************/
@@ -113,21 +110,33 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
         //Need to get Exercise Name from previous class or Get it frome current class --> code change needed below
         exercise_name = (TextView) findViewById(R.id.exercise_name);
         Intent intent = getIntent();
-      //  try {
-          //  JSONObject E_Unit = new JSONObject(intent.getStringExtra("exercise_unit"));
-         //   Exercise_unit unit = new Exercise_unit(E_Unit);
-          //  ImageUri = "http://221.153.186.186:3100/" + unit.image;
-          //  VideoUri = "http://221.153.186.186:3100/" + unit.video;
-            String uriPath = "http://221.153.186.186:3100/Alternate-Heel-Touchers.jpg";
-            setImageView(uriPath);
-          //  setValues(unit);
-       // } catch (JSONException e) {
-       //    e.printStackTrace();
-       // }
-        mediaController = new MediaController(this);
-        ImageVideoButton();
+        size = intent.getExtras().getInt("size");//vector size 받아오기
+        array = new String[size];//받아온 vector 각각의 object를 저장할 array
+        position = intent.getExtras().getInt("position");
+        position = (position + size) % size;
+        try {
+            for (int i = 0; i < size; i++) {
+                array[i] = intent.getExtras().getString("test2" + i);
+            }
+            JSONObject E_Unit = new JSONObject(array[position]);
+           Exercise_unit unit = new Exercise_unit(E_Unit);
+            ImageUri = "http://221.153.186.186:3100/" + unit.image;
+            VideoUri = "http://221.153.186.186:3100/" + unit.video;
+           // Toast.makeText(this, unit.video, Toast.LENGTH_SHORT).show();
+            //String ImageUri = "http://221.153.186.186:3100/Alternate-Heel-Touchers.jpg";
+            setValues(unit);
+            setImageView(ImageUri);
+            //  setValues(unit);
+            // } catch (JSONException e) {
+            //    e.printStackTrace();
+            // }
+            mediaController = new MediaController(this);
+            ImageVideoButton(ImageUri, VideoUri);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
-    @Override
+        @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
         return true;
@@ -244,11 +253,13 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
    public void setValues(Exercise_unit unit)
    {
        String exercise_title;
+       String phase;
        String set, repetition, time, intensity, body_part, equipment;
        String description, benefit, caution;
        /***********Below will be changed when Database construction finish****/
        //Should be implented when JSon Object reached
        exercise_title = unit.title; //title
+       phase = unit.phase;
         set = unit.set;
        repetition = unit.repetition;
        time=unit.time;
@@ -260,7 +271,7 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
        benefit = unit.benefit;
        caution = unit.caution;
        /****************/
-       setExerciseTitle(exercise_title);
+       setExerciseTitle(exercise_title+"-"+phase);
        setRoutineValue(set, repetition, time, intensity, body_part, equipment );
        setDescription(description, benefit, caution);
    }
@@ -306,6 +317,12 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Detailview.class);
+                for(int index = 0; index < size; index++)
+                {
+                    intent.putExtra("test2"+index, array[index]);
+                }
+                intent.putExtra("size", size);
+                intent.putExtra("position", position +1);
                 startActivity(intent);
                 finish();
             }
@@ -314,23 +331,25 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Detailview.class);
+                for(int index = 0; index < size; index++)
+                {
+                    intent.putExtra("test2"+index, array[index]);
+                }
+                intent.putExtra("size", size);
+                intent.putExtra("position", position -1);
                 startActivity(intent);
                 finish();
             }
         });
     }
-    public void ImageVideoButton()
+    public void ImageVideoButton(String imageUri, String videoUri)
     {
+        ImageUri = imageUri;
+        VideoUri = videoUri;
         /*
-         ImageUri = "http://221.153.186.186:3100/"+Exercise.toString(); //Get Name of Image from Json Object
-         VideoUri = "http://221.153.186.186:3100/"+Exercise.toString(); // Get Name of Video from Json Object
-        */
-         /*
-        ImageUri = "android.resource://"+getPackageName() + "/drawable/exercise1";
-        */
-        VideoUri = "android.resource://"+getPackageName() + "raw/dumbell";
+        VideoUri =  "http://221.153.186.186:3100/Arm-Circles.mp4";
         ImageUri =  "http://221.153.186.186:3100/Alternate-Heel-Touchers.jpg";
-
+*/
         B_ImageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -352,25 +371,29 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
     public void setImageView(String uriPath)
     {
         new LoadImageTask(this).execute(uriPath);
-        //Imageview.setImageURI(Uri.parse(uriPath));
-        //Imageview.setImageURI(Uri.parse(uriPath));
     }
     public void setVideoview(String uriPath)
     {
-        mediaController.setAnchorView(Videoview);
-        Uri video = Uri.parse(uriPath);
-       Videoview.setMediaController(mediaController);
-        Videoview.setVideoURI(video);
-        Videoview.requestFocus();
-        Videoview.start();
+        if(uriPath != null) {
+            mediaController.setAnchorView(Videoview);
+            Uri video = Uri.parse(uriPath);
+            Videoview.setMediaController(mediaController);
+            Videoview.setVideoURI(video);
+            Videoview.requestFocus();
+            Videoview.start();
 
-        Videoview.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mediaController.show(0);
-                Videoview.pause();
-            }
-        }, 100);
+            Videoview.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mediaController.show(0);
+                    Videoview.pause();
+                }
+            }, 100);
+        }
+        else
+        {
+            Toast.makeText(this, "No video exists", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /*
