@@ -59,6 +59,7 @@
             android:padding="1dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day1"
@@ -71,6 +72,7 @@
                 android:textSize="20dp"
                 android:gravity="center_horizontal"
                 android:id="@+id/week1_day1"
+                android:layout_marginRight="2dp"
                 android:tag="0"/>
 
             <TextView
@@ -79,6 +81,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week2_day1"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="1"/>
 
             <TextView
@@ -87,6 +90,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week3_day1"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="2"/>
 
             <TextView
@@ -104,6 +108,7 @@
             android:padding="1dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day2"
@@ -116,6 +121,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week1_day2"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="4"/>
 
             <TextView
@@ -124,6 +130,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week2_day2"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="5"/>
 
             <TextView
@@ -132,6 +139,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week3_day2"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="6"/>
 
             <TextView
@@ -149,6 +157,7 @@
             android:padding="1dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day3"
@@ -161,6 +170,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week1_day3"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="8"/>
 
             <TextView
@@ -169,6 +179,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week2_day3"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="9"/>
 
             <TextView
@@ -177,6 +188,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week3_day3"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="10"/>
 
             <TextView
@@ -194,6 +206,7 @@
             android:padding="1dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day4"
@@ -206,6 +219,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week1_day4"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="12"/>
 
             <TextView
@@ -214,6 +228,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week2_day4"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="13"/>
 
             <TextView
@@ -222,6 +237,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week3_day4"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="14"/>
 
             <TextView
@@ -239,6 +255,7 @@
             android:padding="1dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day5"
@@ -251,6 +268,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week1_day5"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="16"/>
 
             <TextView
@@ -259,6 +277,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week2_day5"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="17"/>
 
             <TextView
@@ -267,6 +286,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week3_day5"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="18"/>
 
             <TextView
@@ -284,6 +304,7 @@
             android:padding="1dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day6"
@@ -296,6 +317,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week1_day6"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="20"/>
 
             <TextView
@@ -304,6 +326,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week2_day6"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="21"/>
 
             <TextView
@@ -312,6 +335,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week3_day6"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="22"/>
 
             <TextView
@@ -329,6 +353,7 @@
             android:padding="1dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day7"
@@ -341,6 +366,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week1_day7"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="24"/>
 
             <TextView
@@ -349,6 +375,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week2_day7"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="25"/>
 
             <TextView
@@ -357,6 +384,7 @@
                 android:textSize="20dp"
                 android:id="@+id/week3_day7"
                 android:gravity="center_horizontal"
+                android:layout_marginRight="2dp"
                 android:tag="26"/>
 
             <TextView
