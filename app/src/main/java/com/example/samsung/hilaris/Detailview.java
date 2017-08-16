@@ -3,6 +3,7 @@ package com.example.samsung.hilaris;
 
 import android.content.Intent;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,15 +23,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
+
 import static com.example.samsung.hilaris.R.drawable.exercise1;
 
 
-public class Detailview extends AppCompatActivity {
+public class Detailview extends AppCompatActivity implements View.OnClickListener, LoadImageTask.Listener{
 
     JSONObject Exercise = null;
     /*******For Image and Video**********/
@@ -67,6 +71,7 @@ public class Detailview extends AppCompatActivity {
        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_detailview);
+
 
         //Switch = (ImageSwitcher) findViewById(R.id.ImageSwitcher);
         Imageview = (ImageView) findViewById(R.id.ImageView) ;
@@ -108,16 +113,17 @@ public class Detailview extends AppCompatActivity {
         //Need to get Exercise Name from previous class or Get it frome current class --> code change needed below
         exercise_name = (TextView) findViewById(R.id.exercise_name);
         Intent intent = getIntent();
-        try {
-            JSONObject E_Unit = new JSONObject(intent.getStringExtra("exercise_unit"));
-            Exercise_unit unit = new Exercise_unit(E_Unit);
-            ImageUri = "http://221.153.186.186:3100/" + unit.image;
-            VideoUri = "http://221.153.186.186:3100/" + unit.video;
-            setImageView(ImageUri);
-            setValues(unit);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+      //  try {
+          //  JSONObject E_Unit = new JSONObject(intent.getStringExtra("exercise_unit"));
+         //   Exercise_unit unit = new Exercise_unit(E_Unit);
+          //  ImageUri = "http://221.153.186.186:3100/" + unit.image;
+          //  VideoUri = "http://221.153.186.186:3100/" + unit.video;
+            String uriPath = "http://221.153.186.186:3100/Alternate-Heel-Touchers.jpg";
+            setImageView(uriPath);
+          //  setValues(unit);
+       // } catch (JSONException e) {
+       //    e.printStackTrace();
+       // }
         mediaController = new MediaController(this);
         ImageVideoButton();
     }
@@ -319,6 +325,11 @@ public class Detailview extends AppCompatActivity {
          ImageUri = "http://221.153.186.186:3100/"+Exercise.toString(); //Get Name of Image from Json Object
          VideoUri = "http://221.153.186.186:3100/"+Exercise.toString(); // Get Name of Video from Json Object
         */
+         /*
+        ImageUri = "android.resource://"+getPackageName() + "/drawable/exercise1";
+        */
+        VideoUri = "android.resource://"+getPackageName() + "raw/dumbell";
+        ImageUri =  "http://221.153.186.186:3100/Alternate-Heel-Touchers.jpg";
 
         B_ImageView.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -340,7 +351,9 @@ public class Detailview extends AppCompatActivity {
     }
     public void setImageView(String uriPath)
     {
-        Imageview.setImageURI(Uri.parse(uriPath));
+        new LoadImageTask(this).execute(uriPath);
+        //Imageview.setImageURI(Uri.parse(uriPath));
+        //Imageview.setImageURI(Uri.parse(uriPath));
     }
     public void setVideoview(String uriPath)
     {
@@ -360,4 +373,29 @@ public class Detailview extends AppCompatActivity {
         }, 100);
     }
 
+    /*
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_load_image:
+                new LoadImageTask(this).execute(IMAGE_URL);
+                break;
+        }
+    }
+    */
+
+    @Override
+    public void onImageLoaded(Bitmap bitmap) {
+        Imageview.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(this, "Error Loading Image !", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }
