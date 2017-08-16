@@ -60,7 +60,7 @@ public class Exercises_Select extends AppCompatActivity {
         list.add(new ExerciseItem("9090-Hamstring.jpg","title","phase"));
 
         //어댑터 만들기
-        ExerciseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
+        ExerciseListViewAdapter adapter = new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
 
         //리스트뷰와 어댑터 연결하기
         listView.setAdapter(adapter);
