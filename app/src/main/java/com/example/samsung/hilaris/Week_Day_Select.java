@@ -92,7 +92,7 @@ public class Week_Day_Select extends AppCompatActivity {
                     week_day[i][j].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
                             startActivity(intent);
                         }
                     });

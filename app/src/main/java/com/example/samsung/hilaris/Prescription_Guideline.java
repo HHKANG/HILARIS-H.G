@@ -46,5 +46,10 @@ public class Prescription_Guideline extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "Prescription_Guideline{" +
+                ", prescription=" + prescription +
+                '}';
+    }
 }

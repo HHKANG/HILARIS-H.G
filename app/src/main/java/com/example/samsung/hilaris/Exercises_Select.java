@@ -31,13 +31,16 @@ import java.util.List;
 public class Exercises_Select extends AppCompatActivity {
     private RequestQueue queue;
     LinearLayout layout_warmup, layout_workout, layout_cooldown;
-    ImageView Imageview;
 
-    private String url;
     String ImageUri;
-    int responseLength;
-    ListView listView;
-    ArrayList<ExerciseItem> list=new ArrayList<ExerciseItem>();
+    ListView listView_warmup;
+    ListView listView_workout;
+    ListView listView_cooldown;
+
+    ArrayList<ExerciseItem> list_warmup=new ArrayList<ExerciseItem>();
+    ArrayList<ExerciseItem> list_workout=new ArrayList<ExerciseItem>();
+    ArrayList<ExerciseItem> list_cooldown=new ArrayList<ExerciseItem>();
+
     Button button_cooldown,button_warmup,button_workout;
 
 
@@ -48,30 +51,73 @@ public class Exercises_Select extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        ImageUri = "http://221.153.186.186:3100/";
 
         button_warmup = (Button) findViewById(R.id.button_warmup);
         button_workout = (Button) findViewById(R.id.button_workout);
         button_cooldown = (Button) findViewById(R.id.button_cooldown);
-        //layout_warmup = (LinearLayout) findViewById(R.id.layout_warmup);
-        //layout_workout = (LinearLayout) findViewById(R.id.layout_workout);
-        //layout_cooldown = (LinearLayout) findViewById(R.id.layout_cooldown);
+        layout_warmup = (LinearLayout) findViewById(R.id.layout_warmup);
+        layout_workout = (LinearLayout) findViewById(R.id.layout_workout);
+        layout_cooldown = (LinearLayout) findViewById(R.id.layout_cooldown);
 
-        listView=(ListView)findViewById(R.id.listview_exercise);
-        //배열에 값 저장하기
-        list.add(new ExerciseItem(R.drawable.exercise1,"Arm Cicles","Stretching"));
-        list.add(new ExerciseItem(R.drawable.exercise2,"Backward Drag","Strength"));
-        list.add(new ExerciseItem(R.drawable.exercise3,"Barbell Ab Rollout","Strength"));
-        list.add(new ExerciseItem(R.drawable.exercise4,"Barbell Deadlift","Strength"));
+        listView_warmup=(ListView)findViewById(R.id.listview_exercise1);
+        listView_workout=(ListView)findViewById(R.id.listview_exercise2);
+        listView_cooldown=(ListView)findViewById(R.id.listview_exercise3);
+
+        setVisibility();
+
+/*
+        Intent intent = getIntent();
+        try {
+            JSONObject E_Unit = new JSONObject(intent.getStringExtra("exercises"));
+            for(int i=0;i<exerecises.length;i++}{
+            Exercise_unit unit = new Exercise_unit(E_Unit);
+
+            ImageUri = "http://221.153.186.186:3100/" + unit.image;
+            //setValues(unit);}
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+*/
 
         //어댑터 만들기
-        ExerciseListViewAdapter adapter = new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
+        ExerciseListViewAdapter adapter1 = new ExerciseListViewAdapter(this,R.layout.exercise_item, list_warmup);
+        ExerciseListViewAdapter adapter2 = new ExerciseListViewAdapter(this,R.layout.exercise_item, list_workout);
+        ExerciseListViewAdapter adapter3 = new ExerciseListViewAdapter(this,R.layout.exercise_item, list_cooldown);
+
+        //배열에 값 저장하기
+        ImageUri = "http://221.153.186.186:3100/airbike.jpg";
+        list_warmup.add(new ExerciseItem(ImageUri,"Arm Cicles","Stretching"));
+       // list_workout.add(new ExerciseItem("b","Backward Drag","Strength"));
+       // list_cooldown.add(new ExerciseItem("c","Barbell Ab Rollout","Strength"));
+//        list.add(new ExerciseItem(R.drawable.exercise4,"Barbell Deadlift","Strength"));
 
 
         //리스트뷰와 어댑터 연결하기
-        listView.setAdapter(adapter);
+        listView_warmup.setAdapter(adapter1);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView_warmup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), Detailview.class);
+                startActivity(intent);
+            }
+
+
+        });
+        listView_workout.setAdapter(adapter2);
+
+        listView_workout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), Detailview.class);
+                startActivity(intent);
+            }
+
+
+        });
+        listView_cooldown.setAdapter(adapter3);
+
+        listView_cooldown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), Detailview.class);
@@ -82,13 +128,8 @@ public class Exercises_Select extends AppCompatActivity {
         });
 
 
-
     }
 
-    /*public void setImageView(String uriPath)
-    {
-        Imageview.setImageURI(Uri.parse(uriPath));
-    }
 
 
     public void setVisibility()
@@ -99,6 +140,8 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.VISIBLE);
                 layout_workout.setVisibility(v.INVISIBLE);
                 layout_cooldown.setVisibility(v.INVISIBLE);
+                Toast.makeText(Exercises_Select.this,"warm up", Toast.LENGTH_SHORT).show();
+
             }
         });
         button_workout.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +150,8 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.INVISIBLE);
                 layout_workout.setVisibility(v.VISIBLE);
                 layout_cooldown.setVisibility(v.INVISIBLE);
+                Toast.makeText(Exercises_Select.this,"work out", Toast.LENGTH_SHORT).show();
+
             }
         });
         button_cooldown.setOnClickListener(new View.OnClickListener() {
@@ -115,9 +160,12 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_warmup.setVisibility(v.INVISIBLE);
                 layout_workout.setVisibility(v.INVISIBLE);
                 layout_cooldown.setVisibility(v.VISIBLE);
+                Toast.makeText(Exercises_Select.this,"cool down", Toast.LENGTH_SHORT).show();
+
             }
         });
-    }*/
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
