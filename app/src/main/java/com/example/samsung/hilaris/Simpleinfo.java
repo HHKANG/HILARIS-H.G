@@ -156,7 +156,7 @@ public class Simpleinfo extends AppCompatActivity {
                 }
         });
 
-        goguideline  = (Button) findViewById(R.id.go_guidlines);
+        goguideline  = (Button) findViewById(R.id.goguideline);
         goguideline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
