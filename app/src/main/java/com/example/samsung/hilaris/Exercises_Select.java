@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Exercises_Select extends AppCompatActivity {
-    /*
     private RequestQueue queue;
     LinearLayout layout_warmup, layout_workout, layout_cooldown;
     ImageView Imageview;
@@ -54,14 +53,20 @@ public class Exercises_Select extends AppCompatActivity {
         button_warmup = (Button) findViewById(R.id.button_warmup);
         button_workout = (Button) findViewById(R.id.button_workout);
         button_cooldown = (Button) findViewById(R.id.button_cooldown);
-        layout_warmup = (LinearLayout) findViewById(R.id.layout_warmup);
-        layout_workout = (LinearLayout) findViewById(R.id.layout_workout);
-        layout_cooldown = (LinearLayout) findViewById(R.id.layout_cooldown);
+        //layout_warmup = (LinearLayout) findViewById(R.id.layout_warmup);
+        //layout_workout = (LinearLayout) findViewById(R.id.layout_workout);
+        //layout_cooldown = (LinearLayout) findViewById(R.id.layout_cooldown);
 
-        list.add(new ExerciseItem("9090-Hamstring.jpg","title","phase"));
+        listView=(ListView)findViewById(R.id.listview_exercise);
+        //배열에 값 저장하기
+        list.add(new ExerciseItem(R.drawable.exercise1,"Arm Cicles","Stretching"));
+        list.add(new ExerciseItem(R.drawable.exercise2,"Backward Drag","Strength"));
+        list.add(new ExerciseItem(R.drawable.exercise3,"Barbell Ab Rollout","Strength"));
+        list.add(new ExerciseItem(R.drawable.exercise4,"Barbell Deadlift","Strength"));
 
         //어댑터 만들기
-        ExercisseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
+        ExerciseListViewAdapter adapter = new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
+
 
         //리스트뷰와 어댑터 연결하기
         listView.setAdapter(adapter);
@@ -77,9 +82,10 @@ public class Exercises_Select extends AppCompatActivity {
         });
 
 
+
     }
 
-    public void setImageView(String uriPath)
+    /*public void setImageView(String uriPath)
     {
         Imageview.setImageURI(Uri.parse(uriPath));
     }
@@ -111,7 +117,7 @@ public class Exercises_Select extends AppCompatActivity {
                 layout_cooldown.setVisibility(v.VISIBLE);
             }
         });
-    }
+    }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
@@ -134,7 +140,7 @@ public class Exercises_Select extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-*/
+
 
 }
 
