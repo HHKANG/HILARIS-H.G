@@ -10,7 +10,7 @@ public class ExerciseItem extends AppCompatActivity {
     public ExerciseItem() {
         // TODO Auto-generated constructor stub
     }
-    public ExerciseItem(int iconID,String Name,String Type){
+    public ExerciseItem(int iconID,String Name,String Phase){
         this.iconID=iconID;
         this.Name=Name;
         this.Phase=Phase;
@@ -31,7 +31,7 @@ public class ExerciseItem extends AppCompatActivity {
     public String getPhase() {
         return Phase;
     }
-    public void setType(String Phase) {
+    public void setPhase(String Phase) {
         this.Phase = Phase;
     }
 }

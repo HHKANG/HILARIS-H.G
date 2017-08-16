@@ -53,9 +53,9 @@ public class Exercises_Select extends AppCompatActivity {
         button_warmup = (Button) findViewById(R.id.button_warmup);
         button_workout = (Button) findViewById(R.id.button_workout);
         button_cooldown = (Button) findViewById(R.id.button_cooldown);
-        layout_warmup = (LinearLayout) findViewById(R.id.layout_warmup);
-        layout_workout = (LinearLayout) findViewById(R.id.layout_workout);
-        layout_cooldown = (LinearLayout) findViewById(R.id.layout_cooldown);
+        //layout_warmup = (LinearLayout) findViewById(R.id.layout_warmup);
+        //layout_workout = (LinearLayout) findViewById(R.id.layout_workout);
+        //layout_cooldown = (LinearLayout) findViewById(R.id.layout_cooldown);
 
         listView=(ListView)findViewById(R.id.listview_exercise);
         //배열에 값 저장하기
