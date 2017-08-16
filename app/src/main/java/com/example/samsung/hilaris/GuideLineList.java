@@ -148,6 +148,7 @@ public class GuideLineList extends AppCompatActivity {
 
                                     }*/
                                         //Toast.makeText(GuideLineList.this, grandparent, Toast.LENGTH_SHORT).show();
+
                                         Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
                                         intent.putExtra("rountine", Routine);
                                        // startActivity(intent);

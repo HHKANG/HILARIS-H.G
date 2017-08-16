@@ -108,16 +108,17 @@ public class Detailview extends AppCompatActivity {
         //Need to get Exercise Name from previous class or Get it frome current class --> code change needed below
         exercise_name = (TextView) findViewById(R.id.exercise_name);
         Intent intent = getIntent();
-        try {
-            JSONObject E_Unit = new JSONObject(intent.getStringExtra("exercise_unit"));
-            Exercise_unit unit = new Exercise_unit(E_Unit);
-            ImageUri = "http://221.153.186.186:3100/" + unit.image;
-            VideoUri = "http://221.153.186.186:3100/" + unit.video;
-            setImageView(ImageUri);
-            setValues(unit);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+      //  try {
+          //  JSONObject E_Unit = new JSONObject(intent.getStringExtra("exercise_unit"));
+         //   Exercise_unit unit = new Exercise_unit(E_Unit);
+          //  ImageUri = "http://221.153.186.186:3100/" + unit.image;
+          //  VideoUri = "http://221.153.186.186:3100/" + unit.video;
+            String uriPath = "android.resource://"+getPackageName() + "/drawable/exercise1";
+            setImageView(uriPath);
+          //  setValues(unit);
+       // } catch (JSONException e) {
+       //    e.printStackTrace();
+       // }
         mediaController = new MediaController(this);
         ImageVideoButton();
     }
@@ -319,6 +320,8 @@ public class Detailview extends AppCompatActivity {
          ImageUri = "http://221.153.186.186:3100/"+Exercise.toString(); //Get Name of Image from Json Object
          VideoUri = "http://221.153.186.186:3100/"+Exercise.toString(); // Get Name of Video from Json Object
         */
+        ImageUri = "android.resource://"+getPackageName() + "/drawable/exercise1";
+        VideoUri = "android.resource://"+getPackageName() + "/raw/dumbell";
 
         B_ImageView.setOnClickListener(new View.OnClickListener(){
             @Override

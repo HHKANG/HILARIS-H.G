@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Exercises_Select extends AppCompatActivity {
+    /*
     private RequestQueue queue;
     LinearLayout layout_warmup, layout_workout, layout_cooldown;
     ImageView Imageview;
@@ -60,7 +61,7 @@ public class Exercises_Select extends AppCompatActivity {
         list.add(new ExerciseItem("9090-Hamstring.jpg","title","phase"));
 
         //어댑터 만들기
-        ExerciseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
+        ExercisseListViewAdapter adapter=new ExerciseListViewAdapter(this,R.layout.exercise_item, list);
 
         //리스트뷰와 어댑터 연결하기
         listView.setAdapter(adapter);
@@ -133,7 +134,7 @@ public class Exercises_Select extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+*/
 
 }
 
