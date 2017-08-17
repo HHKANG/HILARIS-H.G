@@ -48,7 +48,7 @@ public class Week_Day_Select extends AppCompatActivity {
         title = intent.getExtras().getString("routine");
         prescription_guidline = intent.getExtras().getString("prescription_guideline");
 
-        Toast.makeText(getApplicationContext(), "get: " + title, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), "get: " + title, Toast.LENGTH_SHORT).show();
 
         try {
             JSONObject object = new JSONObject(prescription_guidline);
@@ -70,7 +70,7 @@ public class Week_Day_Select extends AppCompatActivity {
         for (int a = 0; a < prescription.routine_length; a++) {
             if (title.equals(prescription.routine[a].Title)) {
                 ex_routine = prescription.routine[a];
-                Toast.makeText(getApplicationContext(), "real" + ex_routine.Title, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "real" + ex_routine.Title, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -102,7 +102,7 @@ public class Week_Day_Select extends AppCompatActivity {
                     week_day[session][week].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), Test.class);
+                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
                             int n = vector[finalSession][finalWeek].size();//vector size 찾기
                             intent.putExtra("size", n);//vector size 보내기
                             //object 1개씩 보내기

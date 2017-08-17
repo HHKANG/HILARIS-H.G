@@ -140,15 +140,11 @@ public class GuideLineList extends AppCompatActivity {
                                     if (Routine.startsWith("R")) {
                                         NLevelItem item2 = (NLevelItem) item.getParent().getParent();
                                         String grandparent = ((SomeObject)item2.getWrappedObject()).getName();
-                                      //   Toast.makeText(GuideLineList.this,Routine, Toast.LENGTH_SHORT).show();
+                                         Toast.makeText(GuideLineList.this,Routine, Toast.LENGTH_SHORT).show();
                                        // Toast.makeText(GuideLineList.this, prescription_guidelines[myindex].responseString, Toast.LENGTH_SHORT).show();
-
-
-
                                         Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
                                         intent.putExtra("routine", Routine);
                                         intent.putExtra("prescription_guideline",prescription_guidelines[myindex].responseString);
-                                       // startActivity(intent);
                                         startActivity(intent);
                                     }
                                 }

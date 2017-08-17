@@ -29,12 +29,12 @@ import android.widget.Toast;
 
 // 사용자 정의 어댑터 클래스 만들기
 // 어댑터(데이터(모델)+보여줄형식(레이아웃))
-public class ExerciseListViewAdapter extends BaseAdapter {
+public class ExerciseListViewAdapter extends BaseAdapter implements View.OnClickListener,LoadImageTask.Listener{
     private Context context;
     private int layoutId;
     private ArrayList<ExerciseItem> list;
     private LayoutInflater inflater;//레이아웃 xml파일을 자바객체로 변환하기 위한객체
-
+    ImageView img;
     /**
      * @param context  : 컨텍스트
      * @param layoutId : 보여줄 레이아웃
@@ -79,15 +79,10 @@ public class ExerciseListViewAdapter extends BaseAdapter {
         final ExerciseItem item = list.get(position);
 
         //이미지뷰에 이미지 넣기
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
+         img = (ImageView) convertView.findViewById(R.id.img);
         // img.setImageResource(item.getIconID());
-        // img.setImageURI(Uri.parse(item.getIconID()));
-
-
-
-
-
-
+       //img.setImageView(item.getIconID());
+        new LoadImageTask(this).execute(item.getIconID());
 
 
         //텍스트뷰에 이름 넣기
@@ -95,15 +90,27 @@ public class ExerciseListViewAdapter extends BaseAdapter {
         txt.setText(item.getName());
 
         //텍스트뷰에 타입 넣기
-        TextView type=(TextView)convertView.findViewById(R.id.Phase);
-        type.setText(item.getPhase());
+        TextView type=(TextView)convertView.findViewById(R.id.Type);
+        type.setText(item.getType());
 
 
         return convertView;
     }
 
+    @Override
+    public void onImageLoaded(Bitmap bitmap) {
+        img.setImageBitmap(bitmap);
+    }
 
+    @Override
+    public void onError() {
+        //Toast.makeText(this, "Error Loading Image !", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 
 
 }
