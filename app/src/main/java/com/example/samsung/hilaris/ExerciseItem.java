@@ -14,7 +14,6 @@ public class ExerciseItem extends AppCompatActivity {
         this.iconID=iconID;
         this.Name=Name;
         this.Phase=Phase;
-
     }
 
     public String getIconID() {

@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Detailinfo extends AppCompatActivity implements Serializable{
-    Button exercise;
     TextView set_name;
     TextView set_Birthdate;
     String get_name;
@@ -44,6 +43,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
 
         get_name = intent.getExtras().getString("name");
 
+
         //exercise = (Button)findViewById(R.id.exercise_list);
         set_name.setText(get_name);
 
@@ -60,10 +60,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //모든 data 불러오기 from Database
-                    //나중에 JSON CLASS 이용
-                    //String objectString = keys.next().toString();
-                    //adapter.addItem(objectString);
                     adapter.addItem("Blood Pressure");
                     adapter.addItem("Heart Rate");
                     adapter.addItem("Flexibility");
@@ -106,6 +102,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                         }
                     });
 
+        /*
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +110,7 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                 startActivity(intent);
             }
         });
+        */
         Button goguideline = (Button) findViewById(R.id.goguide);
         goguideline.setOnClickListener(new View.OnClickListener() {
             @Override

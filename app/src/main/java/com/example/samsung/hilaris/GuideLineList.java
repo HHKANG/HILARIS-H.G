@@ -57,8 +57,8 @@ public class GuideLineList extends AppCompatActivity {
         final LayoutInflater inflater = LayoutInflater.from(this);
         Intent intent = getIntent();
         String uri = intent.getStringExtra("uri");
-        // url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/"+uri;
-        url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/MF000004_00012054_20170627131529";
+        url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/"+uri;
+        //url ="http://221.153.186.186/cooperadvisormobilews/WSCooperAdvisor.svc/GetPrescription/MF000004_00012054_20170627131529";
         queue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -119,7 +119,7 @@ public class GuideLineList extends AppCompatActivity {
 
                                             return view;
                                         }
-                                    });
+                                    }, true);
                                     list.add(child);
 
                                 }
@@ -128,6 +128,7 @@ public class GuideLineList extends AppCompatActivity {
 
                         }catch (Exception e)
                         {
+                            Toast.makeText(GuideLineList.this, "Error to get Guidelines", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         Toast.makeText(GuideLineList.this, "GuidelineListError", Toast.LENGTH_SHORT).show();
@@ -143,7 +144,7 @@ public class GuideLineList extends AppCompatActivity {
                         ((NLevelAdapter) listView.getAdapter()).getFilter().filter();
                         NLevelItem item = (NLevelItem) adapter.getItem(arg2);
                         String Routine =  ((SomeObject) item.getWrappedObject()).getName();
-                        if (Routine.startsWith("R")) {
+                        if (item.isRoutine()) {
                             NLevelItem item2 = (NLevelItem) item.getParent().getParent();
                             Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
                             try
@@ -166,7 +167,7 @@ public class GuideLineList extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error to get Guidelines", Toast.LENGTH_LONG).show();
             }
         });
         // Add JsonArrayRequest to the RequestQueue
