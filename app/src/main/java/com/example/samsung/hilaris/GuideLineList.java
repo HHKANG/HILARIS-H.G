@@ -153,6 +153,7 @@ public class GuideLineList extends AppCompatActivity {
                                 intent.putExtra("routine", Routine);
                                 intent.putExtra("Index", myindex);
                                 intent.putExtra("responseString", responseString);
+                               // Toast.makeText(GuideLineList.this, responseString, Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
                             catch(Exception e)

@@ -1,12 +1,12 @@
 package com.example.samsung.hilaris;
 
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.os.AsyncTask;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 public class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 

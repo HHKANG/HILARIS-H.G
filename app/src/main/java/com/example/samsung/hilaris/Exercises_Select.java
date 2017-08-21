@@ -9,12 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +29,7 @@ public class Exercises_Select extends AppCompatActivity {
     JSONObject E_Unit;
     Exercise_unit unit;
     String array[] = null;
+
     int index1= 0;
     int index2= 0;
     int index3= 0;

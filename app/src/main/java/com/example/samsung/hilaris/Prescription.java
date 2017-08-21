@@ -19,7 +19,7 @@ public class Prescription {
             routine[i] = new Exercise_routine(exercise_routine.getJSONObject(i));
         }
 
-      //  prescription_jsonArray = new JSONArray(exercise_routine);
+        //  prescription_jsonArray = new JSONArray(exercise_routine);
 
     }
 }

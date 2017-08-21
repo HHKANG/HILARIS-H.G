@@ -144,7 +144,7 @@ public class Detail_bar_graph extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                             if(count == 0) {
-                                Intent intent = new Intent(getApplicationContext(), Detail_Flexibility_Graph.class);
+                                Intent intent = new Intent(getApplicationContext(), Detail_Power.class);
                                 intent.putExtra("SelectedProfile", profile.toString());
                                 startActivity(intent);
                                 finish();

@@ -97,9 +97,8 @@ public class Detail_Flexibility_Graph extends Graph {
         next_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
+                Intent intent = new Intent(getApplicationContext(), Detail_Power.class);
                 intent.putExtra("SelectedProfile", profile.toString());
-                intent.putExtra("position", 0);
                 startActivity(intent);
                 finish();
             }

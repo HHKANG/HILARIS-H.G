@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.01"
-            android:text="Name: "
+            android:text="ID: "
             android:textAlignment="viewEnd"
             android:textStyle="bold"
             android:textColor="#000000"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="center"
-            android:hint="Enter Name"
+            android:hint="Enter ID"
             android:inputType="textPersonName"
             android:textStyle="bold" />
     </LinearLayout>

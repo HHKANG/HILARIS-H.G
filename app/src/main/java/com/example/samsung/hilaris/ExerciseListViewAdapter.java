@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,12 +31,13 @@ import android.widget.Toast;
 
 // 사용자 정의 어댑터 클래스 만들기
 // 어댑터(데이터(모델)+보여줄형식(레이아웃))
-public class ExerciseListViewAdapter extends BaseAdapter implements View.OnClickListener,LoadImageTask.Listener{
+public class ExerciseListViewAdapter extends BaseAdapter {
     private Context context;
     private int layoutId;
     private ArrayList<ExerciseItem> list;
     private LayoutInflater inflater;//레이아웃 xml파일을 자바객체로 변환하기 위한객체
     ImageView img;
+
     /**
      * @param context  : 컨텍스트
      * @param layoutId : 보여줄 레이아웃
@@ -78,12 +81,6 @@ public class ExerciseListViewAdapter extends BaseAdapter implements View.OnClick
 
         final ExerciseItem item = list.get(position);
 
-        //이미지뷰에 이미지 넣기
-         img = (ImageView) convertView.findViewById(R.id.img);
-        // img.setImageResource(item.getIconID());
-       //img.setImageView(item.getIconID());
-        new LoadImageTask(this).execute(item.getIconID());
-
 
         //텍스트뷰에 이름 넣기
         TextView txt=(TextView)convertView.findViewById(R.id.txt);
@@ -94,23 +91,24 @@ public class ExerciseListViewAdapter extends BaseAdapter implements View.OnClick
         type.setText(item.getType());
 
 
+        WebView wv = (WebView) convertView.findViewById(R.id.webview);
+        wv.setFocusable(false);
+        // set the font size
+        WebSettings ws = wv.getSettings();
+        ws.setDefaultFontSize(8);
+
+        wv.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR); // 화면을 유지
+
+// set the scale
+        wv.setInitialScale(35); // 35%
+        //initialScale to fit
+
+        wv.getSettings().setUseWideViewPort(true);
+        if (wv != null) wv.loadUrl( item.getIconID() );
+
         return convertView;
     }
 
-    @Override
-    public void onImageLoaded(Bitmap bitmap) {
-        img.setImageBitmap(bitmap);
-    }
-
-    @Override
-    public void onError() {
-        //Toast.makeText(this, "Error Loading Image !", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
 
 }

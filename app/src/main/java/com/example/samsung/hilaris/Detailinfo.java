@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,12 +64,14 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                     adapter.addItem("Blood Pressure");
                     adapter.addItem("Heart Rate");
                     adapter.addItem("Flexibility");
-                    adapter.addItem("Upper Strength");
+        adapter.addItem("Power");
+        adapter.addItem("Upper Strength");
                     adapter.addItem("Lower Strength");
                     adapter.addItem("Upper Body Agility");
                     adapter.addItem("Upper Limb Agility");
 
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
@@ -91,11 +94,18 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                                 intent.putExtra(SelectedProfile, profile.toString());
                                 startActivity(intent);
                             }
+                            else if(position == 3)
+                            {
+                                Intent intent = new Intent(getApplicationContext(), Detail_Power.class);
+                                ListViewItem Item = (ListViewItem) listView.getItemAtPosition(position);
+                                intent.putExtra(SelectedProfile, profile.toString());
+                                startActivity(intent);
+                            }
                             else {
                                 //BAR GRAPH CLASS
                                 Intent intent = new Intent(getApplicationContext(), Detail_bar_graph.class);
                                 ListViewItem Item = (ListViewItem) listView.getItemAtPosition(position);
-                                intent.putExtra("position", position-3);
+                                intent.putExtra("position", position-4);
                                 intent.putExtra(SelectedProfile, profile.toString());
                                 startActivity(intent);
                             }

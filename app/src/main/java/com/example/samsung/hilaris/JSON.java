@@ -172,6 +172,11 @@ public class JSON extends JSONObject implements Serializable {
     int RotationLeft;
     int RotationRight;
 
+    int PowerPeak;
+    int PowerMean;
+    int FatigueIndex;
+    int FatigueSlope;
+
     public JSON(JSONObject JsonObject) throws JSONException {
         json = JsonObject;
     }
@@ -782,6 +787,35 @@ public class JSON extends JSONObject implements Serializable {
     public double getYoungNormal() throws JSONException {
         return Math.round(json.getDouble("YoungNormal")*100d)/100d;
     }
+
+
+
+    public int getFatigueINdex() throws JSONException {
+        return json.getInt("FatigueIndex");
+    }
+
+    public int getFatigueSlope() throws JSONException {
+        return json.getInt("FatigueSlope");
+    }
+
+    public int getPowerLowest() throws JSONException {
+        return json.getInt("PowerLowest");
+    }
+
+    public int getPowerMean() throws JSONException {
+        return json.getInt("PowerMean");
+    }
+
+    public int getPowerPeak() throws JSONException {
+        return json.getInt("PowerPeak");
+    }
+
+    public int getPowerPeakWKG() throws JSONException {
+        return json.getInt("PowerPeakWKG");
+    }
+
+
+
 
     public String UserName() throws JSONException{
         return json.getString("UserName");

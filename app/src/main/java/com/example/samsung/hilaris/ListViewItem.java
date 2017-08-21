@@ -9,9 +9,6 @@ public class ListViewItem {
     private double info5;//simple info
     private String info6;//simple info
 
-    private int iconID;//운동 이미지
-    private String Name;//운동 이름
-    private String Phase;//운동 타입
 
     String objectName;//Detail info
 
@@ -52,28 +49,8 @@ public class ListViewItem {
     public String getinfo6() {return this.info6;}
 
 
-
     public ListViewItem() {
     }
-
-
-    public ListViewItem(int iconID,String Name,String Phase){
-        this.iconID=iconID;
-        this.Name=Name;
-        this.Phase=Phase;
-
-    }
-
-    public int getIconID() {
-        return iconID;
-    }
-    public String getName() {
-        return Name;
-    }
-    public void setName(String Name) {
-        this.Name = Name;
-    }
-    public String getPhase() {return Phase;}
 
 
     public void setObjectName(String objectName) {
