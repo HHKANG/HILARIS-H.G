@@ -305,6 +305,7 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
     }
     public void adjustPrevNextImageButton()
     {
+
         Previous.setImageResource(R.drawable.exercise_prev);
         Previous.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Next.setImageResource(R.drawable.exercise_next);
