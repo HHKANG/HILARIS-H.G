@@ -19,8 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class History extends Graph {
-
-    private final int HISTORY_DATA = 3; // 임시로1로 해놓음,, (받아올 DATA들의 수)
+    private final int HISTORY_DATA = 2; // 임시로1로 해놓음,, (받아올 DATA들의 수)
+    //private final int HISTORY_DATA = 3; // 임시로1로 해놓음,, (받아올 DATA들의 수)
     private final int HISTORY_HEARTRATE_STATES=3; //REST, STIM, RECV
     private final int History_States = 2; // Left = 0 & Right = 1
     private final int ATTRIBUTE = 2;
@@ -35,8 +35,10 @@ public class History extends Graph {
     public static final int FX_VALUE_ITEMS= 2;      // Rotation, Bending     || Extension, Flexion
     //
     public static final int NumOfGraph = 4;
-    public static final int numOfCategory = 5;  // Num Of category In History List (BloodPressure, HeartRate, Flexibility, Strength, Agility
+    public static final int numOfCategory = 6;  // Num Of category In History List (BloodPressure, HeartRate, Flexibility, Strength, Agility,Power
     public static final int Category = 2;
+
+    public static final int NumOfPower = 4;//PowerPeak,PowerPeakWKG,FatigueIndex,FatigueSlope
 
     protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
     protected JSON[] HISTORY_JSON = new JSON[HISTORY_DATA];
@@ -47,6 +49,8 @@ public class History extends Graph {
     protected int[][][][] intBloodPress = new int[BP_TEST_SITES][BP_VALUE_PAIR][BP_SUBJECT_STATES][HISTORY_DATA];
     protected int[][][] intFlex_Rotation_LateralFlexion = new int[FX_VALUE_ITEMS][FX_TEST_SITES][HISTORY_DATA];
     protected int[][] intFlex_Extension_Flexion = new int[FX_VALUE_ITEMS][HISTORY_DATA];
+    protected double[][][] History_Power = new double[Category][NumOfPower][HISTORY_DATA];
+
 
     public String[] JSONObjectDate = new String[HISTORY_DATA];
 
@@ -55,6 +59,11 @@ public class History extends Graph {
     String[] strFlexValueItems = {"Rotation", "LateralFlexion"};
     String[] strRotFlexValueItems = {"Extension", "Flexion"};
     //BloodPressure
+
+
+    //Power
+    String[] strPowerValueItems = {"PowerPeak","PowerPeakWKG","FatigueIndex","FatigueSlope"};
+
 
     String[] strTestSites = {"Left", "Right"}; //BP_TEST_SITES
     String[] strSubjectStates = {"Rest", "Stim", "Recv"}; //HR_SUBJECT_STATES  Rest, Stimulus, Recovery
@@ -76,6 +85,8 @@ public class History extends Graph {
     private final int Flexibility = 2;
     private final int Strength= 3;
     private final int Agility = 4;
+    private final int Power = 5;
+
 
     Button next_button ;
     Button prev_button ;
@@ -188,6 +199,33 @@ public class History extends Graph {
 
             case Agility :
                 setContentView(R.layout.activity_history_agility);
+                linearLayout = (LinearLayout)findViewById(R.id.graph_linear);
+                next_button = (Button)findViewById(R.id.button_next);
+                prev_button = (Button)findViewById(R.id.button_prev);
+                next_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onNextClick(v);
+                    }
+                });
+                prev_button.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        onPrevClick(v);
+                    }
+                });
+                for(int num = 0; num < 2; num++){
+                    graph_history[num] = (GraphView)linearLayout.findViewWithTag(""+num);
+                }
+                try {
+                    AgilityHistory(graph_history);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case Power :
+                setContentView(R.layout.activity_history_power);
                 linearLayout = (LinearLayout)findViewById(R.id.graph_linear);
                 next_button = (Button)findViewById(R.id.button_next);
                 prev_button = (Button)findViewById(R.id.button_prev);

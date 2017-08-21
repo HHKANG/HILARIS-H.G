@@ -27,6 +27,7 @@
         <activity android:name=".Detail_HeartRateGraph" />
         <activity android:name=".Detail_bar_graph" />
         <activity android:name=".Detail_Flexibility_Graph" />
+        <activity android:name=".Detail_Power" />
         <activity android:name=".History" />
         <activity android:name=".History_list" />
         <activity android:name=".GuideLineList" />

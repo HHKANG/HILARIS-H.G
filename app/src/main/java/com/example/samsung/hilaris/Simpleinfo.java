@@ -30,7 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Simpleinfo extends AppCompatActivity {
-    private final int History_Data = 3; //Num of Data to compare in History
+    private final int History_Data = 2; //Num of Data to compare in History
     JSON Test;
     String TestID;
     Button history;
@@ -142,8 +142,8 @@ public class Simpleinfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(Tests.length <3) {
-                    Toast.makeText(Simpleinfo.this, "Exception Occured : Results must exist at least 3", Toast.LENGTH_SHORT).show();
+                if(Tests.length <2) {
+                    Toast.makeText(Simpleinfo.this, "Exception Occured : Results must exist at least 2", Toast.LENGTH_SHORT).show();
                 } // When labeling the x axis in the graph, Data needs to be at least 2
 
                 else {

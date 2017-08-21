@@ -19,7 +19,7 @@ public class History_list extends AppCompatActivity {
 
     ListView listView;
     DetailInfoListViewAdapter adapter;
-    private final int HISTORY_DATA =3;
+    private final int HISTORY_DATA =2;
     protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
     JSON json;
 
@@ -48,6 +48,7 @@ public class History_list extends AppCompatActivity {
         adapter.addItem("Flexibility");
         adapter.addItem("Strength");
         adapter.addItem("Agility");
+        adapter.addItem("Power");
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -19,16 +19,20 @@ import org.json.JSONObject;
 
 public class Detail_Power  extends AppCompatActivity {
 
-
-    int PowerPeak;
+    double PowerLowest;
     int PowerMean;
-    int FatigueIndex;
-    int FatigueSlope;
+    int PowerPeak;
+    double PowerPeakWKG;
+    double FatigueIndex;
+    double FatigueSlope;
+
     LinearLayout LinearLayout;
     TextView TextView_PowerPeak;
     TextView TextView_PowerMean;
     TextView TextView_FatigueIndex;
     TextView TextView_FatigueSlope;
+    TextView TextView_PowerPeakWKG;
+    TextView TextView_PowerLowest;
     JSON json;
     JSONObject profile;
 
@@ -45,10 +49,12 @@ public class Detail_Power  extends AppCompatActivity {
             LinearLayout = (LinearLayout) findViewById(R.id.power); // Linear Layout containing the table
 
 
-            TextView_FatigueIndex = (TextView) findViewById(R.id.fatigueindex);
-            TextView_FatigueSlope = (TextView) findViewById(R.id.fatigueslope);
-            TextView_PowerMean = (TextView) findViewById(R.id.powermean);
-            TextView_PowerPeak = (TextView) findViewById(R.id.powerpeak);
+            TextView_FatigueIndex = (TextView) findViewById(R.id.FatigueIndex);
+            TextView_FatigueSlope = (TextView) findViewById(R.id.FatigueSlope);
+            TextView_PowerMean = (TextView) findViewById(R.id.PowerMean);
+            TextView_PowerPeak = (TextView) findViewById(R.id.PowerPeak);
+            TextView_PowerPeakWKG = (TextView) findViewById(R.id.PowerPeakWKG);
+            TextView_PowerLowest= (TextView) findViewById(R.id.PowerLowest);
 
 
 
@@ -59,10 +65,15 @@ public class Detail_Power  extends AppCompatActivity {
                 FatigueSlope=json.getFatigueSlope();
                 PowerMean = json.getPowerMean();
                 PowerPeak = json.getPowerPeak();
+                PowerLowest=json.getPowerLowest();
+                PowerPeakWKG=json.getPowerPeakWKG();
                 TextView_PowerPeak.setText(""+PowerPeak);
                 TextView_PowerMean.setText(""+PowerMean);
                 TextView_FatigueSlope.setText(""+FatigueSlope);
                 TextView_FatigueIndex.setText(""+FatigueIndex);
+                TextView_PowerLowest.setText(""+PowerLowest);
+                TextView_PowerPeakWKG.setText(""+PowerPeakWKG);
+
 
 
             } catch (JSONException e) {
