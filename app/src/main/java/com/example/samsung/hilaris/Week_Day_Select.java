@@ -11,6 +11,14 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,10 +26,14 @@ import java.lang.reflect.Array;
 import java.util.Vector;
 
 public class Week_Day_Select extends AppCompatActivity {
+
+    private RequestQueue queue;
+
+
     TableLayout tableLayout;
     int num = 0;
     String title;
-    String prescription_guidline;
+    int Index;
     Prescription_Guideline Prescription_Guideline;
 
     Prescription prescription;
@@ -34,10 +46,10 @@ public class Week_Day_Select extends AppCompatActivity {
     //4*7 TextView array
     TextView[][] week_day = new TextView[7][4];
 
+    String responseString;
+    JSONArray response;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int i = 0;
-        int j = 0;
 
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
@@ -46,77 +58,85 @@ public class Week_Day_Select extends AppCompatActivity {
 
         Intent intent = getIntent();
         title = intent.getExtras().getString("routine");
-        prescription_guidline = intent.getExtras().getString("prescription_guideline");
-
-       // Toast.makeText(getApplicationContext(), "get: " + title, Toast.LENGTH_SHORT).show();
-
+        Index = intent.getExtras().getInt("Index");
+        responseString = intent.getExtras().getString("responseString");
         try {
-            JSONObject object = new JSONObject(prescription_guidline);
-            Prescription_Guideline = new Prescription_Guideline(object);
-            prescription = Prescription_Guideline.prescription;
+            response = new JSONArray(responseString);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+                try {
+                    Prescription_Guideline = new Prescription_Guideline(response.getJSONObject(Index));
+                    prescription = Prescription_Guideline.prescription;
+                    try
+                    {
+                        tableLayout = (TableLayout) findViewById(R.id.table_layout);
 
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
-
-        for (int m = 0; m < 7; m++) {
-            for (int k = 0; k < 4; k++) {
-                week_day[m][k] = (TextView) tableLayout.findViewWithTag("" + num);
-                num++;
-            }
-        }
-
-        for (int a = 0; a < prescription.routine_length; a++) {
-            if (title.equals(prescription.routine[a].Title)) {
-                ex_routine = prescription.routine[a];
-               // Toast.makeText(getApplicationContext(), "real" + ex_routine.Title, Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        for (int session = 0; session < 7; session++) {
-            for (int week = 0; week < 4; week++) {
-                vector[session][week] = new Vector();
-            }
-        }
-
-        for (int b = 0; b < ex_routine.unit_length; b++) {
-            JSONObject UnitObject = ex_routine.exercise_unit[b].E_Unit.json;
-            vector[Integer.parseInt(ex_routine.exercise_unit[b].session) - 1][Integer.parseInt(ex_routine.exercise_unit[b].week) - 1].add(UnitObject);
-        }
-
-        for (int session = 0; session < 7; session++) {
-            for (int week = 0; week < 4; week++) {
-                if (vector[session][week].isEmpty() == true) {
-                    week_day[session][week].setBackgroundResource(android.R.color.darker_gray);
-                    week_day[session][week].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(getApplicationContext(), "No Exercise", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    week_day[session][week].setBackgroundResource(android.R.color.holo_green_light);
-                    final int finalSession = session;
-                    final int finalWeek = week;
-                    week_day[session][week].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
-                            int n = vector[finalSession][finalWeek].size();//vector size 찾기
-                            intent.putExtra("size", n);//vector size 보내기
-                            //object 1개씩 보내기
-                            for (int i = 0; i < n; i++){
-                                intent.putExtra("test2"+i, vector[finalSession][finalWeek].get(i).toString());
+                        for (int m = 0; m < 7; m++) {
+                            for (int k = 0; k < 4; k++) {
+                                week_day[m][k] = (TextView) tableLayout.findViewWithTag("" + num);
+                                num++;
                             }
-                            intent.putExtra("test", vector[finalSession][finalWeek].toString());//vector 전체를 한번에 보내기
-                            startActivity(intent);
                         }
-                    });
+
+                        for (int a = 0; a < prescription.routine_length; a++) {
+                            if (title.equals(prescription.routine[a].Title)) {
+                                ex_routine = prescription.routine[a];
+                            }
+                        }
+
+                        for (int session = 0; session < 7; session++) {
+                            for (int week = 0; week < 4; week++) {
+                                vector[session][week] = new Vector();
+                            }
+                        }
+                        for (int b = 0; b < ex_routine.unit_length; b++) {
+
+                            JSONObject UnitObject = ex_routine.exercise_unit[b].E_Unit.json;
+                            vector[Integer.parseInt(ex_routine.exercise_unit[b].session) - 1][Integer.parseInt(ex_routine.exercise_unit[b].week) - 1].add(UnitObject);
+                        }
+
+                        for (int session = 0; session < 7; session++) {
+                            for (int week = 0; week < 4; week++) {
+                                if (vector[session][week].isEmpty() == true) {
+                                    week_day[session][week].setBackgroundResource(android.R.color.darker_gray);
+                                    week_day[session][week].setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Toast.makeText(getApplicationContext(), "No Exercise", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    week_day[session][week].setBackgroundResource(android.R.color.holo_green_light);
+                                    final int finalSession = session;
+                                    final int finalWeek = week;
+                                    week_day[session][week].setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent(getApplicationContext(), Exercises_Select.class);
+                                            int n = vector[finalSession][finalWeek].size();//vector size 찾기
+                                            intent.putExtra("size", n);//vector size 보내기
+                                            //object 1개씩 보내기
+                                            for (int i = 0; i < n; i++){
+                                                intent.putExtra("test2"+i, vector[finalSession][finalWeek].get(i).toString());
+                                            }
+                                            intent.putExtra("test", vector[finalSession][finalWeek].toString());//vector 전체를 한번에 보내기
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                    }catch(Exception e)
+                    {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
