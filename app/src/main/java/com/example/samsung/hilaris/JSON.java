@@ -859,7 +859,11 @@ public class JSON extends JSONObject implements Serializable {
     } //Rotation, Bending
     public int getFlexLR(String strValueIem) throws JSONException {
         return json.getInt(strValueIem);
+} //Extension, Flexion
+    public double getPower(String strValueIem) throws JSONException {
+        return json.getDouble(strValueIem);
     } //Extension, Flexion
+
 
     public int getStrength(String state, String name) throws  JSONException {
         return json.getInt(name+state);

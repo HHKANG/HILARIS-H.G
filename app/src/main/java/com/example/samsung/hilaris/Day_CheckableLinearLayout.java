@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 /**
  * Created by SAMSUNG on 2017-07-31.
+ *
  */
 
 public class Day_CheckableLinearLayout extends LinearLayout implements Checkable{
