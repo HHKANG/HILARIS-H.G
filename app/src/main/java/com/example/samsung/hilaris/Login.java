@@ -19,22 +19,27 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ *Login class has two attributes that are Name and password.
+ *They match what they received from the server and log  in.
+ */
+
 public class Login extends AppCompatActivity {
     Button login_button;
     Button cancel_button;
-    EditText PhoneNumber;
+    EditText Name;
     EditText password;
     String pn;
     String pw;
     String MB_ID;
-    String Name;
+    String Name_String;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        PhoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        Name = (EditText) findViewById(R.id.Name);
         password = (EditText) findViewById(R.id.loginpassword);
 
         cancel_button = (Button) findViewById(R.id.cancelbutton);
@@ -51,16 +56,16 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                pn = PhoneNumber.getText().toString();
+                pn = Name.getText().toString();
                 pw = password.getText().toString();
 
                 SendRequest();
 
-                if (PhoneNumber.getText().toString().length() == 0 && password.getText().toString().length() != 0) {
+                if (Name.getText().toString().length() == 0 && password.getText().toString().length() != 0) {
                     Toast.makeText(getApplicationContext(), "please write your name", Toast.LENGTH_SHORT).show();
-                } else if (password.getText().toString().length() == 0 && PhoneNumber.getText().toString().length() != 0) {
+                } else if (password.getText().toString().length() == 0 && Name.getText().toString().length() != 0) {
                     Toast.makeText(getApplicationContext(), "please write your password", Toast.LENGTH_SHORT).show();
-                } else if (password.getText().toString().length() == 0 && PhoneNumber.getText().toString().length() == 0) {
+                } else if (password.getText().toString().length() == 0 && Name.getText().toString().length() == 0) {
                     Toast.makeText(getApplicationContext(), "please write your name and password", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -80,11 +85,11 @@ public class Login extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     MB_ID = response.getString("MB_ID");
-                    Name = response.getString("Name");
-                    if(!MB_ID.equals("null") && !Name.equals("null")) {
+                    Name_String = response.getString("Name");
+                    if(!MB_ID.equals("null") && !Name_String.equals("null")) {
                         Intent intent = new Intent(getApplicationContext(), Simpleinfo.class);
                         intent.putExtra("mb_id", MB_ID);
-                        intent.putExtra("name", Name);
+                        intent.putExtra("name", Name_String);
                         intent.putExtra("password", pw);
                         startActivity(intent);
                     }

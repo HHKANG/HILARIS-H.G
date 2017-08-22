@@ -4,7 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by js960 on 2017-08-10.
+ *Exercise_Routine class parses Exercise_unit
+ *Exercise_unit concept is the smallest concept.
  */
 
 public class Exercise_unit {

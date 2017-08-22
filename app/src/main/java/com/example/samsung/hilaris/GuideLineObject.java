@@ -4,8 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by js960 on 2017-08-10.
+/*
+ * GuideLineObjects class is one of the Guidelines.
+ * GuideLineObjects class has title, description,numOfroutines attribute.
  */
 
 public class GuideLineObject {

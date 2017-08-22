@@ -2,6 +2,12 @@ package com.example.samsung.hilaris;
 
 import android.support.v7.app.AppCompatActivity;
 
+
+/**
+ *ExerciseItem is used with ExerciseListViewAdapter and Exercises_Select
+ */
+
+
 public class ExerciseItem extends AppCompatActivity {
     private String iconID;//아이콘 리소스 아이디 저장(이미지)
     private String Name;//텍스트뷰에 보여질 이름

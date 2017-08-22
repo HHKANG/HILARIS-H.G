@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 
 import com.jjoe64.graphview.GraphView;
@@ -19,9 +18,16 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+/**
+ *History class shows comparing the dates for graphs.
+ *Shows the graph regardless of the number of data.
+ *Each items has each layout.
+ */
+
+
 public class History extends Graph {
     private int HISTORY_DATA; // 임시로1로 해놓음,, (받아올 DATA들의 수)
-    //private final int HISTORY_DATA = 3; // 임시로1로 해놓음,, (받아올 DATA들의 수)
     private final int HISTORY_HEARTRATE_STATES=3; //REST, STIM, RECV
     private final int History_States = 2; // Left = 0 & Right = 1
     private final int ATTRIBUTE = 2;
@@ -249,8 +255,6 @@ public class History extends Graph {
         }
     }
     public void MakeHeartRateHistory(GraphView graph_history1) {
-        //HISTORY_DATA = getIntent().getExtras().getInt("HISTORY_DATA");
-        Toast.makeText(this, ""+HISTORY_DATA, Toast.LENGTH_SHORT).show();
         JSONObjectDate = new String[HISTORY_DATA];
         History_Data = new double[HISTORY_HEARTRATE_STATES][HISTORY_DATA];
         History_JSONOBJECT = new JSONObject[HISTORY_DATA];
@@ -288,7 +292,6 @@ public class History extends Graph {
 
         graph_history1.getLegendRenderer().setVisible(true);
         graph_history1.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-        //graph_history.getGridLabelRenderer().setLabelFormatter(labelsFormatter);
         for (int i = 0; i < HISTORY_HEARTRATE_STATES; i++)
             graph_history1.addSeries(addLineSeriesData(History_Data[i], color[i], "HeartRate" + strSubjectStates[i]));
         graph_history1.getViewport().setMinY(0);
@@ -325,7 +328,6 @@ public class History extends Graph {
             e.printStackTrace();
         }
         //STATICLABEL -- > GRAPH 의 X 축을 JSONOBJECTDATE를 이용하여 설정하는 법....
-        //graph_history.getGridLabelRenderer().setLabelFormatter(labelsFormatter);
         int index =0 ;
         for(int testSites=0; testSites<BP_TEST_SITES; testSites++) {
 
@@ -380,7 +382,6 @@ public class History extends Graph {
             e.printStackTrace();
         }
         //STATICLABEL -- > GRAPH 의 X 축을 JSONOBJECTDATE를 이용하여 설정하는 법....
-        //graph_history.getGridLabelRenderer().setLabelFormatter(labelsFormatter);
             for (int valuePair = 0; valuePair < FX_VALUE_ITEMS; valuePair++) {
                 for(int testSites=0; testSites<FX_TEST_SITES; testSites++) {
                 graph_history[index].addSeries(addLineSeriesData(intFlex_Rotation_LateralFlexion[valuePair][testSites], color[testSites], strFlexValueItems[valuePair]+strTestSites[testSites] ));
@@ -458,7 +459,6 @@ public class History extends Graph {
             e.printStackTrace();
         }
         //STATICLABEL -- > GRAPH 의 X 축을 JSONOBJECTDATE를 이용하여 설정하는 법....
-        //graph_history.getGridLabelRenderer().setLabelFormatter(labelsFormatter);
         int index =0 ;
         for (int name = 0; name < strStrengthName.length; name++){
             for(int testSites=0; testSites<History_States; testSites++) {

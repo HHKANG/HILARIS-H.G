@@ -18,11 +18,6 @@ import org.json.XML;
 
 public class Prescription_Guideline extends AppCompatActivity {
 
-    public String getDate() {
-        return date;
-    }
-
-
 
     public String date;
     public Guidelines guideline;

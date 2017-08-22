@@ -1,32 +1,22 @@
 package com.example.samsung.hilaris;
 
-import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.provider.SyncStateContract;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+
+/**
+ * ExerciseListVeiwAdapter class is an adapter class for Exercises_Select
+ */
 
 
 // 사용자 정의 어댑터 클래스 만들기
@@ -36,7 +26,6 @@ public class ExerciseListViewAdapter extends BaseAdapter {
     private int layoutId;
     private ArrayList<ExerciseItem> list;
     private LayoutInflater inflater;//레이아웃 xml파일을 자바객체로 변환하기 위한객체
-    ImageView img;
 
     /**
      * @param context  : 컨텍스트
@@ -92,22 +81,25 @@ public class ExerciseListViewAdapter extends BaseAdapter {
 
 
         WebView wv = (WebView) convertView.findViewById(R.id.webview);
-        wv.setFocusable(false);
-        // set the font size
-        WebSettings ws = wv.getSettings();
-        ws.setDefaultFontSize(8);
-
         wv.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR); // 화면을 유지
 
-// set the scale
+        // set the scale
         wv.setInitialScale(35); // 35%
-        //initialScale to fit
 
+        //initialScale to fit
         wv.getSettings().setUseWideViewPort(true);
+
+        wv.setHorizontalScrollBarEnabled(false);//가로스크롤없애기
+        wv.setVerticalScrollBarEnabled(false);//세로스크롤없애기
+
+
         if (wv != null) wv.loadUrl( item.getIconID() );
+        wv.setFocusable(false);
 
         return convertView;
     }
+
+
 
 
 

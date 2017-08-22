@@ -11,11 +11,19 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+
+
+/**
+ * Exercises_Select class uses listview with ExercisListViewAdapter and ExerciseItem.
+ * There are three layouts,buttons for using frame layout.
+ * When one of three buttons for phase, changes the layout.
+ * There are also three listview for warm-up,work-out,cool-down.
+ * Each listview has one adapter.
+ */
+
 
 public class Exercises_Select extends AppCompatActivity {
     LinearLayout layout_warmup, layout_workout, layout_cooldown;

@@ -3,6 +3,15 @@ package com.example.samsung.hilaris;
 
 import android.view.View;
 
+/**
+ *NLevelItem class is used with GuideLineList and NLevelAdapter.
+ *This class implements NLevelListItem
+ * @paramisRoutine : If item is routine, then true.
+ * @paramisExpanded : If list is expanded, then true.
+ * @paramtoggle : When clicking it, isExpanaded state is changed.
+ * @paramgetParent : Parent means the upper level level.
+ */
+
 public class NLevelItem implements NLevelListItem
 {
 

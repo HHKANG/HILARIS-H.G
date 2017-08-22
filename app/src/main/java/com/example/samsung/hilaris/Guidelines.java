@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Created by js960 on 2017-08-10.
+ GuideLines class is the result of Prescription_Guideline class for parsing.
  */
 
 public class Guidelines {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 /**
- * Adapter class for DetailInfo
+ * DetailInfoListViewAdapter class is an adapter class for DetailInfo
  * This listview item layout is detailinfo_listview_item.
  */
 

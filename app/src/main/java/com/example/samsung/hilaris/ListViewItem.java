@@ -1,5 +1,9 @@
 package com.example.samsung.hilaris;
 
+/**
+ *ListViewItem class is used with Simpleinfo Listview and Detailinfoview listview.
+ */
+
 
 public class ListViewItem {
     private String info1;//simple info

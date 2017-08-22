@@ -9,6 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+
+
+/**
+ *NLevelAdapter class is an adapter class for GuideLineList.
+ */
+
+
 public class NLevelAdapter extends BaseAdapter {
 
     List<NLevelItem> list;

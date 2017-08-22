@@ -29,6 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Simpleinfo has one list view that is simpleInfo_ListViewAdapter.
+ * Also,In this class, you can change password.
+ */
+
+
+
 public class Simpleinfo extends AppCompatActivity {
     private final int History_Data = 2; //Num of Data to compare in History
     private final int MAXIMUM = 5;
@@ -59,7 +66,6 @@ public class Simpleinfo extends AppCompatActivity {
         Intent intent = getIntent();
         get_name = intent.getExtras().getString("name");
         get_mb_id = intent.getExtras().getString("mb_id");
-        //pw = intent.getExtras().getString("password");
 
         set_name = (TextView) findViewById(R.id.name);
         set_BirthDate = (TextView) findViewById(R.id.BirthDate);
@@ -118,7 +124,6 @@ public class Simpleinfo extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                            //ListViewItem GUID = (ListViewItem) listView.getItemAtPosition(position);
 
                             Intent intent = new Intent(getApplicationContext(), Detailinfo.class);
                             intent.putExtra("name", get_name);

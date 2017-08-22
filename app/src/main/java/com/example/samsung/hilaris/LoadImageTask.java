@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+/**
+ *LoadImageTask class is used when Detailview class shows exercise image.
+ */
+
 public class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     public LoadImageTask(Listener listener) {

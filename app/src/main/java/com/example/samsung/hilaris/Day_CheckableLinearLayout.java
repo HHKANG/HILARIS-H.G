@@ -7,7 +7,7 @@ import android.widget.Checkable;
 import android.widget.LinearLayout;
 
 /**
- * Used by Week_Day_Select
+ * Day_CheckableLinerarLayout is used by Week_Day_Select
  * @paramsetChecked : checkbox set checkd.
  * @paramisChecked() :checkbox is checked.
  * @paramtoggle() : If this day was selected, toggle it.

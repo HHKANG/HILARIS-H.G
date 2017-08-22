@@ -1,19 +1,16 @@
 package com.example.samsung.hilaris;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.Series;
 
-import java.lang.reflect.Array;
 
 /**
- * Created by js960 on 2017-07-17.
+ * Detail_BloodPressureGraph,Detail_Flexibility_Graph,Detail_HeartRateGraph extends this Graph class.
  */
 
 public class Graph extends AppCompatActivity{

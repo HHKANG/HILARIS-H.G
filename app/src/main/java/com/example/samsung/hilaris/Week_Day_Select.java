@@ -11,13 +11,6 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,10 +18,13 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.Vector;
 
+
+/**
+ * Week_Day_Select class uses vector for chart 7*4
+ * This class sorts Exercise_routine by week and day
+ */
+
 public class Week_Day_Select extends AppCompatActivity {
-
-    private RequestQueue queue;
-
 
     TableLayout tableLayout;
     int num = 0;
@@ -38,7 +34,6 @@ public class Week_Day_Select extends AppCompatActivity {
 
     Prescription prescription;
     Exercise_routine ex_routine;
-    Exercise_unit unit;
 
     Array array[][] = new Array[20][20];
     Vector[][] vector = new Vector[7][4];
@@ -138,6 +133,11 @@ public class Week_Day_Select extends AppCompatActivity {
                 }
             }
 
+    /**
+     * Action Bar에 메뉴를 생성
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
@@ -156,7 +156,9 @@ public class Week_Day_Select extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

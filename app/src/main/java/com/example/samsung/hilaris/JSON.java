@@ -1,12 +1,17 @@
 package com.example.samsung.hilaris;
 
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+
+/**
+ *There are many attributes and get functions for using Json.
+ *If the attribute is double, it shows the second decimal place.
+ */
+
 
 public class JSON extends JSONObject implements Serializable {
 

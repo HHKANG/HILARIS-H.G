@@ -27,7 +27,7 @@
             android:textSize="19dp" />
 
         <EditText
-            android:id="@+id/phoneNumber"
+            android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"

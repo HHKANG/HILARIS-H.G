@@ -11,6 +11,15 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+/**
+ *sipleInfo_ListViewAdapter class is an adapter class for Simpelinfo.
+ *This listview item is in ListViewItem.
+ *There are 6 items.
+ *item 1 is TestDate , item 2 is BMI
+ *item 3 is TestType , item 4 is Waist
+ *item 5 is Power , item 6 is MedifitTestGUID
+ */
+
 public class simpleInfo_ListViewAdapter extends BaseAdapter {
 
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;

@@ -28,7 +28,13 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.example.expandable3.R;
+/**
+ * GuideLineList class creates Presciption_Guideline object.
+ * This object splits Date, Guidelines, Routines.
+ * GuideLineList class uses three level expandable listview.
+ * 1 level is Date. 2 level is GuideLines 3 level is routines.
+ */
+
 
 public class GuideLineList extends AppCompatActivity {
 
@@ -187,7 +193,7 @@ public class GuideLineList extends AppCompatActivity {
                         NLevelItem item = (NLevelItem) adapter.getItem(arg2);
                         String Routine =  ((SomeObject) item.getWrappedObject()).getName();
                         if (item.isRoutine()) {
-                            NLevelItem item2 = (NLevelItem) item.getParent().getParent();
+                            NLevelItem item2 = (NLevelItem) item.getParent().getParent();//Date
                             Intent intent = new Intent(getApplicationContext(), Week_Day_Select.class);
                             try
                             {
@@ -195,7 +201,6 @@ public class GuideLineList extends AppCompatActivity {
                                 intent.putExtra("routine", Routine);
                                 intent.putExtra("Index", myindex);
                                 intent.putExtra("responseString", responseString);
-                               // Toast.makeText(GuideLineList.this, responseString, Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
                             catch(Exception e)

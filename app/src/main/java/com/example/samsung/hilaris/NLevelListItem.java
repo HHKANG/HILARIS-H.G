@@ -2,6 +2,10 @@ package com.example.samsung.hilaris;
 
 import android.view.View;
 
+/**
+ *NLevelListItem class is implemented NLevelItem.
+ */
+
 public interface NLevelListItem {
 
     public boolean isExpanded();

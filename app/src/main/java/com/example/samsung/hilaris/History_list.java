@@ -16,13 +16,17 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ *There are 6 history lists that are BloodPressure Heart Rate, Flexibility, Strength, Agility, Power.
+ * When clicking one of them, go more History class.
+ */
+
 public class History_list extends AppCompatActivity {
 
     ListView listView;
     DetailInfoListViewAdapter adapter;
     private int HISTORY_DATA;
     JSONObject[] History_JSONOBJECT;
-   // protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
     JSON json;
 
     @Override
