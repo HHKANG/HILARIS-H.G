@@ -96,21 +96,18 @@ public class GuideLineList extends AppCompatActivity {
                             });
                             list.add(grandParent);
                             for (int j = 0; j < prescription_guidelines[i].guideline.numOfguidelines; j++) {
-                                NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title,prescription_guidelines[i].guideline.Objects[j].description),grandParent, new NLevelView() {
+                                NLevelItem parent = new NLevelItem(new SomeObject(prescription_guidelines[i].guideline.Objects[j].title),grandParent, new NLevelView() {
                                     @Override
                                     public View getView(NLevelItem item) {
-                                        View view = inflater.inflate(R.layout.list_item2, null);
-                                        TextView tv01 = (TextView) view.findViewById(R.id.textView01);
-                                        TextView tv02 = (TextView) view.findViewById(R.id.textView02);
+                                        View view = inflater.inflate(R.layout.list_item, null);
+                                        TextView tv = (TextView) view.findViewById(R.id.textView01);
 
-                                        tv01.setPadding(50,0,0,0);
-                                        tv02.setPadding(100,0,0,0);
+                                        tv.setPadding(50,0,0,0);
 
-                                        String name1 = (String) ((SomeObject) item.getWrappedObject()).getName();
-                                        String name2 = (String) ((SomeObject) item.getWrappedObject()).getName2();
 
-                                        tv01.setText(name1);
-                                        tv02.setText(name2);
+                                        String name = (String) ((SomeObject) item.getWrappedObject()).getName();
+
+                                        tv.setText(name);
 
                                         return view;
                                     }
@@ -137,18 +134,14 @@ public class GuideLineList extends AppCompatActivity {
                                 NLevelItem parent_prescription = new NLevelItem(new SomeObject("Exercise-Routines", i),grandParent, new NLevelView() {
                                     @Override
                                     public View getView(NLevelItem item) {
-                                        View view = inflater.inflate(R.layout.list_item2, null);
-                                        TextView tv01 = (TextView) view.findViewById(R.id.textView01);
-                                        TextView tv02 = (TextView) view.findViewById(R.id.textView02);
+                                        View view = inflater.inflate(R.layout.list_item, null);
+                                        TextView tv = (TextView) view.findViewById(R.id.textView01);
 
-                                        tv01.setPadding(50,0,0,0);
-                                        tv02.setPadding(100,0,0,0);
+                                        tv.setPadding(50,0,0,0);
 
-                                        String name1 = (String) ((SomeObject) item.getWrappedObject()).getName();
-                                        String name2 = (String) ((SomeObject) item.getWrappedObject()).getName2();
+                                        String name = (String) ((SomeObject) item.getWrappedObject()).getName();
 
-                                        tv01.setText(name1);
-                                        tv02.setText(name2);
+                                        tv.setText(name);
 
                                         return view;
                                     }
@@ -253,7 +246,6 @@ public class GuideLineList extends AppCompatActivity {
 
     class SomeObject {
         public String name;
-        public String name2;
         public int index;
 
         public SomeObject(String name) {
@@ -264,16 +256,8 @@ public class GuideLineList extends AppCompatActivity {
             this.index = index;
         }
 
-        public SomeObject(String name, String name2) {
-            this.name = name;
-            this.name2 = name2;
-
-        }
         public String getName() {
             return name;
-        }
-        public String getName2() {
-            return name2;
         }
         public int getindex(){return index;}
     }

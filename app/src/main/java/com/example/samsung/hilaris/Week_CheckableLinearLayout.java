@@ -8,9 +8,6 @@ import android.widget.LinearLayout;
 
 /**
  * Week_CheckableLinerarLayout is used by Week_Day_Select
- * @paramsetChecked : checkbox set checkd.
- * @paramisChecked() :checkbox is checked.
- * @paramtoggle() : If this day was selected, toggle it.
  */
 public class Week_CheckableLinearLayout extends LinearLayout implements Checkable{
 
@@ -18,6 +15,7 @@ public class Week_CheckableLinearLayout extends LinearLayout implements Checkabl
         super(context, attrs);
     }
 
+    //checkbox set checkd.
     @Override
     public void setChecked(boolean checked) {
         CheckBox week_box = (CheckBox)findViewById(R.id.week_check);
@@ -26,12 +24,14 @@ public class Week_CheckableLinearLayout extends LinearLayout implements Checkabl
         }
     }
 
+    //checkbox is checked.
     @Override
     public boolean isChecked() {
         CheckBox week_box = (CheckBox)findViewById(R.id.week_check);
         return week_box.isChecked();
     }
 
+    //If this day was selected, toggle it.
     @Override
     public void toggle() {
         CheckBox week_box = (CheckBox)findViewById(R.id.week_check);

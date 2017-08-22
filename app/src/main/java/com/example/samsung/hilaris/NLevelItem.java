@@ -6,10 +6,6 @@ import android.view.View;
 /**
  *NLevelItem class is used with GuideLineList and NLevelAdapter.
  *This class implements NLevelListItem
- * @paramisRoutine : If item is routine, then true.
- * @paramisExpanded : If list is expanded, then true.
- * @paramtoggle : When clicking it, isExpanaded state is changed.
- * @paramgetParent : Parent means the upper level level.
  */
 
 public class NLevelItem implements NLevelListItem
@@ -17,7 +13,7 @@ public class NLevelItem implements NLevelListItem
 
     private Object wrappedObject;
     private Object wrappedObject2;
-    private NLevelItem parent;
+    private NLevelItem parent;//Parent means the upper level level.
     private NLevelView nLevelView;
     private boolean isExpanded = false;
     private boolean isRoutine = false;
@@ -49,12 +45,13 @@ public class NLevelItem implements NLevelListItem
 
 
 
-
+    //If list is expanded, then true.
     @Override
     public boolean isExpanded() {
         return isExpanded;
     }
 
+    //If item is routine, then true.
     @Override
     public boolean isRoutine() {
         return isRoutine;
@@ -64,10 +61,13 @@ public class NLevelItem implements NLevelListItem
     public NLevelListItem getParent() {
         return parent;
     }
+
     @Override
     public View getView() {
         return nLevelView.getView(this);
     }
+
+    //When clicking it, isExpanaded state is changed.
     @Override
     public void toggle() {
         isExpanded = !isExpanded;

@@ -32,16 +32,6 @@ import org.json.JSONObject;
  * This class shows a selected exercise of Exercise_Select List item.
  * There is Image and Video of Exercise for using json.
  * There are three button (Description,Routine,Timer) and uses FrameLayout
- *@paramsetVisibility : when clicking one of buttons, changes informtaion.
- *@paramsetValues : Parsing exercise data input one Exercise_Unit.
- *@paramsetRoutineValue: For Routine layout, set Routine values.
- *@paramTimer : Timer Funcition.
- *@paramsetDescription: For Description layout, set Description values.
- *@paramNextPrevButton : If clicking button, change exercise.
- *@paramadjustPrevNextImageButton : SET the image in previous button and next button.
- *@paramadjustTimerImageButton : SET the image in timer buttons.
- *@paramonImageLoaded : For Uri parsing image, uses "LoadImageTask"class. Transform bitmap format.
- *@paramsetVideoview : Using VideoView.
  * */
 
 
@@ -265,6 +255,8 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
            }
        });
    }
+
+   //Parsing exercise data input one Exercise_Unit.
    public void setValues(Exercise_unit unit)
    {
        String exercise_title;
@@ -290,11 +282,14 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
        setRoutineValue(set, repetition, time, intensity, body_part, equipment );
        setDescription(description, benefit, caution);
    }
+
+
    public void setExerciseTitle(String title)
    {
        exercise_name.setText(title);
    }
 
+   //For Routine layout, set Routine values.
    public void setRoutineValue(String set, String repetition, String time, String intensity, String body_part, String equipment)
    {
        Set.setText(set);
@@ -304,12 +299,16 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
        BodyPart.setText(body_part);
        Equipment.setText(equipment);
    }
+
+   //For Description layout, set Description values.
     public void setDescription(String description, String benefits, String caution)
     {
         txtDescription.setText(description);
         txtBenefit.setText(benefits);
         txtCaution.setText(caution);
     }
+
+    //SET the image in timer buttons.
     public void adjustTimerImageButton()
     {
        start.setImageResource(R.drawable.ic_media_start);
@@ -319,6 +318,8 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
         reset.setImageResource(R.drawable.ic_media_reset);
         reset.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
+
+    //SET the image in previous button and next button.
     public void adjustPrevNextImageButton()
     {
 
@@ -327,6 +328,8 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
         Next.setImageResource(R.drawable.exercise_next);
         Next.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
+
+    //If clicking button, change exercise.
     public void NextPrevButton()
     {
      adjustPrevNextImageButton();
@@ -359,6 +362,7 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
+
     public void ImageVideoButton(String imageUri, String videoUri)
     {
         ImageUri = imageUri;
@@ -385,10 +389,13 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
+
     public void setImageView(String uriPath)
     {
         new LoadImageTask(this).execute(uriPath);
     }
+
+    //Using VideoView.
     public void setVideoview(String uriPath)
     {
         if(uriPath != null) {
@@ -413,6 +420,7 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    // For Uri parsing image, uses "LoadImageTask"class. Transform bitmap format.
     @Override
     public void onImageLoaded(Bitmap bitmap) {
         Imageview.setImageBitmap(bitmap);

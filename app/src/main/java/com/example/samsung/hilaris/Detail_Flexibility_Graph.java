@@ -17,7 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * This class shows Rotation and LateralFlexion values and graph for using json.
+ * Detail_Flexbilibity_Graph class shows Rotation and LateralFlexion values and graph for using json.
  * Two values have right and left.
  * */
 

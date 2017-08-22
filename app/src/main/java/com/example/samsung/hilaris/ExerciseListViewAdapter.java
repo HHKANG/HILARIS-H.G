@@ -19,27 +19,23 @@ import android.widget.TextView;
  */
 
 
-// 사용자 정의 어댑터 클래스 만들기
-// 어댑터(데이터(모델)+보여줄형식(레이아웃))
+
 public class ExerciseListViewAdapter extends BaseAdapter {
+
     private Context context;
     private int layoutId;
     private ArrayList<ExerciseItem> list;
     private LayoutInflater inflater;//레이아웃 xml파일을 자바객체로 변환하기 위한객체
 
-    /**
-     * @param context  : 컨텍스트
-     * @param layoutId : 보여줄 레이아웃
-     * @param list     : 보여줄 데이터를 갖고있는 배열
-     */
+
     public ExerciseListViewAdapter(Context context, int layoutId, ArrayList<ExerciseItem> list) {
         this.context = context;
         this.layoutId = layoutId;
         this.list = list;
         //LayoutInflater 객체 얻어오기(레이아웃xml파일을 자바객체로 변환하기 위해서)
-        inflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     //항목의 갯수 반환
     @Override
@@ -59,16 +55,33 @@ public class ExerciseListViewAdapter extends BaseAdapter {
         return position;
     }
 
-    //각 항목뷰+에 어떻게 보여질지를 정의
+    // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {//항목뷰가 한번도 보여진적이 없는 경우
-            //레이아웃(item1.xml)을 자바객체로 변환하기
-            convertView = inflater.inflate(layoutId, parent, false);
-        }
-        //////  convertView에 어떻게 보여질지 설정   ////////////
+        final int pos = position;
+        final Context context = parent.getContext();
 
-        final ExerciseItem item = list.get(position);
+        // "detailInfo_listview_item" Layout을 inflate하여 convertView 참조 획득.
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.exercise_item, parent, false);
+        }
+
+
+        ExerciseItem item = list.get(position);
+
+        WebView wv = (WebView) convertView.findViewById(R.id.webview);
+        wv.setFocusable(false);
+        wv.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR); // 화면을 유지
+
+        // set the scale
+        wv.setInitialScale(35); // 35%
+
+        //initialScale to fit
+        wv.getSettings().setUseWideViewPort(true);
+
+
+        if (wv != null)  wv.loadUrl( item.getIconID() );
 
 
         //텍스트뷰에 이름 넣기
@@ -80,26 +93,8 @@ public class ExerciseListViewAdapter extends BaseAdapter {
         type.setText(item.getType());
 
 
-        WebView wv = (WebView) convertView.findViewById(R.id.webview);
-        wv.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR); // 화면을 유지
-
-        // set the scale
-        wv.setInitialScale(35); // 35%
-
-        //initialScale to fit
-        wv.getSettings().setUseWideViewPort(true);
-
-        wv.setHorizontalScrollBarEnabled(false);//가로스크롤없애기
-        wv.setVerticalScrollBarEnabled(false);//세로스크롤없애기
-
-
-        if (wv != null) wv.loadUrl( item.getIconID() );
-        wv.setFocusable(false);
-
         return convertView;
     }
-
-
 
 
 

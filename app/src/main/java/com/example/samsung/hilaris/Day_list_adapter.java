@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 /**
  * Adapter class for Day_list and this layout is day_listview.
- * @paramgetCount(): Count num of Dayitem
  */
 
 public class Day_list_adapter extends BaseAdapter{
@@ -24,6 +23,7 @@ public class Day_list_adapter extends BaseAdapter{
     }
 
     // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
+    //Count num of Dayitem
     @Override
     public int getCount() {
         return Dayitem.size() ;

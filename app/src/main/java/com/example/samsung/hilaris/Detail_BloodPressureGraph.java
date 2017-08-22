@@ -18,8 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Adapter class for Day_list and this layout is day_listview.
- * @paramgetCount(): Count num of Dayitem
+ * Detail_Flexbilibity_Graph class shows 3 values(Before,During,After) and graph for using json.
+ * Two values have right and left.
  */
 
 

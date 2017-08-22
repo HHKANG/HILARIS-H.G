@@ -8,11 +8,9 @@ import org.json.JSONObject;
 import org.json.XML;
 
 /**
- * First, brings JSON Object date.
- *@paramsetGuidelines : Parsing guidelines in Json object. Guidlines' formats are XML.
- *So,Convert XML to JSON object
- *@paramsetPrescription : Parsing Prescriptions in Json object. Prescriptions' formats are XML.
- *So,Convert XML to JSON object
+ * First, brings JSON Object date. Then split it into Prescription and Guideline.
+ * Guidelines->GuideLineObject->Exercises_routine
+ * Prescription->Exercises_routine->Exercise_unit
 
  */
 
@@ -33,6 +31,7 @@ public class Prescription_Guideline extends AppCompatActivity {
         setPrescriptions(response);
     }
 
+    //Parsing guidelines in Json object. Guidlines' formats are XML. so, convert XML to JSON object
     public void setGuidelines(JSONObject response) throws JSONException {
         JSON Guideline = new JSON(response); // Parse it into JsonObject --> GuideLine
         JSON xmlToJson = new JSON(XML.toJSONObject(Guideline.get_Guideline())); // make XML type to Json Type
@@ -41,6 +40,7 @@ public class Prescription_Guideline extends AppCompatActivity {
         guideline = new Guidelines(GuidelineArray);
     }
 
+    //Parsing Prescriptions in Json object. Prescriptions' formats are XML. so,Convert XML to JSON object
     public void setPrescriptions(JSONObject response) throws JSONException {
         JSON Prescription = new JSON(response); // Parse it into JsonObject --> GuideLine
         JSON xmlToJson = new JSON(XML.toJSONObject(Prescription.get_Prescription())); // make XML type to Json Type

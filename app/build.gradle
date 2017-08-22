@@ -32,3 +32,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/simpleUMLCE_8205.jar')
 }
+
