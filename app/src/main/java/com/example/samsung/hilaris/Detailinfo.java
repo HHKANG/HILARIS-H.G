@@ -18,6 +18,15 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
+
+/**
+ *Detailinfo class has a listview that has 8 items(Blood Pressure,Heart Rate,Flexibility,Power,Upper Strength,Lower Strength,Upper Body Agility,Upper Limb Agility)
+ *This class adapter is "DetailInfoListViewAdapter"
+ *If choosing one of items, intents detail class.
+ *Bar Graph uses 4 items
+ *So when clicking one of items in Upper Strength,Lower Strength,Upper Body Agility,Upper Limb Agility, just intent Detail_bar_grapgh.
+ * */
+
 public class Detailinfo extends AppCompatActivity implements Serializable{
     TextView set_name;
     TextView set_Birthdate;
@@ -64,8 +73,8 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                     adapter.addItem("Blood Pressure");
                     adapter.addItem("Heart Rate");
                     adapter.addItem("Flexibility");
-        adapter.addItem("Power");
-        adapter.addItem("Upper Strength");
+                    adapter.addItem("Power");
+                    adapter.addItem("Upper Strength");
                     adapter.addItem("Lower Strength");
                     adapter.addItem("Upper Body Agility");
                     adapter.addItem("Upper Limb Agility");
@@ -112,15 +121,6 @@ public class Detailinfo extends AppCompatActivity implements Serializable{
                         }
                     });
 
-        /*
-        exercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), GuideLineList.class);
-                startActivity(intent);
-            }
-        });
-        */
         Button goguideline = (Button) findViewById(R.id.goguide);
         goguideline.setOnClickListener(new View.OnClickListener() {
             @Override

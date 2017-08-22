@@ -19,12 +19,21 @@ import com.jjoe64.graphview.series.DataPoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Bar grahp for 4 valuses detail info for using json ( Upper Strength,Lower Strenth,Upper Body Agility, Upper Limb Agility)
+ * When clicking next_button or prev_button,changes another detail info
+ * position 4 is Upper Strength, 5 is Lower Strength
+ * position 6 is Upper Body Agility, 6 is Upper Limb Agility
+ * Upper Body Agility, Upper Limb Agility have left and right
+ */
+
+
 public class Detail_bar_graph extends AppCompatActivity {
     int Left = 0;
     int Right = 1;
     JSON json;
 
-    double UB_left;
+    double UB_left;//
     double UB_right;
     double UL_left;
     double UL_right;
@@ -160,6 +169,12 @@ public class Detail_bar_graph extends AppCompatActivity {
                 });
         }
 
+
+    /**
+     * Action Bar에 메뉴를 생성
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);

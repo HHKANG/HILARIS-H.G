@@ -16,6 +16,10 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class shows six Power values for using json.
+ *
+ * */
 
 public class Detail_Power  extends AppCompatActivity {
 
@@ -106,7 +110,11 @@ public class Detail_Power  extends AppCompatActivity {
          });
 
         }
-
+    /**
+     * Action Bar에 메뉴를 생성
+     * @param menu
+     * @return
+     */
         @Override
         public boolean onCreateOptionsMenu(Menu menu){
             getMenuInflater().inflate(R.menu.logout_menu, menu);

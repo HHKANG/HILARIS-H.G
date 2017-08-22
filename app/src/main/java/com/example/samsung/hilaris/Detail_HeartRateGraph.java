@@ -16,6 +16,11 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class shows three HeartRate values and graphs for using json (before exercise, during exercise, after exercise)
+ *
+ * */
+
 public class Detail_HeartRateGraph extends Graph {
 
     private final int HR_STATES = 3; //Rest, Stimulus, Recovery

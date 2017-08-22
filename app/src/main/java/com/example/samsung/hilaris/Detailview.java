@@ -28,12 +28,27 @@ import android.widget.VideoView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class shows a selected exercise of Exercise_Select List item.
+ * There is Image and Video of Exercise for using json.
+ * There are three button (Description,Routine,Timer) and uses FrameLayout
+ *@paramsetVisibility : when clicking one of buttons, changes informtaion.
+ *@paramsetValues : Parsing exercise data input one Exercise_Unit.
+ *@paramsetRoutineValue: For Routine layout, set Routine values.
+ *@paramTimer : Timer Funcition.
+ *@paramsetDescription: For Description layout, set Description values.
+ *@paramNextPrevButton : If clicking button, change exercise.
+ *@paramadjustPrevNextImageButton : SET the image in previous button and next button.
+ *@paramadjustTimerImageButton : SET the image in timer buttons.
+ *@paramonImageLoaded : For Uri parsing image, uses "LoadImageTask"class. Transform bitmap format.
+ *@paramsetVideoview : Using VideoView.
+ * */
+
 
 public class Detailview extends AppCompatActivity implements View.OnClickListener, LoadImageTask.Listener{
     int position;
     String[] array;
     int size;
-    JSONObject Exercise = null;
     /*******For Image and Video**********/
     String ImageUri;
     String VideoUri;
@@ -136,7 +151,7 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
             e.printStackTrace();
         }
     }
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
         return true;
@@ -279,6 +294,7 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
    {
        exercise_name.setText(title);
    }
+
    public void setRoutineValue(String set, String repetition, String time, String intensity, String body_part, String equipment)
    {
        Set.setText(set);
@@ -396,17 +412,6 @@ public class Detailview extends AppCompatActivity implements View.OnClickListene
             Toast.makeText(this, "No video exists", Toast.LENGTH_SHORT).show();
         }
     }
-
-    /*
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_load_image:
-                new LoadImageTask(this).execute(IMAGE_URL);
-                break;
-        }
-    }
-    */
 
     @Override
     public void onImageLoaded(Bitmap bitmap) {

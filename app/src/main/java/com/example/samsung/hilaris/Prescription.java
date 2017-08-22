@@ -4,7 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Created by js960 on 2017-08-10.
+ * Prescription has many Exercise routines.
+ * So,Split into an array
  */
 
 public class Prescription {
@@ -18,8 +19,6 @@ public class Prescription {
         {
             routine[i] = new Exercise_routine(exercise_routine.getJSONObject(i));
         }
-
-        //  prescription_jsonArray = new JSONArray(exercise_routine);
 
     }
 }

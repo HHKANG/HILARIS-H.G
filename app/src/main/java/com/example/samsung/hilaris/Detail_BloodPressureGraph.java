@@ -17,6 +17,12 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Adapter class for Day_list and this layout is day_listview.
+ * @paramgetCount(): Count num of Dayitem
+ */
+
+
 public class Detail_BloodPressureGraph extends Graph {
     public static final int BP_TEST_SITES = 2;      // Left Hand = 0 & right Hand = 1
     public static final int BP_SUBJECT_STATES = 3; // Rest State, Stimulus State, Recovery State

@@ -9,6 +9,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
+/**
+ * Adapter class for DetailInfo
+ * This listview item layout is detailinfo_listview_item.
+ */
+
 public class DetailInfoListViewAdapter extends BaseAdapter {
 
     private ArrayList<ListViewItem> DetailInfoListViewItemList = new ArrayList<ListViewItem>() ;

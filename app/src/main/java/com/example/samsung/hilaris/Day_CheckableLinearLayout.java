@@ -7,7 +7,10 @@ import android.widget.Checkable;
 import android.widget.LinearLayout;
 
 /**
- * Created by SAMSUNG on 2017-07-31.
+ * Used by Week_Day_Select
+ * @paramsetChecked : checkbox set checkd.
+ * @paramisChecked() :checkbox is checked.
+ * @paramtoggle() : If this day was selected, toggle it.
  */
 
 public class Day_CheckableLinearLayout extends LinearLayout implements Checkable{

@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by js960 on 2017-08-10.
+ *@param
  */
 
 public class Exercise_routine {

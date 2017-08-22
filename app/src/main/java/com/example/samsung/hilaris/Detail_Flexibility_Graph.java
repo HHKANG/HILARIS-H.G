@@ -16,6 +16,12 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class shows Rotation and LateralFlexion values and graph for using json.
+ * Two values have right and left.
+ * */
+
+
 public class Detail_Flexibility_Graph extends Graph {
     public static final int FX_TEST_SITES = 2;      // Left Hand = 0 & right Hand = 1
     public static final int FX_VALUE_ITEMS= 2;      // Rotation, Bending
@@ -32,7 +38,7 @@ public class Detail_Flexibility_Graph extends Graph {
     int TagindexOfTable = 0;
 
     JSONObject profile;
-    //    @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
@@ -116,7 +122,11 @@ public class Detail_Flexibility_Graph extends Graph {
         });
 
     }
-
+    /**
+     * Action Bar에 메뉴를 생성
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);

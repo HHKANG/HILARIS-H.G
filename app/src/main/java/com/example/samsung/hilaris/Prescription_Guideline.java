@@ -7,6 +7,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
+/**
+ * First, brings JSON Object date.
+ *@paramsetGuidelines : Parsing guidelines in Json object. Guidlines' formats are XML.
+ *So,Convert XML to JSON object
+ *@paramsetPrescription : Parsing Prescriptions in Json object. Prescriptions' formats are XML.
+ *So,Convert XML to JSON object
+
+ */
 
 public class Prescription_Guideline extends AppCompatActivity {
 

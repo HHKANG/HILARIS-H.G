@@ -10,7 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by SAMSUNG on 2017-07-28.
+ * Adapter class for Day_list and this layout is day_listview.
+ * @paramgetCount(): Count num of Dayitem
  */
 
 public class Day_list_adapter extends BaseAdapter{
