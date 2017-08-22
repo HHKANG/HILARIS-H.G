@@ -36,6 +36,8 @@ public class GuideLineList extends AppCompatActivity {
     ListView listView;
     NLevelAdapter adapter;
 
+
+
     String responseString;
 
     private RequestQueue queue;
@@ -67,11 +69,13 @@ public class GuideLineList extends AppCompatActivity {
             public void onResponse(JSONArray response) { // Date 가 하나 일때 오류발생?
                 responseString = response.toString();
                 responseLength = response.length();
+
                 for(int i = 0 ; i < responseLength; i++)
                 {
                     try {
                         prescription_guidelines = new Prescription_Guideline[responseLength];
                         prescription_guidelines[i] = new Prescription_Guideline(response.getJSONObject(i));
+
                         try
                         {
                             final NLevelItem grandParent = new NLevelItem(new SomeObject(prescription_guidelines[i].date, i),null, new NLevelView() {
@@ -124,6 +128,44 @@ public class GuideLineList extends AppCompatActivity {
 
                                 }
                             }
+                                NLevelItem parent_prescription = new NLevelItem(new SomeObject("Exercise-Routines", i),grandParent, new NLevelView() {
+                                    @Override
+                                    public View getView(NLevelItem item) {
+                                        View view = inflater.inflate(R.layout.list_item2, null);
+                                        TextView tv01 = (TextView) view.findViewById(R.id.textView01);
+                                        TextView tv02 = (TextView) view.findViewById(R.id.textView02);
+
+                                        tv01.setPadding(50,0,0,0);
+                                        tv02.setPadding(100,0,0,0);
+
+                                        String name1 = (String) ((SomeObject) item.getWrappedObject()).getName();
+                                        String name2 = (String) ((SomeObject) item.getWrappedObject()).getName2();
+
+                                        tv01.setText(name1);
+                                        tv02.setText(name2);
+
+                                        return view;
+                                    }
+                                });
+                                list.add(parent_prescription);
+                                for( int k = 0; k < prescription_guidelines[i].prescription.routine_length; k++) {
+                                    NLevelItem child_prescription = new NLevelItem(new SomeObject(prescription_guidelines[i].prescription.routine[k].Title),parent_prescription, new NLevelView() {
+
+                                        @Override
+                                        public View getView(NLevelItem item) {
+                                            View view = inflater.inflate(R.layout.list_item, null);
+                                            TextView tv = (TextView) view.findViewById(R.id.textView01);
+                                            tv.setPadding(150,0,0,0);
+                                            String name = (String) ((SomeObject) item.getWrappedObject()).getName();
+                                            tv.setText(name);
+
+                                            return view;
+                                        }
+                                    }, true);
+                                    list.add(child_prescription);
+
+                                }
+
 
 
                         }catch (Exception e)
@@ -230,5 +272,6 @@ public class GuideLineList extends AppCompatActivity {
         }
         public int getindex(){return index;}
     }
+
 
 }

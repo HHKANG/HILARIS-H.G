@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import com.jjoe64.graphview.GraphView;
@@ -19,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class History extends Graph {
-    private final int HISTORY_DATA = 2; // 임시로1로 해놓음,, (받아올 DATA들의 수)
+    private int HISTORY_DATA; // 임시로1로 해놓음,, (받아올 DATA들의 수)
     //private final int HISTORY_DATA = 3; // 임시로1로 해놓음,, (받아올 DATA들의 수)
     private final int HISTORY_HEARTRATE_STATES=3; //REST, STIM, RECV
     private final int History_States = 2; // Left = 0 & Right = 1
@@ -38,21 +39,22 @@ public class History extends Graph {
     public static final int numOfCategory = 6;  // Num Of category In History List (BloodPressure, HeartRate, Flexibility, Strength, Agility,Power
     public static final int Category = 2;
 
-    public static final int NumOfPower = 4;//PowerPeak,PowerPeakWKG,FatigueIndex,FatigueSlope
+    public static final int POWER_ITEMS = 4;//PowerPeak,PowerPeakWKG,FatigueIndex,FatigueSlope
 
-    protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
-    protected JSON[] HISTORY_JSON = new JSON[HISTORY_DATA];
-
-    protected double[][] History_Data = new double[HISTORY_HEARTRATE_STATES][HISTORY_DATA];
-    protected double[][][] History_Agility = new double[ATTRIBUTE][History_States][HISTORY_DATA];
-    protected double[][][] History_Strength_Data = new double[Category][History_States][HISTORY_DATA];
-    protected int[][][][] intBloodPress = new int[BP_TEST_SITES][BP_VALUE_PAIR][BP_SUBJECT_STATES][HISTORY_DATA];
-    protected int[][][] intFlex_Rotation_LateralFlexion = new int[FX_VALUE_ITEMS][FX_TEST_SITES][HISTORY_DATA];
-    protected int[][] intFlex_Extension_Flexion = new int[FX_VALUE_ITEMS][HISTORY_DATA];
-    protected double[][][] History_Power = new double[Category][NumOfPower][HISTORY_DATA];
+    protected JSONObject[] History_JSONOBJECT ;
+    protected JSON[] HISTORY_JSON ;
 
 
-    public String[] JSONObjectDate = new String[HISTORY_DATA];
+    protected double[][] History_Data ;
+    protected double[][][] History_Agility;
+    protected double[][][] History_Strength_Data;
+    protected int[][][][] intBloodPress ;
+    protected int[][][] intFlex_Rotation_LateralFlexion;
+    protected int[][] intFlex_Extension_Flexion ;
+    protected double[][] History_Power;
+
+
+    public String[] JSONObjectDate;
 
 
 //Flexibility
@@ -72,7 +74,8 @@ public class History extends Graph {
     String[] strStrengthName = {"HandStrength", "LegStrength"};
     String[] strAgilityName = {"UB", "UL"};
 
-    String[] color= {"BLUE", "GREEN", "CYAN"}; //add Color
+    String[] color= {"BLUE", "GREEN", "CYAN", "YELLOW"}; //add Color
+
     String Position = "position";
 
     GraphView[] graph_history = new GraphView[NumOfGraph];
@@ -97,14 +100,11 @@ public class History extends Graph {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-
         Intent intent = getIntent();
+        HISTORY_DATA = getIntent().getIntExtra("history_data", 2);
+
         position = intent.getExtras().getInt(Position);
-
         position = (position + numOfCategory) % numOfCategory; //for Circular rotation
-
         switch(position)
         {
             case  BloodPressure:
@@ -241,18 +241,20 @@ public class History extends Graph {
                         onPrevClick(v);
                     }
                 });
-                for(int num = 0; num < 2; num++){
+                for(int num = 0; num < 4; num++){
                     graph_history[num] = (GraphView)linearLayout.findViewWithTag(""+num);
                 }
-                try {
-                    AgilityHistory(graph_history);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                PowerHistory(graph_history);
                 break;
         }
     }
     public void MakeHeartRateHistory(GraphView graph_history1) {
+        //HISTORY_DATA = getIntent().getExtras().getInt("HISTORY_DATA");
+        Toast.makeText(this, ""+HISTORY_DATA, Toast.LENGTH_SHORT).show();
+        JSONObjectDate = new String[HISTORY_DATA];
+        History_Data = new double[HISTORY_HEARTRATE_STATES][HISTORY_DATA];
+        History_JSONOBJECT = new JSONObject[HISTORY_DATA];
+        HISTORY_JSON = new JSON[HISTORY_DATA];
         try {
             for (int states = 0; states < HISTORY_HEARTRATE_STATES; states++) {
                 for (int i = 0; i < HISTORY_DATA; i++) //
@@ -294,6 +296,11 @@ public class History extends Graph {
     } // Heart Rate History (i most recent Data --> Change HISTORY_DATA -->i)
     public void MakeBloodPressureHistory(GraphView[] graph_history) // Need 4 graph 1. Left Systolic;; 2. Left Diastolic;; 3. Right Systolic;; 4. Right Diastolic;;
     {
+      JSONObjectDate = new String[HISTORY_DATA];
+        intBloodPress = new int[BP_TEST_SITES][BP_VALUE_PAIR][BP_SUBJECT_STATES][HISTORY_DATA];
+        History_JSONOBJECT = new JSONObject[HISTORY_DATA];
+        HISTORY_JSON = new JSON[HISTORY_DATA];
+
         try {
             for(int testSites=0; testSites<BP_TEST_SITES; testSites++) {
                 for (int valuePair = 0; valuePair < BP_VALUE_PAIR; valuePair++)
@@ -340,6 +347,12 @@ public class History extends Graph {
     } // BloodPressure History (i most recent Data --> Change HISTORY_DATA -->i)
     public void MakeFlexibilityHistory(GraphView[] graph_history)
     {
+        JSONObjectDate = new String[HISTORY_DATA];
+        intFlex_Rotation_LateralFlexion = new int[FX_VALUE_ITEMS][FX_TEST_SITES][HISTORY_DATA];
+        intFlex_Extension_Flexion = new int[FX_VALUE_ITEMS][HISTORY_DATA];
+
+        History_JSONOBJECT = new JSONObject[HISTORY_DATA];
+        HISTORY_JSON = new JSON[HISTORY_DATA];
         //Rotation, Bending Together in array
         int index =0 ; // Graph Index 0~2
 
@@ -417,6 +430,11 @@ public class History extends Graph {
         index ++;
         }
     public void MakeStrengthHistory(GraphView[] graph_history){
+        JSONObjectDate = new String[HISTORY_DATA];
+        History_Strength_Data = new double[Category][History_States][HISTORY_DATA];
+        History_JSONOBJECT = new JSONObject[HISTORY_DATA];
+        HISTORY_JSON = new JSON[HISTORY_DATA];
+
         try{
             for(int j = 0; j < Category; j++) {
                 for (int states = 0; states < History_States; states++) {
@@ -460,6 +478,10 @@ public class History extends Graph {
         }
     }
     public void AgilityHistory(GraphView[] graph_history) throws JSONException {
+        JSONObjectDate = new String[HISTORY_DATA];
+        History_Agility = new double[ATTRIBUTE][History_States][HISTORY_DATA];
+        History_JSONOBJECT = new JSONObject[HISTORY_DATA];
+        HISTORY_JSON = new JSON[HISTORY_DATA];
         try{
             for(int j = 0; j < ATTRIBUTE; j++) {
                 for (int states = 0; states < History_States; states++) {
@@ -501,6 +523,48 @@ public class History extends Graph {
             index ++;
         }
     }
+    public void PowerHistory(GraphView[] graph_history)
+    {
+        JSONObjectDate = new String[HISTORY_DATA];
+        History_Power = new double[POWER_ITEMS][HISTORY_DATA];
+        History_JSONOBJECT = new JSONObject[HISTORY_DATA];
+        HISTORY_JSON = new JSON[HISTORY_DATA];
+        //int index =0 ; // Graph Index 0~3
+        for (int valueItem = 0; valueItem < POWER_ITEMS; valueItem++) {
+            for (int dataIndex = 0; dataIndex < HISTORY_DATA; dataIndex++) //
+            {
+                try {
+                    History_JSONOBJECT[dataIndex] = new JSONObject(getIntent().getStringExtra("JSONObject" + dataIndex));
+                    HISTORY_JSON[dataIndex] = new JSON(History_JSONOBJECT[dataIndex]);
+                    History_Power[valueItem][dataIndex] = HISTORY_JSON[dataIndex].getPower(strPowerValueItems[valueItem]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }//try, catch
+            }
+        }
+        try {
+            for (int i = 0; i < HISTORY_DATA; i++) //
+            {
+                JSONObjectDate[i] = HISTORY_JSON[i].getTestDate();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+for(int index = 0 ; index<POWER_ITEMS; index++)
+{
+    graph_history[index].addSeries(addLineSeriesData(History_Power[index], color[index], strPowerValueItems[index]));
+    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph_history[index]);
+    staticLabelsFormatter.setHorizontalLabels(JSONObjectDate);
+    graph_history[index].getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+    graph_history[index].setTitle(strPowerValueItems[index]);
+    graph_history[index].getLegendRenderer().setVisible(true);
+    graph_history[index].getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+    graph_history[index].getViewport().setMinY(0);
+    graph_history[index].getViewport().setYAxisBoundsManual(true);
+}
+
+    }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_menu, menu);
         return true;
@@ -527,6 +591,7 @@ public class History extends Graph {
         {
             intent.putExtra("JSONObject"+i, History_JSONOBJECT[i].toString());
         }
+        intent.putExtra("history_data", HISTORY_DATA);
             startActivity(intent);
             finish();
         }
@@ -537,6 +602,7 @@ public class History extends Graph {
         {
             intent.putExtra("JSONObject"+i, History_JSONOBJECT[i].toString());
         }
+        intent.putExtra("history_data", HISTORY_DATA);
             startActivity(intent);
             finish();
         }

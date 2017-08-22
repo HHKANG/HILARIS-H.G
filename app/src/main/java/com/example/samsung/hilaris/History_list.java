@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,8 +20,9 @@ public class History_list extends AppCompatActivity {
 
     ListView listView;
     DetailInfoListViewAdapter adapter;
-    private final int HISTORY_DATA =2;
-    protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
+    private int HISTORY_DATA;
+    JSONObject[] History_JSONOBJECT;
+   // protected JSONObject[] History_JSONOBJECT = new JSONObject[HISTORY_DATA];
     JSON json;
 
     @Override
@@ -31,11 +33,15 @@ public class History_list extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_history_list);
         Intent intent = getIntent();
+        HISTORY_DATA = intent.getIntExtra("HISTORY_DATA", 3);
+
         try {
+           History_JSONOBJECT = new JSONObject[HISTORY_DATA];
         for (int i = 0; i < HISTORY_DATA; i++) //
         {
                 History_JSONOBJECT[i] = new JSONObject(getIntent().getStringExtra("JSONObject" + i));
         }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -60,6 +66,7 @@ public class History_list extends AppCompatActivity {
                   {
                     intent.putExtra("JSONObject"+i, History_JSONOBJECT[i].toString());
                 }
+                    intent.putExtra("history_data", HISTORY_DATA);
                     intent.putExtra("position", position);
                     startActivity(intent);
             }
