@@ -18,8 +18,7 @@ import org.json.JSONObject;
 
 /**
  * This class shows three HeartRate values and graphs for using json (before exercise, during exercise, after exercise)
- *
- * */
+ */
 
 public class Detail_HeartRateGraph extends Graph {
 

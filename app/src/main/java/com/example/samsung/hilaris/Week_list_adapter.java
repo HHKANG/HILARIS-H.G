@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- *NLevelAdapter class is an adapter class for Week_Day_Select
+ *Week_list_adapter class is an adapter class for Week_Day_Select
  */
 
 public class Week_list_adapter extends BaseAdapter{

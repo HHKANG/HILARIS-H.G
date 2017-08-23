@@ -24,7 +24,7 @@ import java.io.Serializable;
  *If choosing one of items, intents detail class.
  *Bar Graph uses 4 items
  *So when clicking one of items in Upper Strength,Lower Strength,Upper Body Agility,Upper Limb Agility, just intent Detail_bar_grapgh.
- * */
+ */
 
 public class Detailinfo extends AppCompatActivity implements Serializable{
     TextView set_name;

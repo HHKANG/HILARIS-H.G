@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *Prescription class parses Exercise_Routine
+ *GuideLineObject and Prescription class parses Exercise_Routine
  */
 
 public class Exercise_routine {

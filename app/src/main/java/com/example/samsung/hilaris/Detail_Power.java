@@ -18,8 +18,7 @@ import org.json.JSONObject;
 
 /**
  * This class shows six Power values for using json.
- *
- * */
+ */
 
 public class Detail_Power  extends AppCompatActivity {
 

@@ -19,7 +19,7 @@ import org.json.JSONObject;
 /**
  * Detail_Flexbilibity_Graph class shows Rotation and LateralFlexion values and graph for using json.
  * Two values have right and left.
- * */
+ */
 
 
 public class Detail_Flexibility_Graph extends Graph {

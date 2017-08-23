@@ -32,7 +32,7 @@ import org.json.JSONObject;
  * This class shows a selected exercise of Exercise_Select List item.
  * There is Image and Video of Exercise for using json.
  * There are three button (Description,Routine,Timer) and uses FrameLayout
- * */
+ */
 
 
 public class Detailview extends AppCompatActivity implements View.OnClickListener, LoadImageTask.Listener{
